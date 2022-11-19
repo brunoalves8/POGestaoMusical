@@ -43,3 +43,54 @@ em situações de erro (nomeadamente aquando da introdução de dados por parte 
 utilizadores).
 A seguir estão listadas as funcionalidades que deverão ser implementadas por tipo de
 ator/utilizador:
+
+Músico
+1. Autenticar
+2. Ver/editar os seus dados
+3. Ver os álbuns a que está associado
+4. Ver as sessões gravações que tem agendadas
+5. Fazer a requisição de instrumentos para uma determinada sessão de gravação
+6. Ver o estado das sessões de gravação (agendada ou concluída)
+
+Administrador
+1. Autenticar-se como administrador
+2. Adicionar/apagar utilizadores do tipo Músico e do tipo Produtor
+3. Registar álbuns
+4. Registar instrumentos de música
+5. Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
+6. Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos.
+7. Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação
+concluídas)
+8. Mostrar estatísticas totais ou para um determinado mês:
+a. Total de álbuns em edição
+b. Média da percentagem de sessões de gravação concluídas
+c. Total de álbuns concluídos
+
+Produtor
+1. Autenticar
+2. Ver/editar os seus dados
+3. Iniciar/editar a edição de um álbum, definindo as sessões de gravação
+necessárias
+4. Concluir sessões de gravação
+5. Aceder a informação relativa à situação atual (estado, sessões de gravação,
+etc.) de um determinado álbum
+6. Listar os álbuns que produz ou produziu
+7. Listar as sessões de gravação agendadas para um dia
+
+Valorização
+A aplicação dos conceitos e dos princípios fundamentais subjacentes ao paradigma de
+programação orientada aos objetos será amplamente valorizada.
+A classificação dos trabalhos terá ainda em consideração aspetos como: 
+ Qualidade da execução do programa (com ou sem erros, validações,
+testes, …)
+ Qualidade da satisfação dos requisitos
+ Facilidade de utilização do sistema
+ Adequação da conceção e organização das classes
+ Qualidade do código fonte apresentado
+o Correção (avaliação se o código está coerente com a
+especificação do enunciado e se não tem erros)
+o Design (avalia a forma como o código está escrito (eficiente,
+elegante, reutilizável))
+o Estilo (avalia a legibilidade do código (comentado, indentado,
+nomes de variáveis e funções adequadas,...))
+ Desempenho do grupo no decorrer da apresentação 
