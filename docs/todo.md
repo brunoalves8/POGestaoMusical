@@ -6,8 +6,8 @@
   - [ ] Remover música
 
 - [ ] Class Musica
-  - [ ] 
-  - [ ]
+  - [ ] Adicionar músico
+  - [ ] Remover músico
 
 - [ ] Class Musico
   - [ ] 
