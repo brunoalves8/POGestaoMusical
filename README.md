@@ -81,16 +81,16 @@ Valorização
 A aplicação dos conceitos e dos princípios fundamentais subjacentes ao paradigma de
 programação orientada aos objetos será amplamente valorizada.
 A classificação dos trabalhos terá ainda em consideração aspetos como: 
- Qualidade da execução do programa (com ou sem erros, validações,
-testes, …)
- Qualidade da satisfação dos requisitos
- Facilidade de utilização do sistema
- Adequação da conceção e organização das classes
- Qualidade do código fonte apresentado
-o Correção (avaliação se o código está coerente com a
-especificação do enunciado e se não tem erros)
-o Design (avalia a forma como o código está escrito (eficiente,
-elegante, reutilizável))
-o Estilo (avalia a legibilidade do código (comentado, indentado,
-nomes de variáveis e funções adequadas,...))
- Desempenho do grupo no decorrer da apresentação 
+  <->Qualidade da execução do programa (com ou sem erros, validações,
+    testes, …)
+  <->Qualidade da satisfação dos requisitos
+  <->Facilidade de utilização do sistema
+  <->Adequação da conceção e organização das classes
+  <->Qualidade do código fonte apresentado:
+    -Correção (avaliação se o código está coerente com a
+      especificação do enunciado e se não tem erros)
+    -Design (avalia a forma como o código está escrito (eficiente,
+      elegante, reutilizável))
+    -Estilo (avalia a legibilidade do código (comentado, indentado,
+      nomes de variáveis e funções adequadas,...))
+  <->Desempenho do grupo no decorrer da apresentação 
