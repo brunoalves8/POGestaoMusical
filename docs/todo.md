@@ -2,8 +2,8 @@
 
 ## Back End:
 - [ ] Class Album
-  - [ ]   
-  - [ ]  
+  - [ ] Adicionar música
+  - [ ] Remover música
 
 - [ ] Class Musica
   - [ ] 
