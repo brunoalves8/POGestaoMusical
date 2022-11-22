@@ -1,14 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package BackEnd;
 
-/**
- *
- * @author LENOVO
- */
-public class Musico {
+public class Musico extends Utilizador {
+
+    public Musico() {
+    }
+
+    public Musico(String nome, int bi, String morada, int dataNasc) {
+        super(nome, bi, morada, dataNasc);
+    }
+    
+    
+    
     
 }
