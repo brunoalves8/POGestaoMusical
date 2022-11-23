@@ -1,5 +1,6 @@
 package BackEnd;
 
+
 public class Administrador extends Utilizador {
 
     public Administrador() {
@@ -9,7 +10,9 @@ public class Administrador extends Utilizador {
         super(nome, bi, morada, dataNasc);
     }
     
-    public void adicionarMusico(){
+    public void adicionarMusico(ListaUtilizadores lista, Musico musico){
+        
+            
         
     }
     
