@@ -42,6 +42,14 @@ public abstract class Utilizador {
     public void setMorada(String morada) {
         this.morada = morada;
     }
+
+    public int getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(int dataNasc) {
+        this.dataNasc = dataNasc;
+    }
     
     
 }

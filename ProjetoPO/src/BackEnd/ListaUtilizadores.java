@@ -56,7 +56,11 @@ public class ListaUtilizadores {
         consultarDadosMusico(codigo);
         for(Utilizador u: utilizadores){
             if(u instanceof Musico && u.getBi()== codigo){
-                
+                u.setBi(musico.getBi());
+                u.setNome(musico.getNome());
+                u.setMorada(musico.getMorada());
+                u.setDataNasc(musico.getDataNasc());
+               
             }
         }
     }
