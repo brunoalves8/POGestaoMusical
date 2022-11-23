@@ -9,8 +9,6 @@ public class Administrador extends Utilizador {
         super(nome, bi, morada, dataNasc);
     }
     
-    public void criarProdutor(String nome, int bi, String morada){
-        
-    }
+    
     
 }

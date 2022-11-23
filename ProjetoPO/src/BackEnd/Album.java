@@ -5,10 +5,6 @@
  */
 package BackEnd;
 
-/**
- *
- * @author LENOVO
- */
 public class Album {
     
 }
