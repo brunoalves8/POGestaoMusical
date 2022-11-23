@@ -1,12 +1,12 @@
 package BackEnd;
 
 
-public class ListaProdutores {
+public class ListaAdministradores {
     
     private final Produtor[] produtoresL;
     private int numProd;
 
-    public ListaProdutores(int maxProd) {
+    public ListaAdministradores(int maxProd) {
         produtoresL = new Produtor[maxProd];
     }
     
