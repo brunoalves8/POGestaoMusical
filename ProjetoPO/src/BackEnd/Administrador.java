@@ -12,8 +12,12 @@ public class Administrador extends Utilizador {
     
     public void adicionarMusico(ListaUtilizadores lista, Musico musico){
         
-            
+
+    }
+    
+     public void removerMusico(ListaUtilizadores lista, Musico musico){
         
+
     }
     
 }
