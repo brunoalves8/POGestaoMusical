@@ -2,7 +2,7 @@
 
 ## Back End:
 - [ ] Class abstract Utilizador
-  - [X] Nome: String
+  - [ ] Nome: String
   - [ ] BI: int
   - [ ] Morada: String
   - [ ] CriarMúsico()
