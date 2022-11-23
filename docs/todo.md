@@ -31,7 +31,7 @@
   - [ ] Marca: String
   - [ ] Modelo: String
  
- - [ ] Class Sessão
+- [ ] Class Sessão
   - [ ] codSessao: int
   - [ ] AlbumASerGravado: Album
   - [ ] DataFinalGravação: String
@@ -39,13 +39,13 @@
   - [ ] ComeçarSessao()
   - [ ] TerminarSessao()
  
- - [ ] Class Requisição
+- [ ] Class Requisição
   - [ ] Requisitor: Musico
   - [ ] Requisitado: Instrumento
   - [ ] DataRequisição: String
   - [ ] SessaoGravação: Sessao
   
- - [ ] Class EdicaoAlbum
+- [ ] Class EdicaoAlbum
   - [ ] produtor: Produtor
   - [ ] sessoes : Sessao[]
 
