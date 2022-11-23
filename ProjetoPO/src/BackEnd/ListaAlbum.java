@@ -5,6 +5,7 @@
  */
 package BackEnd;
 
-public class Album {
+
+public class ListaAlbum {
     
 }
