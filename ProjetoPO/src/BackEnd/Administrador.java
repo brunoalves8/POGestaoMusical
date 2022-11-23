@@ -19,5 +19,10 @@ public class Administrador extends Utilizador {
         
 
     }
+     
+    public void consultarMusico(ListaUtilizadores lista, Musico musico){
+        
+
+    }
     
 }
