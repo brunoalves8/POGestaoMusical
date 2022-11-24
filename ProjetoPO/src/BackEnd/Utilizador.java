@@ -50,6 +50,14 @@ public abstract class Utilizador {
     public void setDataNasc(int dataNasc) {
         this.dataNasc = dataNasc;
     }
+
+    @Override
+    public String toString() {
+        return "Nome=" + nome + 
+               "Bi=" + bi + 
+               "Morada=" + morada + 
+               "Data Nascimento=" + dataNasc;
+    }
     
     
 }

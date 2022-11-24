@@ -1,8 +1,12 @@
 package BackEnd;
 
+import java.util.ArrayList;
+
 
 public class Produtor extends Utilizador{
 
+    private ArrayList<Album> albunsParticipou = new ArrayList<>();
+    
     public Produtor() {
     }
 

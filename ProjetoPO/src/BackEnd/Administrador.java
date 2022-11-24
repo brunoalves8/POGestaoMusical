@@ -10,19 +10,5 @@ public class Administrador extends Utilizador {
         super(nome, bi, morada, dataNasc);
     }
     
-    public void adicionarMusico(ListaUtilizadores lista, Musico musico){
-        
-
-    }
-    
-     public void removerMusico(ListaUtilizadores lista, Musico musico){
-        
-
-    }
-     
-    public void consultarMusico(ListaUtilizadores lista, Musico musico){
-        
-
-    }
     
 }
