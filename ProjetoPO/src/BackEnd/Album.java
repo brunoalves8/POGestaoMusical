@@ -7,6 +7,7 @@ public class Album {
     private String titulo;
     private String dataEdicao;
     private String tipo;
+    private int codigo;
     private ArrayList<Musica> musicasDoAlbum;
 
     public Album() {
@@ -42,7 +43,22 @@ public class Album {
         this.tipo = tipo;
     }
 
-            
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public ArrayList<Musica> getMusicasDoAlbum() {
+        return musicasDoAlbum;
+    }
+
+    public void setMusicasDoAlbum(ArrayList<Musica> musicasDoAlbum) {
+        this.musicasDoAlbum = musicasDoAlbum;
+    }
+      
     public void adicionarMusica(Musica music){
         musicasDoAlbum.add(music);
     }
