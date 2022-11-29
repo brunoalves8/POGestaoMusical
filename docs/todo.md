@@ -2,28 +2,29 @@
 
 ## Back End:
 - [ ] Class abstract Utilizador
-  - [ ] Nome: String
-  - [ ] BI: int
-  - [ ] Morada: String
+  - [X] Nome: String
+  - [X] BI: int
+  - [X] Morada: String
   - [ ] CriarMúsico()
   - [ ] RemoverMusico()
   - [ ] CriarProdutor()
   - [ ] RemoverProdutor()
 
 - [ ] Class Album
-  - [ ] Titulo: String
-  - [ ] DataEdição: String
-  - [ ] Tipo: String
-  - [ ] Array tipo Música
-  - [ ] AdicionarMusica()
-  - [ ] RemoverMusica()
+  - [X] Titulo: String
+  - [X] DataEdição: String
+  - [X] codigo: int
+  - [X] Tipo: String
+  - [X] Array tipo Música
+  - [X] AdicionarMusica()
+  - [X] RemoverMusica()
 
 - [ ] Class Musica
-  - [ ] Titulo: String
-  - [ ] Duração: double
-  - [ ] Array tipo Músico
-  - [ ] AdicionarMusico()
-  - [ ] RemoverMusico()
+  - [X] Titulo: String
+  - [X] Duração: double
+  - [X] Array tipo Músico
+  - [X] AdicionarMusico()
+  - [X] RemoverMusico()
  
 - [ ] Class Instrumento
   - [ ] Nome: String
@@ -32,32 +33,32 @@
   - [ ] Modelo: String
  
 - [ ] Class Sessão
-  - [ ] codSessao: int
-  - [ ] AlbumASerGravado: Album
-  - [ ] DataFinalGravação: String
+  - [X] codSessao: int
+  - [X] AlbumASerGravado: Album
+  - [X] DataFinalGravação: String
   - [ ] Array tipo Musico
   - [ ] ComeçarSessao()
   - [ ] TerminarSessao()
  
 - [ ] Class Requisição
-  - [ ] Requisitor: Musico
-  - [ ] Requisitado: Instrumento
-  - [ ] DataRequisição: String
-  - [ ] SessaoGravação: Sessao
+  - [X] Requisitor: Musico
+  - [X] Requisitado: Instrumento
+  - [X] DataRequisição: String
+  - [X] SessaoGravação: Sessao
   
 - [ ] Class EdicaoAlbum
   - [ ] produtor: Produtor
   - [ ] sessoes : Sessao[]
 
 - [ ] Class ListaUtilizadores
-  - [ ] Utilizadores tipo Utilizador[]
+  - [X] Utilizadores tipo Utilizador[]
   - [ ] RemoverUtilizador()
   - [ ] CriarUtilizador()
   - [ ] EditarUtilizador()
   - [ ] VerificarExisteUtilizador()  
  
 - [ ] Class Musico extends Utilizador
-  - [ ] Array tipo Instrumento
+  - [X] Array tipo Instrumento
   - [ ] RequisitarInstrumento()
   - [ ] DevolverInstrumento()
 
