@@ -4,20 +4,23 @@ import java.util.ArrayList;
 
 public class Album {
     
+    private int codigo;
     private String titulo;
     private String dataEdicao;
     private String tipo;
-    private int codigo;
     private ArrayList<Musica> musicasDoAlbum;
 
     public Album() {
     }
 
-    public Album(String titulo, String dataEdicao, String tipo) {
+    public Album(int codigo, String titulo, String dataEdicao, String tipo) {
+        this.codigo = codigo;
         this.titulo = titulo;
         this.dataEdicao = dataEdicao;
         this.tipo = tipo;
     }
+
+    
 
     public String getTitulo() {
         return titulo;

@@ -9,9 +9,11 @@ public class Musico extends Utilizador {
     public Musico() {
     }
 
-    public Musico(String nome, int bi, String morada, int dataNasc) {
-        super(nome, bi, morada, dataNasc);
+    public Musico(String username, String password, String nome, int bi, String morada, int dataNasc) {
+        super(username, password, nome, bi, morada, dataNasc);
     }
+
+
     
     public void adicionarInstrumento(Instrumento instrumento){
         instrumentosMusicoToca.add(instrumento);
