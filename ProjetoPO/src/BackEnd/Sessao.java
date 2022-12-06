@@ -8,6 +8,7 @@ public class Sessao {
     private Album albumSerGravado;
     private String dataFinalGravacao;
     private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
+    
 
     public Sessao(int codigoSessao, Album albumSerGravado, String dataFinalGravacao) {
         this.codigoSessao = codigoSessao;

@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class Musico extends Utilizador {
     
     private ArrayList<Instrumento> instrumentosMusicoToca = new ArrayList<>();
+    private ArrayList<Sessao> sessoesDoMusico = new ArrayList<>();
     
-    public Musico() {
+    public Musico(){
     }
 
     public Musico(String username, String password, String nome, int bi, String morada, int dataNasc) {
@@ -17,6 +18,10 @@ public class Musico extends Utilizador {
     
     public void adicionarInstrumento(Instrumento instrumento){
         instrumentosMusicoToca.add(instrumento);
+    }
+    
+    public void adicionarSessao(Sessao sessao){
+        sessoesDoMusico.add(sessao);
     }
 
     @Override
