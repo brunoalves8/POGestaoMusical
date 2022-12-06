@@ -2,6 +2,9 @@ package BackEnd;
 
 
 public abstract class Utilizador {
+    
+    private String username;
+    private String password;
     private String nome;
     private int bi;
     private String morada;
@@ -11,13 +14,32 @@ public abstract class Utilizador {
         
     }
 
-    public Utilizador(String nome, int bi, String morada,int dataNasc) {
+    public Utilizador(String username, String password, String nome, int bi, String morada, int dataNasc) {
+        this.username = username;
+        this.password = password;
         this.nome = nome;
         this.bi = bi;
         this.morada = morada;
         this.dataNasc = dataNasc;
-        
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
 
     public String getNome() {
         return nome;
