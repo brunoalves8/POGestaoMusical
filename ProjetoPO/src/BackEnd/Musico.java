@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Musico extends Utilizador {
     
     private ArrayList<Instrumento> instrumentosMusicoToca = new ArrayList<>();
-    private ArrayList<Sessao> sessoesDoMusico = new ArrayList<>();
     
     public Musico(){
     }
@@ -19,10 +18,7 @@ public class Musico extends Utilizador {
     public void adicionarInstrumento(Instrumento instrumento){
         instrumentosMusicoToca.add(instrumento);
     }
-    
-    public void adicionarSessao(Sessao sessao){
-        sessoesDoMusico.add(sessao);
-    }
+   
 
     @Override
     public String toString() {
