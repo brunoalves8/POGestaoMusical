@@ -9,6 +9,6 @@ public class Administrador extends Utilizador {
     public Administrador(String nome, int bi, String morada, int dataNasc) {
         super(nome, bi, morada, dataNasc);
     }
-    
+
     
 }
