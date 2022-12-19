@@ -4,14 +4,15 @@ import java.util.*;
 
 public class ListaUtilizadores {
 
-    private HashMap<String,Utilizador> utilizadores;
+    private final HashMap<String,Utilizador> utilizadores;
 
     public ListaUtilizadores() {
         utilizadores = new HashMap<>();
     }
+    
 
-    public void adicionarMusico(Musico Musico) {
-        utilizadores.put(Musico.getUsername(), Musico);
+    public void adicionarUtilizador(Utilizador User) {
+        utilizadores.put(User.getUsername(), User);
 
     }
 
@@ -30,7 +31,7 @@ public class ListaUtilizadores {
                 return u;
             }
         }
-        System.out.println("Não existe nenhum musico com esse código!");
+        System.out.println("Não existe nenhum utilizador com esse código!");
         return null;
     }
 
@@ -45,11 +46,6 @@ public class ListaUtilizadores {
 
             }
         }
-    }
-    
-    public void adicionarProdutor(Produtor produtor) {
-        utilizadores.put(produtor.getUsername(), produtor);
-
     }
     
     public void removerProdutor(int cod) {
@@ -72,6 +68,25 @@ public class ListaUtilizadores {
 
             }
         }
+    }
+    
+    public boolean verificarExisteAdministrador(String Username, String Password){
+        
+        for(Utilizador u: utilizadores.values()){
+            if(u.getUsername().compareTo(Username) == 0)
+                return true;      
+        }
+        return false;
+    }
+
+    //Fonte: ficheiro do professor
+    @Override
+    public String toString() {
+        String texto="";
+        for(Utilizador u: utilizadores.values()){
+            texto += u+"\n";
+        }
+        return texto;
     }
     
     
