@@ -4,28 +4,28 @@ import java.util.*;
 
 public class ListaUtilizadores {
 
-    private Collection<Utilizador> utilizadores;
+    private HashMap<String,Utilizador> utilizadores;
 
     public ListaUtilizadores() {
-        utilizadores = new TreeSet<>();
+        utilizadores = new HashMap<>();
     }
 
     public void adicionarMusico(Musico Musico) {
-        utilizadores.add(Musico);
+        utilizadores.put(Musico.getUsername(), Musico);
 
     }
 
     public void removerMusico(int cod) {
-        for (Utilizador u : utilizadores) {
+        for (Utilizador u : utilizadores.values()) {
             if (u instanceof Musico && u.getBi() == cod) {
-                utilizadores.remove((Musico)u);
+                utilizadores.remove(u.getUsername());
             }
         }
 
     }
 
     public Utilizador consultarDadosUtilizador(int codigo) {
-        for (Utilizador u : utilizadores) {
+        for (Utilizador u : utilizadores.values()) {
             if (u.getBi() == codigo) {
                 return u;
             }
@@ -36,7 +36,7 @@ public class ListaUtilizadores {
 
     public void editarDadosMusico(int codigo, Musico musico) {
         
-        for (Utilizador u : utilizadores) {
+        for (Utilizador u : utilizadores.values()) {
             if (u instanceof Musico && u.getBi() == codigo) {
                 ((Musico)u).setBi(musico.getBi());
                 ((Musico)u).setNome(musico.getNome());
@@ -48,14 +48,14 @@ public class ListaUtilizadores {
     }
     
     public void adicionarProdutor(Produtor produtor) {
-        utilizadores.add(produtor);
+        utilizadores.put(produtor.getUsername(), produtor);
 
     }
     
     public void removerProdutor(int cod) {
-        for (Utilizador u : utilizadores) {
+        for (Utilizador u : utilizadores.values()) {
             if (u instanceof Produtor && u.getBi() == cod) {
-                utilizadores.remove((Produtor)u);
+                utilizadores.remove(u.getUsername());
             }
         }
 
@@ -63,7 +63,7 @@ public class ListaUtilizadores {
     
     public void editarDadosProdutor(int codigo, Produtor prod) {
         
-        for (Utilizador u : utilizadores) {
+        for (Utilizador u : utilizadores.values()) {
             if (u instanceof Produtor && u.getBi() == codigo) {
                 ((Produtor)u).setBi(prod.getBi());
                 ((Produtor)u).setNome(prod.getNome());

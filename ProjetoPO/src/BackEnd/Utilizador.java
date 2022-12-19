@@ -1,20 +1,22 @@
 package BackEnd;
 
+import java.io.Serializable;
+import java.util.Date;
 
-public abstract class Utilizador {
+public abstract class Utilizador implements Serializable {
     
     private String username;
     private String password;
     private String nome;
     private int bi;
     private String morada;
-    private int dataNasc;
+    private Date dataNasc;
 
     public Utilizador() {
         
     }
 
-    public Utilizador(String username, String password, String nome, int bi, String morada, int dataNasc) {
+    public Utilizador(String username, String password, String nome, int bi, String morada, Date dataNasc) {
         this.username = username;
         this.password = password;
         this.nome = nome;
@@ -65,11 +67,11 @@ public abstract class Utilizador {
         this.morada = morada;
     }
 
-    public int getDataNasc() {
+    public Date getDataNasc() {
         return dataNasc;
     }
 
-    public void setDataNasc(int dataNasc) {
+    public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
 
