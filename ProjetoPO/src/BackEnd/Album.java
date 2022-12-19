@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Album {
     
     private int codigo;
+    private String codigoS; //Para o mapAlbuns.
     private String titulo;
     private String dataEdicao;
     private String tipo;
@@ -20,6 +21,15 @@ public class Album {
         this.tipo = tipo;
     }
 
+    //CONSTRUTOR DO MAPALBUNS
+    public Album(String codigoS, String titulo, String dataEdicao, String tipo, ArrayList<Musica> musicasDoAlbum) {
+        this.codigoS = codigoS;
+        this.titulo = titulo;
+        this.dataEdicao = dataEdicao;
+        this.tipo = tipo;
+        this.musicasDoAlbum = musicasDoAlbum;
+    }
+//###################################################################
     
 
     public String getTitulo() {
@@ -57,7 +67,17 @@ public class Album {
     public ArrayList<Musica> getMusicasDoAlbum() {
         return musicasDoAlbum;
     }
+    
+    //Para o MapAlbuns
+    //#############################################
+    public String getCodigoS() {
+        return codigoS;
+    }
 
+    public void setCodigoS(String codigoS) {
+        this.codigoS = codigoS;
+    }
+//################################################
     public void setMusicasDoAlbum(ArrayList<Musica> musicasDoAlbum) {
         this.musicasDoAlbum = musicasDoAlbum;
     }
