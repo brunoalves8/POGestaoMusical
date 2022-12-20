@@ -1,11 +1,13 @@
 package FrontEnd;
 
-import BackEnd.Utilizador;
+import BackEnd.MapUtilizador;
 import BackEnd.Musico;
 import BackEnd.Produtor;
 import BackEnd.Administrador;
 import BackEnd.Sistema;
-//import java.util.Date;
+import java.io.IOException;
+
+import java.time.LocalDate;
 
 public class Programa {
 
@@ -13,8 +15,8 @@ public class Programa {
     private final Consola consola = new Consola();
 
     private void autenticarAdministrador() {
-        String Username = consola.lerStringEscanResposta("Username: ");
-        String password = consola.lerStringEscanResposta("Password: ");
+        String Username = consola.lerString("Username: ");
+        String password = consola.lerString("Password: ");
 
         while(sistema.getUsers().verificarExisteAdministrador(Username, password) == false) {
             consola.escreverErro("Nome de utilizador ou senha errados!");
@@ -25,31 +27,53 @@ public class Programa {
 
     private void adicionarMúsico() {
         consola.escrever("Criar Novo Musico\n\n");
-        String nome = consola.lerStringEscanResposta("Introduza o nome: ");
+        String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
-        String morada = consola.lerStringEscanResposta("Introduza a morada: ");
-        //Date. datanasc = consola.lerDecimal("Introduza o salario dia");
-        String username = consola.lerStringEscanResposta("Introduza o nome de usuário: ");
-        String password = consola.lerStringEscanResposta("Introduza a palavra-chave: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate datanasc = LocalDate.parse(consola.lerString("Introduza a data de nascimento(ano-mes-dia): "));
+        String username = consola.lerString("Introduza o nome de usuário: ");
+        String password = consola.lerString("Introduza a palavra-chave: ");
 
-        sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, null));
+        sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, datanasc));
         consola.escrever("Musico adicionado com sucesso!");
+        System.out.println(datanasc);
     }
 
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
-        String nome = consola.lerStringEscanResposta("Introduza o nome: ");
+        String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
-        String morada = consola.lerStringEscanResposta("Introduza a morada: ");
-        //Date. datanasc = consola.lerDecimal("Introduza o salario dia");
-        String username = consola.lerStringEscanResposta("Introduza o nome de usuário: ");
-        String password = consola.lerStringEscanResposta("Introduza a palavra-chave: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate datanasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        String username = consola.lerString("Introduza o nome de usuário: ");
+        String password = consola.lerString("Introduza a palavra-chave: ");
 
         sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
         consola.escrever("Produtor adicionado com sucesso!");
     }
 
-    public static void main(String[] args) {
+    private void registarAlbum(){
+        
+       consola.escrever("Registar Albúm\n\n");
+       String tituloAlbm = consola.lerString("Introduza o nome da música: ");
+       String codigoMusic
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public static void main(String[] args) throws IOException, InterruptedException {
         Programa programa = new Programa();
 
         int opcao;
@@ -79,6 +103,7 @@ public class Programa {
 
             switch (opcao) {
                 case 1:
+                    
                     do {
 
                         opcao1 = programa.consola.lerOpcoesMenusInteiros(opcoes1);
@@ -90,6 +115,7 @@ public class Programa {
                                 programa.adicionarProdutor();
                                 break;
                             case 3:
+                                
                         }
                     } while (opcao1 != opcoes1.length);
                     break;

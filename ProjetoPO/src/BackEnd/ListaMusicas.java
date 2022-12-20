@@ -38,7 +38,7 @@ public class ListaMusicas {
             if (m.getCodigo() == cod) {
                 ((Musica) m).setTitulo(m.getTitulo());
                 ((Musica) m).setDuracao(m.getDuracao());
-                ((Musica) m).setArtistas(m.getArtistas());
+                
             }
         }
     }

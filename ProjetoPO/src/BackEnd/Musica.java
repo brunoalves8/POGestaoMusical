@@ -7,12 +7,14 @@ public class Musica {
     private String titulo;
     private double duracao;
     private int codigo; //criei para ser possivel remover uma musica da lista de musicas
-    private ArrayList<Musico> artistas = new ArrayList<>();
+    private final ArrayList<Integer> codArtistas;
 
     public Musica() {
+        this.codArtistas = new ArrayList<>();
     }
 
     public Musica(String titulo, double duracao) {
+        this.codArtistas = new ArrayList<>();
         this.titulo = titulo;
         this.duracao = duracao;
     }
@@ -33,8 +35,8 @@ public class Musica {
         this.duracao = duracao;
     }
 
-    public void adicionarMusico(Musico artist) {
-        artistas.add(artist);
+    public void adicionarMusico(int codigoMusico){
+        codArtistas.add(codigoMusico);
     }
 
     public int getCodigo() {
@@ -45,25 +47,21 @@ public class Musica {
         this.codigo = codigo;
     }
 
-    public ArrayList<Musico> getArtistas() {
-        return artistas;
-    }
-
-    public void setArtistas(ArrayList<Musico> artistas) {
-        this.artistas = artistas;
+    public ArrayList<Integer> getCodArtistas() {
+        return codArtistas;
     }
 
     public void removerMusico(int bi) {
-        for (Musico m : artistas) {
-            if (m.getBi() == bi) {
-                artistas.remove(bi);
+        for (Integer in : codArtistas) {
+            if (in == bi) {
+                codArtistas.remove(in);
             }
         }
     }
 
     @Override
     public String toString() {
-        return "Musica{" + "titulo=" + titulo + ", duracao=" + duracao + ", codigo=" + codigo + ", artistas=" + artistas + '}';
+        return "Musica{" + "titulo=" + titulo + ", duracao=" + duracao + ", codigo=" + codigo +'}';
     }
 
 }

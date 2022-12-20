@@ -1,5 +1,7 @@
 package FrontEnd;
 
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Consola {
@@ -14,7 +16,7 @@ public class Consola {
         System.err.println(mensagem);
     }
 
-    public String lerStringEscanResposta(String mensagem) {
+    public String lerString(String mensagem) {
         escrever(mensagem);
         return scan.nextLine();
     }
@@ -83,19 +85,38 @@ public class Consola {
         return numero;
     }
 
-    /*public void lerData(String mensagem) {
-        
-        Date data = null;
-        int ano = 0;
-        int mes = 0;
-        int dia = 0;
+    public LocalDate lerData(String mensagem) {
 
-        escrever(mensagem);
-        ano = scan.nextInt();
-        mes = scan.nextInt();
-        dia = scan.nextInt();
-        
-        data = Date(ano,mes,dia);
-        
-    }*/
+        LocalDate data = null;
+        String texto;
+
+        do {
+            escrever(mensagem);
+            texto = scan.nextLine();
+
+            data = LocalDate.parse(texto);
+        } while (data != null && data != LocalDate.EPOCH);
+
+        return data;
+
+    }
+
+  
+    public void clearConsole(){
+
+        try{
+            final String os = System.getProperty("os.name");
+
+            if (os.contains("Windows")){
+                Runtime.getRuntime().exec("cls");
+
+            }else{
+                Runtime.getRuntime().exec("clear");
+            }
+        }
+        catch (final IOException e){
+        //  Tratar Exceptions
+        }
+    }
+
 }

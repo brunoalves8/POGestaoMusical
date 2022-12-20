@@ -2,11 +2,11 @@ package BackEnd;
 
 import java.util.*;
 
-public class ListaUtilizadores {
+public class MapUtilizadores {
 
     private final HashMap<String,Utilizador> utilizadores;
 
-    public ListaUtilizadores() {
+    public MapUtilizadores() {
         utilizadores = new HashMap<>();
     }
     

@@ -1,6 +1,7 @@
 package BackEnd;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class Utilizador implements Serializable {
@@ -10,13 +11,13 @@ public abstract class Utilizador implements Serializable {
     private String nome;
     private int bi;
     private String morada;
-    private Date dataNasc;
+    private LocalDate dataNasc;
 
     public Utilizador() {
         
     }
 
-    public Utilizador(String username, String password, String nome, int bi, String morada, Date dataNasc) {
+    public Utilizador(String username, String password, String nome, int bi, String morada, LocalDate dataNasc) {
         this.username = username;
         this.password = password;
         this.nome = nome;
@@ -67,11 +68,11 @@ public abstract class Utilizador implements Serializable {
         this.morada = morada;
     }
 
-    public Date getDataNasc() {
+    public LocalDate getDataNasc() {
         return dataNasc;
     }
 
-    public void setDataNasc(Date dataNasc) {
+    public void setDataNasc(LocalDate dataNasc) {
         this.dataNasc = dataNasc;
     }
 

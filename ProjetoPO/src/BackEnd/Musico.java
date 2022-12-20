@@ -1,7 +1,7 @@
 package BackEnd;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Musico extends Utilizador {
     
@@ -10,7 +10,7 @@ public class Musico extends Utilizador {
     public Musico(){
     }
 
-    public Musico(String username, String password, String nome, int bi, String morada, Date dataNasc) {
+    public Musico(String username, String password, String nome, int bi, String morada, LocalDate dataNasc) {
         super(username, password, nome, bi, morada, dataNasc);
     }
 

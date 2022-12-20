@@ -3,13 +3,13 @@ package BackEnd;
 
 public class Sistema {
     
-    private ListaUtilizadores users;
+    private MapUtilizadores users;
 
     public Sistema() {
-        users = new ListaUtilizadores();
+        users = new MapUtilizadores();
     }
     
-    public ListaUtilizadores getUsers(){
+    public MapUtilizadores getUsers(){
         return users;
     }
     
