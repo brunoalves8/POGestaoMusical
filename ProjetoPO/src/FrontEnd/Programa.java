@@ -1,6 +1,6 @@
 package FrontEnd;
 
-import BackEnd.MapUtilizador;
+import BackEnd.MapUtilizadores;
 import BackEnd.Musico;
 import BackEnd.Produtor;
 import BackEnd.Administrador;

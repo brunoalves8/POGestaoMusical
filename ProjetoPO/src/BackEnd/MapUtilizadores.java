@@ -78,6 +78,24 @@ public class MapUtilizadores {
         }
         return false;
     }
+    
+    public boolean verificarExisteProdutor(String username, String password){
+        
+        for(Utilizador u: utilizadores.values()){
+            if(u.getUsername().compareTo(username) == 0 && u.getPassword().compareTo(password) == 0)
+                return true;      
+        }
+        return false;
+    }
+    
+    public boolean verificarExisteUtilizador(String Username){
+        
+        for(Utilizador u: utilizadores.values()){
+            if(u.getUsername().compareTo(Username) == 0)
+                return true;      
+        }
+        return false;
+    }
 
     //Fonte: ficheiro do professor
     @Override
