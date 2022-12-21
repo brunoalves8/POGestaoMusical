@@ -1,6 +1,6 @@
 package FrontEnd;
 
-import BackEnd.MapUtilizador;
+import BackEnd.MapUtilizadores;
 import BackEnd.Musico;
 import BackEnd.Produtor;
 import BackEnd.Administrador;
@@ -18,7 +18,7 @@ public class Programa {
         String Username = consola.lerString("Username: ");
         String password = consola.lerString("Password: ");
 
-        while(sistema.getUsers().verificarExisteAdministrador(Username, password) == false) {
+        while (sistema.getUsers().verificarExisteAdministrador(Username, password) == false) {
             consola.escreverErro("Nome de utilizador ou senha errados!");
             autenticarAdministrador();
         }
@@ -52,14 +52,26 @@ public class Programa {
         consola.escrever("Produtor adicionado com sucesso!");
     }
 
-    private void registarAlbum(){
-        
-       consola.escrever("Registar Albúm\n\n");
-       String tituloAlbm = consola.lerString("Introduza o nome da música: ");
-       String codigoMusic
+    private void registarAlbum() {
+
+        consola.escrever("Registar Albúm\n\n");
+        String tituloAlbm = consola.lerString("Introduza o nome da música: ");
+        int codigo = consola.lerInteiro("Introduza o código da música: ");
+        LocalDate dataEdicao = consola.lerData("Introduza a data da edição: ");
+        String tipo = consola.lerString("Género da música: ");
+
+        int numArtistas;
+        do {
+
+            numArtistas = consola.lerInteiro("Numero de Artistas: ");
+
+        } while (numArtistas == 0 && numArtistas < 0);
+
+        for (int i = 0; i < numArtistas; i++) {
+            
+        }
     }
-    
-    
+
     
     
     
@@ -94,16 +106,15 @@ public class Programa {
             "Adicionar Produtor",
             "Voltar"};
 
-        
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
         //programa.autenticarAdministrador(); funciona mas não posso tirar de comentario enquanto o ficheiro não guardar
-        
+
         do {
             opcao = programa.consola.lerOpcoesMenusInteiros(opcoes);
 
             switch (opcao) {
                 case 1:
-                    
+
                     do {
 
                         opcao1 = programa.consola.lerOpcoesMenusInteiros(opcoes1);
@@ -115,7 +126,7 @@ public class Programa {
                                 programa.adicionarProdutor();
                                 break;
                             case 3:
-                                
+
                         }
                     } while (opcao1 != opcoes1.length);
                     break;
