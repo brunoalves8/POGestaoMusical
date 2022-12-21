@@ -41,6 +41,10 @@ public class ProgramaGM {
         String morada = consola.lerString("Introduza a morada: ");
         LocalDate datanasc = LocalDate.parse(consola.lerString("Introduza a data de nascimento(ano-mes-dia): "));
         String username = consola.lerString("Introduza o nome de usuário: ");
+        while(sistema.getUsers().verificarExisteUtilizador(username) == true){
+            consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
+            username = consola.lerString("Introduza o nome de usuário: ");
+        }
         String password = consola.lerString("Introduza a palavra-chave: ");
 
         sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, datanasc));
@@ -54,7 +58,11 @@ public class ProgramaGM {
         int bi = consola.lerInteiro("Introduza o número do CC: ");
         String morada = consola.lerString("Introduza a morada: ");
         LocalDate datanasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
-        String username = consola.lerString("Introduza o nome de usuário: ");
+        String username = consola.lerString("Introduza o nome de utilizador: ");
+        while(sistema.getUsers().verificarExisteUtilizador(username) == true){
+            consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
+            username = consola.lerString("Introduza o nome de usuário: ");
+        }  
         String password = consola.lerString("Introduza a palavra-chave: ");
 
         sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
