@@ -1,20 +1,27 @@
 package BackEnd;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Sessao {
 
     private int codigoSessao;
     private Album albumSerGravado;
-    private String dataFinalGravacao;
+    //private Lo dataFinalGravacao;
+    private LocalDate diaDeGravacao;
     private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
+
+    public Sessao(Album albumSerGravado, LocalDate diaDeGravacao) {
+        this.albumSerGravado = albumSerGravado;
+        this.diaDeGravacao = diaDeGravacao;
+    }
     
 
-    public Sessao(int codigoSessao, Album albumSerGravado, String dataFinalGravacao) {
+    /*public Sessao(int codigoSessao, Album albumSerGravado, String dataFinalGravacao) {
         this.codigoSessao = codigoSessao;
         this.albumSerGravado = albumSerGravado;
         this.dataFinalGravacao = dataFinalGravacao;
-    }
+    }*/
 
     public Sessao() {
     }
@@ -35,20 +42,28 @@ public class Sessao {
         this.albumSerGravado = albumSerGravado;
     }
 
-    public String getDataFinalGravacao() {
+  /*  public String getDataFinalGravacao() {
         return dataFinalGravacao;
     }
 
     public void setDataFinalGravacao(String dataFinalGravacao) {
         this.dataFinalGravacao = dataFinalGravacao;
     }
-
+*/
     public ArrayList<Musico> getMusicosSessaoGravacao() {
         return musicosSessaoGravacao;
     }
 
     public void setMusicosSessaoGravacao(ArrayList<Musico> musicosSessaoGravacao) {
         this.musicosSessaoGravacao = musicosSessaoGravacao;
+    }
+
+    public LocalDate getDiaDeGravacao() {
+        return diaDeGravacao;
+    }
+
+    public void setDiaDeGravacao(LocalDate diaDeGravacao) {
+        this.diaDeGravacao = diaDeGravacao;
     }
 
 }

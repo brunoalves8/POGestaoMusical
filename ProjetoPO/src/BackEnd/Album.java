@@ -1,36 +1,33 @@
 package BackEnd;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Album {
     
     private int codigo;
-    private String codigoS; //Para o mapAlbuns.
     private String titulo;
-    private String dataEdicao;
+    private LocalDate dataEdicao;
     private String tipo;
     private ArrayList<Musica> musicasDoAlbum;
 
     public Album() {
     }
 
-    public Album(int codigo, String titulo, String dataEdicao, String tipo) {
+    public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo, ArrayList<Musica> musicasDoAlbum) {
         this.codigo = codigo;
-        this.titulo = titulo;
-        this.dataEdicao = dataEdicao;
-        this.tipo = tipo;
-    }
-
-    //CONSTRUTOR DO MAPALBUNS
-    public Album(String codigoS, String titulo, String dataEdicao, String tipo, ArrayList<Musica> musicasDoAlbum) {
-        this.codigoS = codigoS;
         this.titulo = titulo;
         this.dataEdicao = dataEdicao;
         this.tipo = tipo;
         this.musicasDoAlbum = musicasDoAlbum;
     }
-//###################################################################
-    
+
+    public Album(String titulo, LocalDate dataEdicao, String tipo) {
+        this.titulo = titulo;
+        this.dataEdicao = dataEdicao;
+        this.tipo = tipo;
+    }
+
 
     public String getTitulo() {
         return titulo;
@@ -40,11 +37,11 @@ public class Album {
         this.titulo = titulo;
     }
 
-    public String getDataEdicao() {
+    public LocalDate getDataEdicao() {
         return dataEdicao;
     }
 
-    public void setDataEdicao(String dataEdicao) {
+    public void setDataEdicao(LocalDate dataEdicao) {
         this.dataEdicao = dataEdicao;
     }
 
@@ -68,16 +65,6 @@ public class Album {
         return musicasDoAlbum;
     }
     
-    //Para o MapAlbuns
-    //#############################################
-    public String getCodigoS() {
-        return codigoS;
-    }
-
-    public void setCodigoS(String codigoS) {
-        this.codigoS = codigoS;
-    }
-//################################################
     public void setMusicasDoAlbum(ArrayList<Musica> musicasDoAlbum) {
         this.musicasDoAlbum = musicasDoAlbum;
     }

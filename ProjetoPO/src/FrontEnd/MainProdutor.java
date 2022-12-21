@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import BackEnd.Album;
 import BackEnd.MapUtilizadores;
 import BackEnd.Produtor;
 import BackEnd.Sistema;
@@ -60,6 +61,17 @@ public class MainProdutor {
         consola.escrever("Produtor adicionado com sucesso!");
     }
     
+        private void adicionarAlbum() {
+        consola.escrever("Adicionar um Álbum\n\n");
+        String titulo = consola.lerString("Introduza o nome: ");
+        String tipo = consola.lerString("Introduza o tipo: ");
+        LocalDate dataEdicao = consola.lerDate("Introduza a data(ano-mes-dia): ");
+        
+       
+        sistema.getAlbuns().adicionarAlbum(new Album(titulo, dataEdicao, tipo));
+        consola.escrever("Album adicionado com sucesso!");
+    }
+    
     private void editarDadosProdutor(){
         consola.escrever("Editar dados Produtor\n\n");
         String nome = consola.lerString("Introduza o nome:");
@@ -106,6 +118,7 @@ public class MainProdutor {
             "Listar as sessões de gravação agendadas para um dia",
             "Guardar ficheiro",
             "Carregar Ficheiro",
+            "Adicionar Album",
             "Sair"};
 
         String[] opcoes1 = {
@@ -162,6 +175,9 @@ public class MainProdutor {
                     break;
                 case 10:
                     mainProdutor.carregarFicheiroObjectos();
+                    break;
+                case 11:
+                    mainProdutor.adicionarAlbum();
                     break;
             }
         } while (opcao != opcoes.length);
