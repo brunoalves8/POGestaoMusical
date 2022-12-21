@@ -12,55 +12,51 @@ public class MainProdutor {
     private final Sistema sistema = new Sistema();
     private final Consola consola = new Consola();
 
+    //A USAR RECURSIVIDADE
+    /*
     private void autenticarProdutor() {
         
        String username = consola.lerString("Username: ");
        String password = consola.lerString("Password: ");
        
-        while(sistema.getUsers().verificarExisteProdutor(username, password) == false) {
+        if(sistema.getUsers().verificarExisteProdutor(username, password) == false){
             consola.escreverErro("Nome de utilizador ou senha errados!");
             autenticarProdutor();
+        }else{
+        consola.escrever("Login com sucesso!");
+        }
+    }*/
+   
+    //SEM USAR RECURSIVIDADE
+    private void autenticarProdutor() {
+        
+       String username = consola.lerString("Username: ");
+       String password = consola.lerString("Password: ");
+       
+        while(sistema.getUsers().verificarExisteProdutor(username, password) == false){
+            consola.escreverErro("Nome de utilizador ou senha errados!");
+            username = consola.lerString("Username: ");
+            password = consola.lerString("Password: ");
         }
         consola.escrever("Login com sucesso!");
     }
-        //TENTATIVAS DE TRY CATCH!!!!!!
- /*   private boolean autenticarProdutor1(String username, String password) {
-        
-      //  String username = consola.lerString("Username: ");
-        //String password = consola.lerString("Password: ");
-        if(sistema.getUsers().verificarExisteUtilizador(username)){
-            try{
-                String username = consola.lerString("Username: ");
-                if(password == sistena.get)
-            }
-            catch(Exception e){
-            }
-        }
-        return false;
-        }
-/*
-        while(sistema.getUsers().verificarExisteProdutor(username, password) == false) {
-            consola.escreverErro("Nome de utilizador ou senha errados!");
-            autenticarProdutor();
-        }
-        consola.escrever("Login com sucesso!");*/
-
+    
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
         String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
         String morada = consola.lerString("Introduza a morada: ");
-        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
-        String username = consola.lerString("Introduza o nome de usuário: ");
-            
+        //LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        String username = consola.lerString("Introduza o nome de utilizador: ");
+        
         //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
- /*       while(sistema.getUsers().verificarExisteUtilizador(username) == true){
+        while(sistema.getUsers().verificarExisteUtilizador(username) == true){
                 consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
-                String username = consola.lerString("Introduza o nome de usuário: ");
-            }*/
+                username = consola.lerString("Introduza o nome de usuário: ");
+        }      
         String password = consola.lerString("Introduza a palavra-chave: ");
 
-        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, dataNasc));
+        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
         consola.escrever("Produtor adicionado com sucesso!");
     }
     
