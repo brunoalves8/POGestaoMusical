@@ -64,13 +64,31 @@ public class MainProdutor {
         consola.escrever("Editar dados Produtor\n\n");
         String nome = consola.lerString("Introduza o nome:");
         
-        
-        
-        
         //sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
     }
-
     
+    //Ficheiro do professor
+    private void guardarFicheiroObjectos() {
+        String nomeFicheiro = consola.lerString("Introduza o nome do ficheiro");
+        try {
+            sistema.getUsers().guardarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro guardado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel criar o ficheiro: "
+                    + ex.getLocalizedMessage());
+        }
+    }
+    
+    private void carregarFicheiroObjectos() {
+        String nomeFicheiro = consola.lerString("Introduza o nome do ficheiro");
+        try {
+            sistema.getUsers().carregarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro carregado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel carregar o ficheiro: "
+                    + ex.getMessage());
+        }
+    }
     public static void main(String[] args) {
         
         MainProdutor mainProdutor = new MainProdutor();
@@ -86,6 +104,8 @@ public class MainProdutor {
             "Aceder a informação relativa à situação atual de um determinado album.",
             "Listar os albuns que está a produzir ou que já produziu",
             "Listar as sessões de gravação agendadas para um dia",
+            "Guardar ficheiro",
+            "Carregar Ficheiro",
             "Sair"};
 
         String[] opcoes1 = {
@@ -136,7 +156,13 @@ public class MainProdutor {
 
                     break;
                 case 8:
-
+                    break;
+                case 9:
+                    mainProdutor.guardarFicheiroObjectos();
+                    break;
+                case 10:
+                    mainProdutor.carregarFicheiroObjectos();
+                    break;
             }
         } while (opcao != opcoes.length);
  

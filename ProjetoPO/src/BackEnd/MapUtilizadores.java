@@ -1,10 +1,14 @@
 package BackEnd;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class MapUtilizadores {
 
-    private final HashMap<String,Utilizador> utilizadores;
+    private HashMap<String,Utilizador> utilizadores;
 
     public MapUtilizadores() {
         utilizadores = new HashMap<>();
@@ -96,7 +100,24 @@ public class MapUtilizadores {
         }
         return false;
     }
+    
+    public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
+        FileOutputStream fos = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
 
+        oos.writeObject(utilizadores);
+
+        oos.close();
+        fos.close();
+    }
+
+    public void carregarFicheiroObjetos(String nomeFicheiro) throws Exception {
+        FileInputStream file = new FileInputStream(nomeFicheiro);
+        ObjectInputStream oin = new ObjectInputStream(file);
+        utilizadores = (HashMap<String, Utilizador>) oin.readObject();
+        oin.close();
+        file.close();
+    }
     //Fonte: ficheiro do professor
     @Override
     public String toString() {
