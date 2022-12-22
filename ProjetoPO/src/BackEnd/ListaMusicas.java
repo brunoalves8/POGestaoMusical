@@ -15,7 +15,7 @@ public class ListaMusicas {
         musicas.add(musica);
     }
 
-    public void removerMusica(int cod) {
+  /*  public void removerMusica(int cod) {
         for (Musica m : musicas) {
             if (m.getCodigo() == cod) {
                 musicas.remove((Musica) m);
@@ -42,5 +42,5 @@ public class ListaMusicas {
             }
         }
     }
-
+*/
 }

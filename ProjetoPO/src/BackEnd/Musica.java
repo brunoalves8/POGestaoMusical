@@ -1,24 +1,26 @@
 package BackEnd;
 
-import java.util.ArrayList;
+
+import java.util.Collection;
+import java.util.TreeSet;
 
 public class Musica {
 
     private String titulo;
     private double duracao;
-    private int codigo; //criei para ser possivel remover uma musica da lista de musicas
-    private final ArrayList<Integer> codArtistas;
-
-    public Musica() {
-        this.codArtistas = new ArrayList<>();
-    }
+    private int codigo;
+    private Collection<Musico> musicos; 
 
     public Musica(String titulo, double duracao) {
-        this.codArtistas = new ArrayList<>();
         this.titulo = titulo;
         this.duracao = duracao;
     }
 
+    public Musica() {
+        musicos = new TreeSet<>();
+    }
+   
+    
     public String getTitulo() {
         return titulo;
     }
@@ -35,26 +37,23 @@ public class Musica {
         this.duracao = duracao;
     }
 
-    public void adicionarMusico(int codigoMusico){
-        codArtistas.add(codigoMusico);
+    public void adicionarMusico(Musico musico){
+        musicos.add(musico);
     }
 
-    public int getCodigo() {
+  /*  public int getCodigo() {
         return codigo;
     }
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-
-    public ArrayList<Integer> getCodArtistas() {
-        return codArtistas;
-    }
+*/
 
     public void removerMusico(int bi) {
-        for (Integer in : codArtistas) {
-            if (in == bi) {
-                codArtistas.remove(in);
+        for (Musico m : musicos) {
+            if (m.getBi() == bi) {
+                musicos.remove(m);
             }
         }
     }

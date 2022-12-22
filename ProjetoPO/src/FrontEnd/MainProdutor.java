@@ -47,7 +47,7 @@ public class MainProdutor {
         String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
         String morada = consola.lerString("Introduza a morada: ");
-        //LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
         String username = consola.lerString("Introduza o nome de utilizador: ");
         
         //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
@@ -65,7 +65,7 @@ public class MainProdutor {
         consola.escrever("Adicionar um Álbum\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
         String tipo = consola.lerString("Introduza o tipo: ");
-        LocalDate dataEdicao = consola.lerDate("Introduza a data(ano-mes-dia): ");
+        LocalDate dataEdicao = consola.lerData("Introduza a data(ano-mes-dia): ");
         
        
         sistema.getAlbuns().adicionarAlbum(new Album(titulo, dataEdicao, tipo));
@@ -80,10 +80,10 @@ public class MainProdutor {
     }
     
     //Ficheiro do professor
-    private void guardarFicheiroObjectos() {
-        String nomeFicheiro = consola.lerString("Introduza o nome do ficheiro");
+    private void guardarFicheiroUtilizadores() {
+        String nomeFicheiro = "Utilizadores";
         try {
-            sistema.getUsers().guardarFicheiroObjetos(nomeFicheiro);
+            sistema.getUsers().guardarFicheiroUtilizadores(nomeFicheiro);
             consola.escrever("Ficheiro guardado");
         } catch (Exception ex) {
             consola.escrever("Não foi possivel criar o ficheiro: "
@@ -92,7 +92,7 @@ public class MainProdutor {
     }
     
     private void carregarFicheiroObjectos() {
-        String nomeFicheiro = consola.lerString("Introduza o nome do ficheiro");
+        String nomeFicheiro = "Utilizadores";
         try {
             sistema.getUsers().carregarFicheiroObjetos(nomeFicheiro);
             consola.escrever("Ficheiro carregado");

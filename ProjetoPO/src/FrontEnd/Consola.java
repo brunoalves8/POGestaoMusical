@@ -95,10 +95,10 @@ public class Consola {
             texto = scan.nextLine();
 
             data = LocalDate.parse(texto);
-        } while (data != null && data != LocalDate.EPOCH);
+        } while (data == null);
 
         return data;
-
+        //data != LocalDate.EPOCH
     }
 
   
