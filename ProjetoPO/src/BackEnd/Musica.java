@@ -9,11 +9,13 @@ public class Musica {
     private String titulo;
     private double duracao;
     private int codigo;
+    private int codigoAlbumAssociado;
     private Collection<Musico> musicos; 
 
-    public Musica(String titulo, double duracao) {
+    public Musica(String titulo, double duracao, int codigo) {
         this.titulo = titulo;
         this.duracao = duracao;
+        this.codigo = codigo;
     }
 
     public Musica() {
@@ -41,14 +43,22 @@ public class Musica {
         musicos.add(musico);
     }
 
-  /*  public int getCodigo() {
+    public int getCodigo() {
         return codigo;
+    }
+
+    public int getCodigoAlbumAssociado() {
+        return codigoAlbumAssociado;
+    }
+
+    public void setCodigoAlbumAssociado(int codigoAlbumAssociado) {
+        this.codigoAlbumAssociado = codigoAlbumAssociado;
     }
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-*/
+
 
     public void removerMusico(int bi) {
         for (Musico m : musicos) {

@@ -12,14 +12,14 @@ public class Album {
     private ArrayList<Musica> musicasDoAlbum;
 
     public Album() {
+        musicasDoAlbum = new ArrayList<>();
     }
 
-    public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo, ArrayList<Musica> musicasDoAlbum) {
+    public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.dataEdicao = dataEdicao;
         this.tipo = tipo;
-        this.musicasDoAlbum = musicasDoAlbum;
     }
 
     public Album(String titulo, LocalDate dataEdicao, String tipo) {

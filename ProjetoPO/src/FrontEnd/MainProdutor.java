@@ -2,6 +2,7 @@ package FrontEnd;
 
 import BackEnd.Album;
 import BackEnd.MapUtilizadores;
+import BackEnd.Musica;
 import BackEnd.Produtor;
 import BackEnd.Sistema;
 import java.io.IOException;
@@ -101,6 +102,71 @@ public class MainProdutor {
                     + ex.getMessage());
         }
     }
+    
+    
+    
+        private void adicionarMusica() {
+        consola.escrever("Nova Musica\n\n");
+        String titulo = consola.lerString("Introduza o nome: ");
+        double duracao = consola.lerDecimal("Introduza a duração da música: ");
+        int cod = consola.lerInteiro("Introduza o código da música: ");
+        
+
+        sistema.getMusicas().adicionarMusica(new Musica(titulo,duracao,cod));
+        consola.escrever("Música adicionada com sucesso!");
+        
+        // falta colocar/ associar os artistas desta musica
+    }
+
+    private void registarAlbum() {
+        int numM=0;
+        consola.escrever("Registar Álbum\n\n");
+        String titulo = consola.lerString("Introduza o nome: ");
+        String tipo = consola.lerString("Introduza o tipo: ");
+        LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");      
+        int cod = consola.lerInteiro("Introduza o código do álbum: ");
+        sistema.getAlbuns().adicionarAlbum(new Album(cod, titulo, dataEdicao, tipo));
+        
+        numM = consola.lerInteiro("Numero de músicas do álbum: ");
+        for (int i = 0; i < numM; i++) {
+            boolean TF = false ;
+            int codM = 0;
+            while(TF == false){
+            codM = consola.lerInteiro("Introduzir código da música que pretende associar a este álbum: ");
+            TF = sistema.getMusicas().verificarExisteMusica(codM);
+            } 
+            sistema.getMusicas().associarAlbumAmusica(codM, cod);
+            consola.escrever("Album adicionado com sucesso!");
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public static void main(String[] args) {
        
         MainProdutor mainProdutor = new MainProdutor();
@@ -110,7 +176,7 @@ public class MainProdutor {
         String[] opcoes = {
             "Adicionar utilizadores do tipo Músico e do tipo Produtor",
             "Autenticar-se como Produtor",
-            "Ver/editar os seus dados",
+            "registar album",
             "Iniciar/editar a edição de um albúm(definindo as sessões de gravação necessárias)",
             "Concluir sessões de gravação",
             "Aceder a informação relativa à situação atual de um determinado album.",
@@ -154,7 +220,7 @@ public class MainProdutor {
                     mainProdutor.autenticarProdutor();
                     break;
                 case 3:
-
+                    mainProdutor.registarAlbum();
                     break;
                 case 4:
 
@@ -171,7 +237,7 @@ public class MainProdutor {
                 case 8:
                     break;
                 case 9:
-                    mainProdutor.guardarFicheiroObjectos();
+                    mainProdutor.guardarFicheiroUtilizadores();
                     break;
                 case 10:
                     mainProdutor.carregarFicheiroObjectos();

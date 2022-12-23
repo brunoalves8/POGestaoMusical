@@ -4,6 +4,8 @@ import BackEnd.MapUtilizadores;
 import BackEnd.Musico;
 import BackEnd.Produtor;
 import BackEnd.Administrador;
+import BackEnd.Album;
+import BackEnd.Musica;
 import BackEnd.Sistema;
 import BackEnd.Utilizador;
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class ProgramaGM {
         String username = consola.lerString("Username: ");
         String password = consola.lerString("Password: ");
 
-        while (sistema.getUsers().verificarExisteProdutor(username, password) == false) {
+        while (sistema.getUsers().verificarExisteUser(username, password) == false) {
             consola.escreverErro("Nome de utilizador ou senha errados!");
             username = consola.lerString("Username: ");
             password = consola.lerString("Password: ");
@@ -68,12 +70,43 @@ public class ProgramaGM {
         sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
         consola.escrever("Produtor adicionado com sucesso!");
     }
+    
+    private void adicionarMusica() {
+        consola.escrever("Nova Musica\n\n");
+        String titulo = consola.lerString("Introduza o nome: ");
+        double duracao = consola.lerDecimal("Introduza a duração da música: ");
+        int cod = consola.lerInteiro("Introduza o código da música: ");
+        
+
+        //sistema.getMusicas().adicionarMusica(new Musica(titulo,duracao,cod));
+        consola.escrever("Música adicionada com sucesso!");
+        
+        // falta colocar/ associar os artistas desta musica
+    }
 
     private void registarAlbum() {
-
-        consola.escrever("Registar Albúm\n\n");
-        String tituloAlbm = consola.lerString("Introduza o nome da música: ");
-
+        int numM=0;
+        consola.escrever("Registar Álbum\n\n");
+        String titulo = consola.lerString("Introduza o nome: ");
+        String tipo = consola.lerString("Introduza o tipo: ");
+        LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");      
+        int cod = consola.lerInteiro("Introduza o código do álbum: ");
+        Album albm = new Album(cod, titulo, dataEdicao, tipo);
+        //sistema.getAlbuns().adicionarAlbum(albm);
+        
+        /// tem erro a partir daqui
+        numM = consola.lerInteiro("Numero de músicas do álbum: ");
+        for (int i = 0; i < numM; i++) {
+            boolean TF = false ;
+            int codM = 0;
+            while(TF == false){
+            codM = consola.lerInteiro("Introduzir código da música que pretende associar a este álbum: ");
+            TF = sistema.getMusicas().verificarExisteMusica(codM);
+            } 
+            sistema.getMusicas().associarAlbumAmusica(codM, cod);
+            consola.escrever("Album adicionado com sucesso!");
+        }
+        
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -126,19 +159,19 @@ public class ProgramaGM {
     }
 
     //Ficheiro do professor
-    private void guardarFicheiroObjectos() {
-        String nomeFicheiro = consola.lerString("Introduza o nome do ficheiro");
+    private void guardarFicheiroUtilizadores() {
+        String nomeFicheiro = "Utilizadores";
         try {
-            sistema.getUsers().guardarFicheiroObjetos(nomeFicheiro);
+            sistema.getUsers().guardarFicheiroUtilizadores(nomeFicheiro);
             consola.escrever("Ficheiro guardado");
         } catch (Exception ex) {
             consola.escrever("Não foi possivel criar o ficheiro: "
                     + ex.getLocalizedMessage());
         }
     }
-
-    private void carregarFicheiroObjectos() {
-        String nomeFicheiro = consola.lerString("Introduza o nome do ficheiro");
+    
+    private void carregarFicheiroUtilizadores() {
+        String nomeFicheiro = "Utilizadores";
         try {
             sistema.getUsers().carregarFicheiroObjetos(nomeFicheiro);
             consola.escrever("Ficheiro carregado");
@@ -170,6 +203,7 @@ public class ProgramaGM {
     public static void main(String[] args) {
 
         ProgramaGM programa = new ProgramaGM();
+        Utilizador bruno = new Administrador("brinezazao","bruno","Bruno Alves",12345,"Rua dos carvalhos",null);
 
         String[] opcoesAdministrador = {
             "Adicionar Músico/Produtor",
@@ -195,15 +229,27 @@ public class ProgramaGM {
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
 
-        String[] opcoesProdutor = {   
+        /*String[] opcoesProdutor = {   
             "Ver/editar os seus dados",
+            "Registar Album",
             "Iniciar/editar a edição de um albúm(definindo as sessões de gravação necessárias)",
             "Concluir sessões de gravação",
             "Aceder a informação relativa à situação atual de um determinado album.",
             "Listar os albuns que está a produzir ou que já produziu",
             "Listar as sessões de gravação agendadas para um dia",
             "Sair"};
-
+*/
+        //Opcoes teste
+        String[] opcoesProdutor = {   
+            "Ver/editar os seus dados",
+            "Registar Album",
+            "Adicionar Música",
+            "Concluir sessões de gravação",
+            "Aceder a informação relativa à situação atual de um determinado album.",
+            "Listar os albuns que está a produzir ou que já produziu",
+            "Listar as sessões de gravação agendadas para um dia",
+            "Sair"};
+        
         String[] opcoesProdutor1 = {
             "Ver dados Produtor",
             "Editar dados Produtor",
@@ -235,7 +281,9 @@ public class ProgramaGM {
         };
 
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
-        programa.carregarFicheiroObjectos();
+        
+        programa.carregarFicheiroUtilizadores();
+        
         Utilizador tipo = programa.autenticar();
 
         int TipoInteger = 0;
@@ -274,6 +322,7 @@ public class ProgramaGM {
                         break;
                         //Registar Álbum
                         case 2:
+                            programa.registarAlbum();
                             break;
                         //Registar instrumento
                         case 3:
@@ -292,7 +341,7 @@ public class ProgramaGM {
                             break;
                         //
                         case 8:
-                            programa.guardarFicheiroObjectos();
+                            programa.guardarFicheiroUtilizadores();
 
                     }
                 }
@@ -329,10 +378,10 @@ public class ProgramaGM {
                             } while (opcaoP1 != opcoesProdutor1.length);
                             break;
                         case 2:
-                            
+                            programa.registarAlbum();
                             break;
                         case 3:
-
+                            programa.adicionarMusica();
                             break;
                         case 4:
 
@@ -341,7 +390,7 @@ public class ProgramaGM {
 
                             break;
                         case 6:
-                        programa.guardarFicheiroObjectos();
+                        programa.guardarFicheiroUtilizadores();
 
                     }
                 }
@@ -394,7 +443,7 @@ public class ProgramaGM {
 
                             break;
                         case 7:
-                        programa.guardarFicheiroObjectos();
+                        programa.guardarFicheiroUtilizadores();
 
                     }
                 }
