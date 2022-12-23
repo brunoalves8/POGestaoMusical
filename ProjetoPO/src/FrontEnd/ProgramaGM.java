@@ -5,6 +5,7 @@ import BackEnd.Musico;
 import BackEnd.Produtor;
 import BackEnd.Administrador;
 import BackEnd.Album;
+import BackEnd.Instrumento;
 import BackEnd.Musica;
 import BackEnd.Sistema;
 import BackEnd.Utilizador;
@@ -36,7 +37,7 @@ public class ProgramaGM {
 
     }
 
-    private void adicionarMúsico() {
+    /*private void adicionarMúsico() {
         consola.escrever("Criar Novo Musico\n\n");
         String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
@@ -52,6 +53,30 @@ public class ProgramaGM {
         sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, datanasc));
         consola.escrever("Musico adicionado com sucesso!");
         System.out.println(datanasc);
+    }*/
+    
+    //######################################ADICIONAR MUSICO KIKO###############################################
+        private void adicionarMusico() {
+        consola.escrever("Criar Novo Musico\n\n");
+        String nome = consola.lerString("Introduza o nome: ");
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        String username = consola.lerString("Introduza o nome de utilizador: ");
+        
+        while(sistema.getUsers().verificarExisteUtilizador(username) == true){        //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
+                consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
+                username = consola.lerString("Introduza o nome de usuário: ");
+        }      
+        String password = consola.lerString("Introduza a palavra-chave: ");
+        consola.escrever("Insira os instrumentos que o músico toca:");
+        String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
+        String tipoInstrumento = consola.lerString("Introduza o tipo do instrumento: ");
+        String marcaInstrumento = consola.lerString("Introduza a marca do instrumento: ");
+        String modeloInstrumento = consola.lerString("Introduza o modelo do instrumento: ");
+        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, dataNasc));
+        sistema.getInstrumentos().adicicionarInstrumento(new Instrumento(nomeInstrumento, tipoInstrumento, marcaInstrumento, modeloInstrumento));
+        consola.escrever("Musico adicionado com sucesso!");
     }
 
     private void adicionarProdutor() {
@@ -203,8 +228,8 @@ public class ProgramaGM {
     public static void main(String[] args) {
 
         ProgramaGM programa = new ProgramaGM();
-        Utilizador bruno = new Administrador("brinezazao","bruno","Bruno Alves",12345,"Rua dos carvalhos",null);
-
+        Utilizador kiko = new Administrador();
+        programa.
         String[] opcoesAdministrador = {
             "Adicionar Músico/Produtor",
             "Registar Álbum",
@@ -283,7 +308,6 @@ public class ProgramaGM {
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
         
         programa.carregarFicheiroUtilizadores();
-        
         Utilizador tipo = programa.autenticar();
 
         int TipoInteger = 0;
@@ -309,7 +333,7 @@ public class ProgramaGM {
                                 opcao1 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador1);
                                 switch (opcao1) {
                                     case 1:
-                                        programa.adicionarMúsico();
+                                        programa.adicionarMusico();
                                         break;
                                     case 2:
                                         programa.adicionarProdutor();

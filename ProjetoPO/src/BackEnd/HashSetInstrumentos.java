@@ -2,13 +2,14 @@
 package BackEnd;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.TreeSet;
 
-public class SetInstrumentos {
+public class HashSetInstrumentos {
    
-    private Collection<Instrumento> instrumentos = new TreeSet<>();
+    private Collection<Instrumento> instrumentos = new HashSet<>();
 
-    public SetInstrumentos() {
+    public HashSetInstrumentos() {
         instrumentos = new TreeSet<>();
     }
     

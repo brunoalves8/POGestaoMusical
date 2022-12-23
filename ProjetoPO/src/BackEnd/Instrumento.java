@@ -1,7 +1,7 @@
 package BackEnd;
 
 
-public class Instrumento {
+public class Instrumento{
     
     private String nome;
     private String tipo;
@@ -54,6 +54,4 @@ public class Instrumento {
     public String toString() {
         return "Instrumento{" + "nome=" + nome + ", tipo=" + tipo + ", marca=" + marca + ", modelo=" + modelo + '}';
     }
-    
-    
 }

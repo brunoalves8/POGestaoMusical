@@ -11,10 +11,7 @@ public abstract class Utilizador implements Serializable {
     private int bi;
     private String morada;
     private LocalDate dataNasc;
-
-    public Utilizador() {
-        
-    }
+    
 
     public Utilizador(String username, String password, String nome, int bi, String morada, LocalDate dataNasc) {
         this.username = username;
@@ -23,6 +20,14 @@ public abstract class Utilizador implements Serializable {
         this.bi = bi;
         this.morada = morada;
         this.dataNasc = dataNasc;
+    }
+    public Utilizador(){
+        this.username = "admin";
+        this.password = "admin";
+        this.nome = null;
+        this.bi = 0;
+        this.morada = null;
+        this.dataNasc = null;
     }
 
     public String getUsername() {
