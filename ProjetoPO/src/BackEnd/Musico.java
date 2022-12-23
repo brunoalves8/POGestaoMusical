@@ -1,23 +1,17 @@
 package BackEnd;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Musico extends Utilizador {
     
-    private ArrayList<Instrumento> instrumentosMusicoToca = new ArrayList<>();
+    private SetInstrumentos instrumentosMusicoToca;
     
     public Musico(){
     }
 
-    public Musico(String username, String password, String nome, int bi, String morada, LocalDate dataNasc) {
+    public Musico(String username, String password, String nome, int bi, String morada, LocalDate dataNasc, SetInstrumentos instrumentosMusicoToca) {
         super(username, password, nome, bi, morada, dataNasc);
-    }
-
-
-    
-    public void adicionarInstrumento(Instrumento instrumento){
-        instrumentosMusicoToca.add(instrumento);
+        this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
    
 

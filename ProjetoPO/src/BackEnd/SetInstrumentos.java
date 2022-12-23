@@ -4,11 +4,12 @@ package BackEnd;
 import java.util.Collection;
 import java.util.TreeSet;
 
-public class ListaInstrumentos {
+public class SetInstrumentos {
    
     private Collection<Instrumento> instrumentos = new TreeSet<>();
 
-    public ListaInstrumentos() {
+    public SetInstrumentos() {
+        instrumentos = new TreeSet<>();
     }
     
     public void adicicionarInstrumento(Instrumento instrumento){

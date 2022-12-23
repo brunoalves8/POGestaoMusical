@@ -12,6 +12,12 @@ public class Musica {
     private int codigoAlbumAssociado;
     private Collection<Musico> musicos; 
 
+    public Musica(String titulo, double duracao, Collection<Musico> musicos) {
+        this.titulo = titulo;
+        this.duracao = duracao;
+        this.musicos = musicos;
+    }
+
     public Musica(String titulo, double duracao, int codigo) {
         this.titulo = titulo;
         this.duracao = duracao;

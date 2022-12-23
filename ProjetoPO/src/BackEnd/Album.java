@@ -9,10 +9,10 @@ public class Album {
     private String titulo;
     private LocalDate dataEdicao;
     private String tipo;
-    private ArrayList<Musica> musicasDoAlbum;
+    //private ArrayList<Musica> musicasDoAlbum;
 
     public Album() {
-        musicasDoAlbum = new ArrayList<>();
+        //musicasDoAlbum = new ArrayList<>();
     }
 
     public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo) {
@@ -61,7 +61,7 @@ public class Album {
         this.codigo = codigo;
     }
 
-    public ArrayList<Musica> getMusicasDoAlbum() {
+   /* public ArrayList<Musica> getMusicasDoAlbum() {
         return musicasDoAlbum;
     }
     
@@ -83,7 +83,7 @@ public class Album {
         return "Não existe nenhuma música no albúm com esse titulo";
     }
     
-    
+    */
     
 }
     

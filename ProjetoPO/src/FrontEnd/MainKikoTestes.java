@@ -1,6 +1,7 @@
 package FrontEnd;
 
 import BackEnd.Album;
+import BackEnd.Instrumento;
 import BackEnd.MapUtilizadores;
 import BackEnd.Musica;
 import BackEnd.Produtor;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 
-public class MainProdutor {
+public class MainKikoTestes {
 
     private final Sistema sistema = new Sistema();
     private final Consola consola = new Consola();
@@ -80,6 +81,32 @@ public class MainProdutor {
         //sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
     }
     
+    private void adicionarMusico() {
+        consola.escrever("Criar Novo Musico\n\n");
+        String nome = consola.lerString("Introduza o nome: ");
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        String username = consola.lerString("Introduza o nome de utilizador: ");
+        
+        while(sistema.getUsers().verificarExisteUtilizador(username) == true){        //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
+                consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
+                username = consola.lerString("Introduza o nome de usuário: ");
+        }      
+        String password = consola.lerString("Introduza a palavra-chave: ");
+        consola.escrever("Insira os instrumentos que o músico toca:");
+        String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
+        String tipoInstrumento = consola.lerString("Introduza o tipo do instrumento: ");
+        String marcaInstrumento = consola.lerString("Introduza a marca do instrumento: ");
+        String modeloInstrumento = consola.lerString("Introduza o modelo do instrumento: ");
+        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, dataNasc));
+        sistema.getInstrumentos().adicicionarInstrumento(new Instrumento(nomeInstrumento, tipoInstrumento, marcaInstrumento, modeloInstrumento));
+        consola.escrever("Musico adicionado com sucesso!");
+    }
+    
+    
+    
+    
     //Ficheiro do professor
     private void guardarFicheiroUtilizadores() {
         String nomeFicheiro = "Utilizadores";
@@ -92,7 +119,7 @@ public class MainProdutor {
         }
     }
     
-    private void carregarFicheiroObjectos() {
+    private void carregarFicheiroUtilizadores() {
         String nomeFicheiro = "Utilizadores";
         try {
             sistema.getUsers().carregarFicheiroObjetos(nomeFicheiro);
@@ -105,6 +132,20 @@ public class MainProdutor {
     
     
     
+    
+    
+    
+    
+    
+    
+    
+  //###############################PARTE DO BRUNO######################################################
+  //###################################################################################################
+  //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
         private void adicionarMusica() {
         consola.escrever("Nova Musica\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
@@ -141,6 +182,13 @@ public class MainProdutor {
         
     }
     
+    //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
+    //###################################################################################################
     
     
     
@@ -169,7 +217,7 @@ public class MainProdutor {
     
     public static void main(String[] args) {
        
-        MainProdutor mainProdutor = new MainProdutor();
+        MainKikoTestes mainKiko = new MainKikoTestes();
 
         int opcao;
         int opcao1;
@@ -193,34 +241,35 @@ public class MainProdutor {
             "Voltar"};
 
         
-        mainProdutor.consola.escrever("MENU AUTENTICAÇÃO\n");
+        mainKiko.consola.escrever("MENU AUTENTICAÇÃO\n");
         //programa.autenticarAdministrador(); funciona mas não posso tirar de comentario enquanto o ficheiro não guardar
         
         do {
-            opcao = mainProdutor.consola.lerOpcoesMenusInteiros(opcoes);
+            opcao = mainKiko.consola.lerOpcoesMenusInteiros(opcoes);
 
             switch (opcao) {
                 case 1:
                     
                     do {
 
-                        opcao1 = mainProdutor.consola.lerOpcoesMenusInteiros(opcoes1);
+                        opcao1 = mainKiko.consola.lerOpcoesMenusInteiros(opcoes1);
                         switch (opcao1) {
                             case 1:
-                                mainProdutor.adicionarProdutor();
+                                mainKiko.adicionarProdutor();
                                 break;
                             case 2:
-
+                                mainKiko.adicionarMusico();
+                                break;
                             case 3:
                                 
                         }
                     } while (opcao1 != opcoes1.length);
                     break;
                 case 2:
-                    mainProdutor.autenticarProdutor();
+                    mainKiko.autenticarProdutor();
                     break;
                 case 3:
-                    mainProdutor.registarAlbum();
+                    mainKiko.registarAlbum();
                     break;
                 case 4:
 
@@ -237,13 +286,13 @@ public class MainProdutor {
                 case 8:
                     break;
                 case 9:
-                    mainProdutor.guardarFicheiroUtilizadores();
+                    mainKiko.guardarFicheiroUtilizadores();
                     break;
                 case 10:
-                    mainProdutor.carregarFicheiroObjectos();
+                    mainKiko.carregarFicheiroUtilizadores();
                     break;
                 case 11:
-                    mainProdutor.adicionarAlbum();
+                    mainKiko.adicionarAlbum();
                     break;
             }
         } while (opcao != opcoes.length);
