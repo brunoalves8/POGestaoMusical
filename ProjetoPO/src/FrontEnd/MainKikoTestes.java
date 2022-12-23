@@ -14,23 +14,7 @@ public class MainKikoTestes {
 
     private final Sistema sistema = new Sistema();
     private final Consola consola = new Consola();
-
-    //A USAR RECURSIVIDADE
-    /*
-    private void autenticarProdutor() {
-        
-       String username = consola.lerString("Username: ");
-       String password = consola.lerString("Password: ");
-       
-        if(sistema.getUsers().verificarExisteProdutor(username, password) == false){
-            consola.escreverErro("Nome de utilizador ou senha errados!");
-            autenticarProdutor();
-        }else{
-        consola.escrever("Login com sucesso!");
-        }
-    }*/
    
-    //SEM USAR RECURSIVIDADE
     private void autenticarProdutor() {
         
        String username = consola.lerString("Username: ");

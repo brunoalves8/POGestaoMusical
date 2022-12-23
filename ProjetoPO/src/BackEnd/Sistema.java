@@ -5,16 +5,16 @@ public class Sistema {
     
     private final MapUtilizadores users;
     private final SetAlbum albuns;
-    private final SetMusicas musicas;
     private final SetInstrumentos instrumentos;
+    private final MapEdicoesAlbum edicoesAlbum;
     
     
 
     public Sistema() {
         users = new MapUtilizadores();
         albuns = new SetAlbum();
-        musicas = new SetMusicas();
         instrumentos = new SetInstrumentos();
+        edicoesAlbum = new MapEdicoesAlbum();
     }
     
     
@@ -26,11 +26,12 @@ public class Sistema {
         return albuns;
     }
     
-    public SetMusicas getMusicas(){
-        return musicas;
-    }
-    
     public SetInstrumentos getInstrumentos(){
         return instrumentos;
     }
+
+    public MapEdicoesAlbum getEdicoesAlbum() {
+        return edicoesAlbum;
+    }
+    
 }

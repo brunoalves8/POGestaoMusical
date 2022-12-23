@@ -1,20 +1,30 @@
 package BackEnd;
 
+import java.time.LocalDate;
+import java.util.Collection;
+
 public class Requisicao {
 
     private Musico requisitor;
-    private Instrumento requisitado;
-    private String dataRequisicao;
+    private Collection<Instrumento> instrumentos;
     private Sessao sessaoGravacao;
-
+    private LocalDate dataRequisicao;
     public Requisicao() {
     }
 
-    public Requisicao(Musico requisitor, Instrumento requisitado, String dataRequisicao, Sessao sessaoGravacao) {
+    public Requisicao(Musico requisitor, Collection<Instrumento> instrumentos, LocalDate dataRequisicao, Sessao sessaoGravacao) {
         this.requisitor = requisitor;
-        this.requisitado = requisitado;
+        this.instrumentos = instrumentos;
         this.dataRequisicao = dataRequisicao;
         this.sessaoGravacao = sessaoGravacao;
+    }
+
+    public Collection<Instrumento> getInstrumentos() {
+        return instrumentos;
+    }
+
+    public void setInstrumentos(Collection<Instrumento> instrumentos) {
+        this.instrumentos = instrumentos;
     }
 
     public Musico getRequisitor() {
@@ -25,19 +35,11 @@ public class Requisicao {
         this.requisitor = requisitor;
     }
 
-    public Instrumento getRequisitado() {
-        return requisitado;
-    }
-
-    public void setRequisitado(Instrumento requisitado) {
-        this.requisitado = requisitado;
-    }
-
-    public String getDataRequisicao() {
+    public LocalDate getDataRequisicao() {
         return dataRequisicao;
     }
 
-    public void setDataRequisicao(String dataRequisicao) {
+    public void setDataRequisicao(LocalDate dataRequisicao) {
         this.dataRequisicao = dataRequisicao;
     }
 
@@ -51,7 +53,9 @@ public class Requisicao {
 
     @Override
     public String toString() {
-        return "Requisicao{" + "requisitor=" + requisitor + ", requisitado=" + requisitado + ", dataRequisicao=" + dataRequisicao + ", sessaoGravacao=" + sessaoGravacao + '}';
+        return "Requisicao{" + "requisitor=" + requisitor + ", instrumentos=" + instrumentos + ", dataRequisicao=" + dataRequisicao + ", sessaoGravacao=" + sessaoGravacao + '}';
     }
+
+
 
 }

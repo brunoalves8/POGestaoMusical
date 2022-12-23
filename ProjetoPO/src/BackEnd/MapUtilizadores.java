@@ -120,6 +120,16 @@ public class MapUtilizadores {
         }
         return false;
     }
+    
+    public Musico procurarMusicosPorNome(String nome) {
+
+        for (Utilizador u : utilizadores.values()) {
+            if (u.getNome().equals(nome) && (u instanceof Musico)) {
+                return (Musico) u;
+            }
+        }
+        return null;
+    }
 
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
@@ -147,10 +157,6 @@ public class MapUtilizadores {
             texto += u + "\n";
         }
         return texto;
-    }
-
-    public void guardarFicheiroUtilizadores(String nomeFicheiro) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

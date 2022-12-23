@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class HashSetInstrumentos {
+public class SetInstrumentos {
    
     private Collection<Instrumento> instrumentos = new HashSet<>();
 
-    public HashSetInstrumentos() {
+    public SetInstrumentos() {
         instrumentos = new TreeSet<>();
     }
     

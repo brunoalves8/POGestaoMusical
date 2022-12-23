@@ -9,10 +9,10 @@ public class Album {
     private String titulo;
     private LocalDate dataEdicao;
     private String tipo;
-    //private ArrayList<Musica> musicasDoAlbum;
+    private ArrayList<Musica> musicasDoAlbum;
 
     public Album() {
-        //musicasDoAlbum = new ArrayList<>();
+        musicasDoAlbum = new ArrayList<>();
     }
 
     public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo) {
@@ -84,6 +84,14 @@ public class Album {
     }
     
     */
+
+    public ArrayList<Musica> getMusicasDoAlbum() {
+        return musicasDoAlbum;
+    }
+
+    public void setMusicasDoAlbum(ArrayList<Musica> musicasDoAlbum) {
+        this.musicasDoAlbum = musicasDoAlbum;
+    }
     
 }
     

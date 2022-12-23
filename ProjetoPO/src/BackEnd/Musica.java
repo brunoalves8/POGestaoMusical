@@ -1,31 +1,23 @@
 package BackEnd;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.TreeSet;
 
 public class Musica {
 
     private String titulo;
-    private double duracao;
-    private int codigo;
-    private int codigoAlbumAssociado;
+    private int duracao;
     private Collection<Musico> musicos; 
 
-    public Musica(String titulo, double duracao, Collection<Musico> musicos) {
+    public Musica(String titulo, int duracao, Collection<Musico> musicos) {
         this.titulo = titulo;
         this.duracao = duracao;
         this.musicos = musicos;
     }
 
-    public Musica(String titulo, double duracao, int codigo) {
-        this.titulo = titulo;
-        this.duracao = duracao;
-        this.codigo = codigo;
-    }
-
     public Musica() {
-        musicos = new TreeSet<>();
+        musicos = new ArrayList<>();
     }
    
     
@@ -37,34 +29,17 @@ public class Musica {
         this.titulo = titulo;
     }
 
-    public double getDuracao() {
+    public int getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(double duracao) {
+    public void setDuracao(int duracao) {
         this.duracao = duracao;
     }
 
     public void adicionarMusico(Musico musico){
         musicos.add(musico);
     }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public int getCodigoAlbumAssociado() {
-        return codigoAlbumAssociado;
-    }
-
-    public void setCodigoAlbumAssociado(int codigoAlbumAssociado) {
-        this.codigoAlbumAssociado = codigoAlbumAssociado;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
 
     public void removerMusico(int bi) {
         for (Musico m : musicos) {
@@ -76,7 +51,9 @@ public class Musica {
 
     @Override
     public String toString() {
-        return "Musica{" + "titulo=" + titulo + ", duracao=" + duracao + ", codigo=" + codigo +'}';
+        return "Musica{" + "titulo=" + titulo + ", duracao=" + duracao + ", musicos=" + musicos + '}';
     }
+
+
 
 }

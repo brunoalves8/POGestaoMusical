@@ -1,16 +1,15 @@
 package BackEnd;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Collection;
 
 public class Sessao {
 
-    private int codigoSessao;
     private Album albumSerGravado;
-    //private Lo dataFinalGravacao;
     private LocalDate diaDeGravacao;
-    private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
-
+    //private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
+    private Collection<Requisicao> requisicoes; 
+    
     public Sessao(Album albumSerGravado, LocalDate diaDeGravacao) {
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
@@ -24,14 +23,6 @@ public class Sessao {
     }*/
 
     public Sessao() {
-    }
-
-    public int getCodigoSessao() {
-        return codigoSessao;
-    }
-
-    public void setCodigoSessao(int codigoSessao) {
-        this.codigoSessao = codigoSessao;
     }
 
     public Album getAlbumSerGravado() {
@@ -50,13 +41,6 @@ public class Sessao {
         this.dataFinalGravacao = dataFinalGravacao;
     }
 */
-    public ArrayList<Musico> getMusicosSessaoGravacao() {
-        return musicosSessaoGravacao;
-    }
-
-    public void setMusicosSessaoGravacao(ArrayList<Musico> musicosSessaoGravacao) {
-        this.musicosSessaoGravacao = musicosSessaoGravacao;
-    }
 
     public LocalDate getDiaDeGravacao() {
         return diaDeGravacao;

@@ -44,4 +44,13 @@ public class SetAlbum {
         return null;
     }
 
+    public Album procurarAlbumPorTitulo(String titulo) {
+
+        for (Album a : albuns) {
+            if (a.getTitulo().equals(titulo)) {
+                return (Album) a;
+            }
+        }
+        return null;
+    }
 }

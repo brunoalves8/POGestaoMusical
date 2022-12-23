@@ -3,11 +3,11 @@ package BackEnd;
 import java.util.Collection;
 import java.util.TreeSet;
 
-public class setSessoes {
+public class SetSessoes {
     
     private Collection<Sessao> sessoes = new TreeSet<>();
 
-    public setSessoes() {
+    public SetSessoes() {
         sessoes = new TreeSet<>();
     }
 
@@ -22,6 +22,10 @@ public class setSessoes {
             }
         }
         return false;
+    }
+    
+    public void addSessao(Sessao sessao){
+        sessoes.add(sessao);
     }
 
 }

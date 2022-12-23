@@ -21,14 +21,13 @@ public abstract class Utilizador implements Serializable {
         this.morada = morada;
         this.dataNasc = dataNasc;
     }
-    public Utilizador(){
-        this.username = "admin";
-        this.password = "admin";
-        this.nome = null;
-        this.bi = 0;
-        this.morada = null;
-        this.dataNasc = null;
+
+    public Utilizador(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
+    
+
 
     public String getUsername() {
         return username;
