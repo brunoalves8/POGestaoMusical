@@ -209,7 +209,7 @@ public class ProgramaGM {
         int bi = consola.lerInteiro("Introduza o número do CC: ");
         String morada = consola.lerString("Introduza a morada: ");
         LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
-        sistema.getUsers().editarDadosProdutor(produtor);
+        //sistema.getUsers().editarDadosProdutor(produtor);
         sistema.getUsers().atualizarProdutor(new Produtor(nome, bi, morada, dataNascimento));
         consola.escrever("Dados editados com sucesso!");
     }
