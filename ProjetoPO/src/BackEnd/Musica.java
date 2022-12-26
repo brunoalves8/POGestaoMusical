@@ -1,10 +1,11 @@
 package BackEnd;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Musica {
+public class Musica implements Serializable{
 
     private String titulo;
     private int duracao;

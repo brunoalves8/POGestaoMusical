@@ -3,14 +3,13 @@ package BackEnd;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 public class SetInstrumentos {
    
     private Collection<Instrumento> instrumentos = new HashSet<>();
 
     public SetInstrumentos() {
-        instrumentos = new TreeSet<>();
+        instrumentos = new HashSet<>();
     }
     
     public void adicicionarInstrumento(Instrumento instrumento){

@@ -1,6 +1,8 @@
 package BackEnd;
 
-public class EdicaoAlbum {
+import java.io.Serializable;
+
+public class EdicaoAlbum implements Serializable{
    
     private Album album;
     private Produtor produtor;

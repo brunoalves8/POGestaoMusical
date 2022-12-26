@@ -1,9 +1,10 @@
 package BackEnd;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Album {
+public class Album implements Serializable{
     
     private int codigo;
     private String titulo;
@@ -85,6 +86,10 @@ public class Album {
     
     */
 
+    public void adicionarMusica(Musica musica){
+        musicasDoAlbum.add(musica);
+    }
+    
     public ArrayList<Musica> getMusicasDoAlbum() {
         return musicasDoAlbum;
     }

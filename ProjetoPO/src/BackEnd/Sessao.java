@@ -1,9 +1,10 @@
 package BackEnd;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 
-public class Sessao {
+public class Sessao implements Serializable{
 
     private Album albumSerGravado;
     private LocalDate diaDeGravacao;

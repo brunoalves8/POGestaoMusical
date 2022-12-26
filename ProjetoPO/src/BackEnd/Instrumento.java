@@ -1,7 +1,9 @@
 package BackEnd;
 
+import java.io.Serializable;
 
-public class Instrumento{
+
+public class Instrumento implements Serializable{
     
     private String nome;
     private String tipo;

@@ -1,14 +1,14 @@
 package BackEnd;
 
 import java.util.Collection;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 public class SetAlbum {
 
-    private Collection<Album> albuns = new TreeSet<>();
+    private Collection<Album> albuns = new HashSet<>();
 
     public SetAlbum() {
-        albuns = new TreeSet<>();
+        albuns = new HashSet<>();
     }
 
     public void adicionarAlbum(Album album) {

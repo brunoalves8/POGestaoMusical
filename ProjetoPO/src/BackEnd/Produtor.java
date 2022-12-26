@@ -1,9 +1,10 @@
 package BackEnd;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class Produtor extends Utilizador{
+public class Produtor extends Utilizador implements Serializable{
 
     public Produtor(String username, String password) {
         super(username, password);

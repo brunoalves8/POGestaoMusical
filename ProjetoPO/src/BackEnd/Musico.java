@@ -1,9 +1,10 @@
 package BackEnd;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 
-public class Musico extends Utilizador {
+public class Musico extends Utilizador implements Serializable {
     
     private Collection<Instrumento> instrumentosMusicoToca;
 

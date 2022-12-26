@@ -146,32 +146,8 @@ public class ProgramaGM {
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
     }
-        
-
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    // PARTE DO KIKO
-    ////////////////////////////////////////////////////////////////////////////
-    private void autenticarProdutor() {
-
-        String username = consola.lerString("Username: ");
-        String password = consola.lerString("Password: ");
-
-        while (sistema.getUsers().verificarExisteProdutor(username, password) == false) {
-            consola.escreverErro("Nome de utilizador ou senha errados!");
-            username = consola.lerString("Username: ");
-            password = consola.lerString("Password: ");
-        }
-        consola.escrever("Login com sucesso!");
-    }
-
+  
+////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
     private void editarDadosProdutor() {
         consola.escrever("Editar dados Produtor\n\n");
         String nome = consola.lerString("Introduza o nome:");
@@ -201,7 +177,29 @@ public class ProgramaGM {
                     + ex.getMessage());
         }
     }
-
+    
+   /* private void guardarFicheiroSistema() {
+        String nomeFicheiro = "Sistema";
+        try {
+            sistema.getUsers().guardarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro guardado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel criar o ficheiro: "
+                    + ex.getLocalizedMessage());
+        }
+    }
+    
+    private void carregarFicheiroSistema() {
+        String nomeFicheiro = "Sistema";
+        try {
+            sistema.getUsers().carregarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro carregado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel carregar o ficheiro: "
+                    + ex.getMessage());
+        }
+    }
+*/
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
