@@ -26,6 +26,14 @@ public abstract class Utilizador implements Serializable {
         this.username = username;
         this.password = password;
     }
+
+    //Construtor de editar dados
+    public Utilizador(String nome, int bi, String morada, LocalDate dataNasc) {
+        this.nome = nome;
+        this.bi = bi;
+        this.morada = morada;
+        this.dataNasc = dataNasc;
+    }
     
 
 
@@ -81,9 +89,9 @@ public abstract class Utilizador implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome=" + nome + 
-               "Bi=" + bi + 
-               "Morada=" + morada + 
+        return "Nome=" + nome + "\n" +
+               "Bi=" + bi + "\n" +
+               "Morada=" + morada + "\n" +
                "Data Nascimento=" + dataNasc;
     }
     

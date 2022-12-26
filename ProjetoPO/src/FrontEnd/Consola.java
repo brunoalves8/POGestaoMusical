@@ -87,7 +87,7 @@ public class Consola {
 
     public LocalDate lerData(String mensagem) {
 
-        LocalDate data = null;
+        LocalDate data;
         String texto;
 
         do {

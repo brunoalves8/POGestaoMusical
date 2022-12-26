@@ -59,7 +59,15 @@ public class MapUtilizadores {
             }
         }
     }
-
+    
+ /*   public void consultarDadosProdutor(Produtor produtor) {
+        for (Utilizador u : utilizadores.values()) {
+            if (u instanceof Produtor) {
+                u.toString();
+            }
+        }
+    }
+*/
     public void removerProdutor(int cod) {
         for (Utilizador u : utilizadores.values()) {
             if (u instanceof Produtor && u.getBi() == cod) {
@@ -69,15 +77,14 @@ public class MapUtilizadores {
 
     }
 
-    public void editarDadosProdutor(int codigo, Produtor prod) {
+    public void editarDadosProdutor(Produtor prod) {
 
         for (Utilizador u : utilizadores.values()) {
-            if (u instanceof Produtor && u.getBi() == codigo) {
-                ((Produtor) u).setBi(prod.getBi());
+            if (u instanceof Produtor) {
                 ((Produtor) u).setNome(prod.getNome());
+                ((Produtor) u).setBi(prod.getBi());
                 ((Produtor) u).setMorada(prod.getMorada());
                 ((Produtor) u).setDataNasc(prod.getDataNasc());
-
             }
         }
     }
