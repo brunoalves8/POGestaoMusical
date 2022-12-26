@@ -203,11 +203,15 @@ public class ProgramaGM {
         consola.escrever(musico.toString());
     }
     
-    private void editarDadosProdutor() {
+    private void editarDadosProdutor(Produtor produtor) {
         consola.escrever("Editar dados Produtor\n\n");
         String nome = consola.lerString("Introduza o nome:");
-
-        //sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        sistema.getUsers().editarDadosProdutor(produtor);
+        sistema.getUsers().atualizarProdutor(new Produtor(nome, bi, morada, dataNascimento));
+        consola.escrever("Dados editados com sucesso!");
     }
 
     //Fonte:Guardar e Carregar ficheiro do professor TPS
@@ -316,8 +320,7 @@ public class ProgramaGM {
         //Opcoes teste
         String[] opcoesProdutor = {   
             "Ver/editar os seus dados",
-            "Registar Album",
-            "Adicionar Música",
+            "Iniciar/editar a edição de um álbum, definindo as sessões de gravação necessárias",
             "Concluir sessões de gravação",
             "Aceder a informação relativa à situação atual de um determinado album.",
             "Listar os albuns que está a produzir ou que já produziu",
@@ -449,7 +452,8 @@ public class ProgramaGM {
                                         programa.consultarDadosProdutor((Produtor) utilizador);
                                         break;
                                     case 2:
-
+                                        programa.editarDadosProdutor((Produtor)utilizador);
+                                        break;
                                     case 3:
 
                                 }

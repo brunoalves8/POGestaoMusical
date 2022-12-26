@@ -18,6 +18,11 @@ public class MapUtilizadores {
         utilizadores.put(User.getUsername(), User);
 
     }
+    
+    public void atualizarProdutor(Utilizador User) {
+        utilizadores.replace(User.getUsername(), User);
+
+    }
 
     public void removerMusico(int cod) {
         for (Utilizador u : utilizadores.values()) {
@@ -60,14 +65,6 @@ public class MapUtilizadores {
         }
     }
     
- /*   public void consultarDadosProdutor(Produtor produtor) {
-        for (Utilizador u : utilizadores.values()) {
-            if (u instanceof Produtor) {
-                u.toString();
-            }
-        }
-    }
-*/
     public void removerProdutor(int cod) {
         for (Utilizador u : utilizadores.values()) {
             if (u instanceof Produtor && u.getBi() == cod) {
@@ -77,27 +74,18 @@ public class MapUtilizadores {
 
     }
 
-    public void editarDadosProdutor(Produtor prod) {
+    public void editarDadosProdutor(Produtor produtor) {
 
         for (Utilizador u : utilizadores.values()) {
             if (u instanceof Produtor) {
-                ((Produtor) u).setNome(prod.getNome());
-                ((Produtor) u).setBi(prod.getBi());
-                ((Produtor) u).setMorada(prod.getMorada());
-                ((Produtor) u).setDataNasc(prod.getDataNasc());
+                ((Produtor) u).setNome(produtor.getNome());
+                ((Produtor) u).setBi(produtor.getBi());
+                ((Produtor) u).setMorada(produtor.getMorada());
+                ((Produtor) u).setDataNasc(produtor.getDataNasc());
             }
         }
     }
 
-    /* Esta errado
-    public boolean verificarExisteAdministrador(String Username, String Password){
-        
-        for(Utilizador u: utilizadores.values()){
-            if(u.getUsername().compareTo(Username) == 0)
-                return true;      
-        }
-        return false;
-    }*/
     public boolean verificarExisteUser(String username, String password) {
 
         for (Utilizador u : utilizadores.values()) {

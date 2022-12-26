@@ -23,10 +23,14 @@ public class Musico extends Utilizador implements Serializable {
         this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
 
+    public Collection<Instrumento> getInstrumentosMusicoToca() {
+        return instrumentosMusicoToca;
+    }
+
     @Override
     public String toString() {
         return "Musico" + super.toString() + "\n" +
-               "Instrumentos Musico Toca=" + instrumentosMusicoToca;
+               "Instrumentos Musico Toca=" + getInstrumentosMusicoToca();
     }
     
     
