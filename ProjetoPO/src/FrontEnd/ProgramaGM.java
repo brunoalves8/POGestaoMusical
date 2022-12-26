@@ -390,6 +390,7 @@ public class ProgramaGM {
                             break;
                         //Registar instrumento
                         case 3:
+                            programa.adicionarInstrumento();
                             break;
                         //Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
                         case 4:
