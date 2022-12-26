@@ -69,6 +69,7 @@ public class ProgramaGM {
         consola.escrever("Musico adicionado com sucesso!");
     }
 
+    //######################################ADICIONAR PRODUTOR KIKO###############################################
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
         String nome = consola.lerString("Introduza o nome: ");
@@ -82,7 +83,7 @@ public class ProgramaGM {
         }  
         String password = consola.lerString("Introduza a palavra-chave: ");
 
-        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
+        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, datanasc));
         consola.escrever("Produtor adicionado com sucesso!");
     }
     
@@ -148,11 +149,19 @@ public class ProgramaGM {
     }
   
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
-    private void editarDadosProdutor() {
+    private void editarDadosProdutor(Produtor produtor) {
         consola.escrever("Editar dados Produtor\n\n");
-        String nome = consola.lerString("Introduza o nome:");
-
-        //sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
+        String nome = consola.lerString("Introduza o nome: ");
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate datanasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        sistema.getUsers().adicionarUtilizador(new Produtor(nome, bi, morada, datanasc));
+        consola.escrever("Produtor adicionado com sucesso!");
+    }
+    
+    private void consultarDadosProdutor(Produtor utilizador){
+        consola.escrever("Dados do Produtor\n");
+        consola.escrever(utilizador.toString());
     }
 
     //Ficheiro do professor
@@ -178,28 +187,6 @@ public class ProgramaGM {
         }
     }
     
-   /* private void guardarFicheiroSistema() {
-        String nomeFicheiro = "Sistema";
-        try {
-            sistema.getUsers().guardarFicheiroObjetos(nomeFicheiro);
-            consola.escrever("Ficheiro guardado");
-        } catch (Exception ex) {
-            consola.escrever("Não foi possivel criar o ficheiro: "
-                    + ex.getLocalizedMessage());
-        }
-    }
-    
-    private void carregarFicheiroSistema() {
-        String nomeFicheiro = "Sistema";
-        try {
-            sistema.getUsers().carregarFicheiroObjetos(nomeFicheiro);
-            consola.escrever("Ficheiro carregado");
-        } catch (Exception ex) {
-            consola.escrever("Não foi possivel carregar o ficheiro: "
-                    + ex.getMessage());
-        }
-    }
-*/
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -260,7 +247,7 @@ public class ProgramaGM {
         //Opcoes teste
         String[] opcoesProdutor = {   
             "Ver/editar os seus dados",
-            "Registar Album",
+            "Iniciar/editar a edição de um albúm(definindo as sessões de gravação necessárias)",
             "Adicionar Música",
             "Concluir sessões de gravação",
             "Aceder a informação relativa à situação atual de um determinado album.",
@@ -387,10 +374,11 @@ public class ProgramaGM {
                                 opcaoP1 = programa.consola.lerOpcoesMenusInteiros(opcoesProdutor1);
                                 switch (opcaoP1) {
                                     case 1:
-                                        
+                                        programa.consultarDadosProdutor((Produtor)utilizador);
                                         break;
                                     case 2:
-
+                                        //programa.editarDadosProdutor((Produtor) produtor);
+                                        break;
                                     case 3:
 
                                 }
