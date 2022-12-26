@@ -8,6 +8,7 @@ import BackEnd.Album;
 import BackEnd.EdicaoAlbum;
 import BackEnd.Instrumento;
 import BackEnd.Musica;
+import BackEnd.SetInstrumentos;
 import BackEnd.Sistema;
 import BackEnd.Utilizador;
 import java.io.IOException;
@@ -40,9 +41,53 @@ public class ProgramaGM {
 
     }
 
+    public void adicionarInstrumento(){
+    consola.escrever("Criar Novo Instrumento");
+    String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
+    Instrumento instrumento = new Instrumento(nomeInstrumento);
+    
+    sistema.getInstrumentos().adicicionarInstrumento(instrumento);
+    consola.escrever("Instrumento adicionado com sucesso!");
+    }
+    
+    private Instrumento procurarInstrumento(){
+        String nomeInstrumento = consola.lerString("Qual é o nome do instrumento que pretende adicionar?");
+        Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
+        while(instrumento == null){
+            consola.escrever("O instrumento que introduziu não está no sistema\n\n");
+            nomeInstrumento = consola.lerString("Qual é o nome do instrumento que pretende adicionar?");
+            instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
+        }
+        return instrumento;
+    }
+    
+    
     
     //######################################ADICIONAR MUSICO KIKO###############################################
-        private void adicionarMusico() {
+    
+    private void adicionarMusico() {
+        consola.escrever("Criar Novo Musico\n\n");
+        String nome = consola.lerString("Introduza o nome: ");
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        String username = consola.lerString("Introduza o nome de utilizador: ");
+        
+        while(sistema.getUsers().verificarExisteUtilizador(username) == true){        //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
+                consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
+                username = consola.lerString("Introduza o nome de usuário: ");
+        }      
+        String password = consola.lerString("Introduza a palavra-chave: ");
+        int numInstrumentos = consola.lerInteiro("Quantos instrumentos toca o músico:");
+        Collection<Instrumento> instrumentos = new HashSet<>();
+        for (int i = 0; i < numInstrumentos; i++) {
+            instrumentos.add(procurarInstrumento());
+        }
+        sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, dataNasc, instrumentos ));
+        consola.escrever("Musico adicionado com sucesso!");
+    }
+  /*  
+    private void adicionarMusico() {
         consola.escrever("Criar Novo Musico\n\n");
         String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
@@ -60,7 +105,7 @@ public class ProgramaGM {
         String tipoInstrumento = consola.lerString("Introduza o tipo do instrumento: ");
         String marcaInstrumento = consola.lerString("Introduza a marca do instrumento: ");
         String modeloInstrumento = consola.lerString("Introduza o modelo do instrumento: ");
-        Instrumento instrumento = new Instrumento(nomeInstrumento, tipoInstrumento, marcaInstrumento, modeloInstrumento);
+        Instrumento instrumento = new Instrumento(nomeInstrumento);
         Collection<Instrumento> instrumentos = new HashSet<>();
         instrumentos.add(instrumento);
         sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, dataNasc, instrumentos ));
@@ -68,7 +113,7 @@ public class ProgramaGM {
         sistema.getInstrumentos().adicicionarInstrumento(instrumento);
         consola.escrever("Musico adicionado com sucesso!");
     }
-
+*/
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
         String nome = consola.lerString("Introduza o nome: ");
