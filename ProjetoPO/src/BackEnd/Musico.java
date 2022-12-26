@@ -17,11 +17,15 @@ public class Musico extends Utilizador implements Serializable {
         super(username, password, nome, bi, morada, dataNasc);
         this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
-   
+
+    public Musico(Collection<Instrumento> instrumentosMusicoToca, String nome, int bi, String morada, LocalDate dataNasc) {
+        super(nome, bi, morada, dataNasc);
+        this.instrumentosMusicoToca = instrumentosMusicoToca;
+    }
 
     @Override
     public String toString() {
-        return "Musico{" + super.toString() +
+        return "Musico" + super.toString() + "\n" +
                "Instrumentos Musico Toca=" + instrumentosMusicoToca;
     }
     

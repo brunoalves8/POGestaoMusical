@@ -119,7 +119,7 @@ public class ProgramaGM {
         String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
         String morada = consola.lerString("Introduza a morada: ");
-        LocalDate datanasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
         String username = consola.lerString("Introduza o nome de utilizador: ");
         while(sistema.getUsers().verificarExisteUtilizador(username) == true){
             consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
@@ -127,7 +127,7 @@ public class ProgramaGM {
         }  
         String password = consola.lerString("Introduza a palavra-chave: ");
 
-        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
+        sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, dataNascimento));
         consola.escrever("Produtor adicionado com sucesso!");
     }
     
@@ -193,6 +193,16 @@ public class ProgramaGM {
     }
   
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
+    private void consultarDadosProdutor(Produtor produtor){
+        consola.escrever("Dados do Produtor\n");
+        consola.escrever(produtor.toString());
+    }
+    
+    private void consultarDadosMusico(Musico musico){
+        consola.escrever("Dados do Músico\n");
+        consola.escrever(musico.toString());
+    }
+    
     private void editarDadosProdutor() {
         consola.escrever("Editar dados Produtor\n\n");
         String nome = consola.lerString("Introduza o nome:");
@@ -200,7 +210,7 @@ public class ProgramaGM {
         //sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, null));
     }
 
-    //Ficheiro do professor
+    //Fonte:Guardar e Carregar ficheiro do professor TPS
     private void guardarFicheiroUtilizadores() {
         String nomeFicheiro = "Utilizadores";
         try {
@@ -223,10 +233,11 @@ public class ProgramaGM {
         }
     }
     
-   /* private void guardarFicheiroSistema() {
-        String nomeFicheiro = "Sistema";
+    
+    private void guardarFicheiroInstrumentos() {
+        String nomeFicheiro = "Instrumentos";
         try {
-            sistema.getUsers().guardarFicheiroObjetos(nomeFicheiro);
+            sistema.getInstrumentos().guardarFicheiroObjetos(nomeFicheiro);
             consola.escrever("Ficheiro guardado");
         } catch (Exception ex) {
             consola.escrever("Não foi possivel criar o ficheiro: "
@@ -234,17 +245,17 @@ public class ProgramaGM {
         }
     }
     
-    private void carregarFicheiroSistema() {
-        String nomeFicheiro = "Sistema";
+    private void carregarFicheiroInstrumentos() {
+        String nomeFicheiro = "Instrumentos";
         try {
-            sistema.getUsers().carregarFicheiroObjetos(nomeFicheiro);
+            sistema.getInstrumentos().carregarFicheiroObjetos(nomeFicheiro);
             consola.escrever("Ficheiro carregado");
         } catch (Exception ex) {
             consola.escrever("Não foi possivel carregar o ficheiro: "
                     + ex.getMessage());
         }
     }
-*/
+
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -345,6 +356,7 @@ public class ProgramaGM {
 
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
         
+        programa.carregarFicheiroInstrumentos();
         programa.carregarFicheiroUtilizadores();
         Utilizador admin = new Administrador("admin", "admin");
         programa.sistema.getUsers().adicionarUtilizador(admin);
@@ -406,6 +418,7 @@ public class ProgramaGM {
                             break;
                         //
                         case 8:
+                            programa.guardarFicheiroInstrumentos();
                             programa.guardarFicheiroUtilizadores();
 
                     }
@@ -433,7 +446,7 @@ public class ProgramaGM {
                                 opcaoP1 = programa.consola.lerOpcoesMenusInteiros(opcoesProdutor1);
                                 switch (opcaoP1) {
                                     case 1:
-                                        
+                                        programa.consultarDadosProdutor((Produtor) utilizador);
                                         break;
                                     case 2:
 
@@ -483,7 +496,7 @@ public class ProgramaGM {
                                 opcaoM1 = programa.consola.lerOpcoesMenusInteiros(opcoesMusico1);
                                 switch (opcaoM1) {
                                     case 1:
-                                        
+                                        programa.consultarDadosMusico((Musico) utilizador);
                                         break;
                                     case 2:
 
@@ -508,6 +521,7 @@ public class ProgramaGM {
 
                             break;
                         case 7:
+                        programa.guardarFicheiroInstrumentos();
                         programa.guardarFicheiroUtilizadores();
 
                     }
