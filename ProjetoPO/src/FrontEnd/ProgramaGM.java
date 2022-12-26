@@ -102,7 +102,7 @@ public class ProgramaGM {
         String titulo = consola.lerString("Introduza o nome: ");
         int duracao = consola.lerInteiro("Introduza a duração da música: ");
         int numMusicos = consola.lerInteiro("Quantos músicos fazem parte da música?");
-        Collection<Musico> musicos = new HashSet();
+        Collection<Musico> musicos = new HashSet<>();
         for(int i = 0; i<numMusicos; i++){
             musicos.add(procurarMusico());
         } 
@@ -118,7 +118,7 @@ public class ProgramaGM {
         LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");      
         Album album = new Album(titulo, dataEdicao, tipo);
         int numMusicas = consola.lerInteiro("Quantas músicas pretende adicionar ao álbum?");
-        Collection<Musica> musicas = new HashSet(); 
+        Collection<Musica> musicas = new HashSet<>(); 
         for(int i = 0; i< numMusicas; i++){
           musicas.add(criarMusica());
         }
