@@ -1,91 +1,43 @@
 # POGestaoMusical
 
-## Back End:
-- [ ] Class abstract Utilizador
-  - [X] Nome: String
-  - [X] BI: int
-  - [X] Morada: String
-  - [ ] CriarMúsico()
-  - [ ] RemoverMusico()
-  - [ ] CriarProdutor()
-  - [ ] RemoverProdutor()
+   # Músico
+  - [X] 1. Autenticar 
+  - [ ] 2. Ver/editar os seus dados
+    - [X] 2.1. Ver os seus dados
+    - [ ] 2.2 Editar os seus dados 
+  - [ ] 3. Ver os álbuns a que está associado
+  - [ ] 4. Ver as sessões gravações que tem agendadas
+  - [ ] 5. Fazer a requisição de instrumentos para uma determinada sessão de gravação
+  - [ ] 6. Ver o estado das sessões de gravação (agendada ou concluída) 
 
-- [ ] Class Album
-  - [X] Titulo: String
-  - [X] DataEdição: String
-  - [X] codigo: int
-  - [X] Tipo: String
-  - [X] Array tipo Música
-  - [X] AdicionarMusica()
-  - [X] RemoverMusica()
-
-- [ ] Class Musica
-  - [X] Titulo: String
-  - [X] Duração: double
-  - [X] Array tipo Músico
-  - [X] AdicionarMusico()
-  - [X] RemoverMusico()
+    # Administrador
+  - [X] 1. Autenticar-se como administrador
+  - [ ] 2. Adicionar/apagar utilizadores do tipo Músico e do tipo Produtor
+    - [X] 2.1. Adicionar Músicos/Produtores
+    - [ ] 2.2. Apagar Músicos/Produtores
+  - [X] 3. Registar álbuns
+  - [X] 4. Registar instrumentos de música
+  - [ ] 5. Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
+  - [ ] 6. Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos.
+  - [ ] 7. Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação
+    concluídas)
+  - [ ] 8. Mostrar estatísticas totais ou para um determinado mês:
+    - [ ] a. Total de álbuns em edição
+    - [ ] b. Média da percentagem de sessões de gravação concluídas
+    - [ ] c. Total de álbuns concluídos 
  
-- [ ] Class Instrumento
-  - [ ] Nome: String
-  - [ ] Tipo: String
-  - [ ] Marca: String
-  - [ ] Modelo: String
- 
-- [ ] Class Sessão
-  - [X] codSessao: int
-  - [X] AlbumASerGravado: Album
-  - [X] DataFinalGravação: String
-  - [ ] Array tipo Musico
-  - [ ] ComeçarSessao()
-  - [ ] TerminarSessao()
- 
-- [ ] Class Requisição
-  - [X] Requisitor: Musico
-  - [X] Requisitado: Instrumento
-  - [X] DataRequisição: String
-  - [X] SessaoGravação: Sessao
-  
-- [ ] Class EdicaoAlbum
-  - [ ] produtor: Produtor
-  - [ ] sessoes : Sessao[]
-
-- [ ] Class ListaUtilizadores
-  - [X] Utilizadores tipo Utilizador[]
-  - [ ] RemoverUtilizador()
-  - [ ] CriarUtilizador()
-  - [ ] EditarUtilizador()
-  - [ ] VerificarExisteUtilizador()  
- 
-- [ ] Class Musico extends Utilizador
-  - [X] Array tipo Instrumento
-  - [ ] RequisitarInstrumento()
-  - [ ] DevolverInstrumento()
-
-- [ ] Class Administrador extends Utilizador
-  - [ ] CriarProdutor()
-  - [ ] RemoverProdutor()
-  - [ ] CriarMusico()
-  - [ ] RemoverMusico()
-  - [ ] RegistarAlbumEMusicas()
-  - [ ] ApagarAlbumEMusicas()
-  - [ ] RegistarInstrumentosExistentes()
-  - [ ] RemoverInstrumentosExistentes()  
-
-- [ ] Class Produtor extends Utilizador
-  - [ ] Array tipo Album
-  - [ ] RegistarGravaçãoDeUmAlbum()
-
-
-- [ ] Class ListaAlbum
-
-- [ ] Class ListaSessao
-
-- [ ] Class ListaRequisição
-
-- [ ] Class ListaInstrumentos
-
-- [ ] Class ListaMusicas
-
-## Front End:
-- [ ] Interface 
+ # Produtor
+  - [X] 1. Autenticar
+  - [X] 2. Ver/editar os seus dados
+    - [x] 2.1. Ver os seus dados
+    - [ ] 2.2. Editar os seus dados 
+  - [ ] 3. Iniciar/editar a edição de um álbum, definindo as sessões de gravação
+    necessárias
+    - [X] 3.1. Iniciar edições de album
+    - [ ] 3.2. Editar ediçoes de album
+    - [ ] 3.3. Definir sessões de gravação
+  - [ ] 4. Concluir sessões de gravação
+  - [ ] 5. Aceder a informação relativa à situação atual (estado, sessões de gravação,
+    etc.) de um determinado álbum
+  - [ ] 6. Listar os álbuns que produz ou produziu
+  - [ ] 7. Listar as sessões de gravação agendadas para um dia 
