@@ -14,5 +14,5 @@ public class MapEdicoesAlbum {
         edicoesAlbum.put(edicaoAlbum.getAlbum(), edicaoAlbum);
     }
     
-    
+
 }

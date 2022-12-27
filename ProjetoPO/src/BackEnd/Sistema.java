@@ -7,6 +7,7 @@ public class Sistema {
     private final SetAlbum albuns;
     private final SetInstrumentos instrumentos;
     private final MapEdicoesAlbum edicoesAlbum;
+    private final SetSessoes sessoes;
     
 
    /* public Sistema(MapUtilizadores users, SetAlbum albuns, SetInstrumentos instrumentos, MapEdicoesAlbum edicoesAlbum) {
@@ -21,6 +22,7 @@ public class Sistema {
         albuns = new SetAlbum();
         instrumentos = new SetInstrumentos();
         edicoesAlbum = new MapEdicoesAlbum();
+        sessoes = new SetSessoes();
     }
     
     
@@ -38,6 +40,10 @@ public class Sistema {
 
     public MapEdicoesAlbum getEdicoesAlbum() {
         return edicoesAlbum;
+    }
+    
+    public SetSessoes getSessoes(){
+        return sessoes;
     }
     
    /* public Sistema getSistema(){

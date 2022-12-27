@@ -6,12 +6,19 @@ import java.util.Collection;
 
 public class Sessao implements Serializable{
 
-    private Album albumSerGravado;
+    //private Album albumSerGravado;
+    private EdicaoAlbum albumSerGravado;
     private LocalDate diaDeGravacao;
     //private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
     private Collection<Requisicao> requisicoes; 
     
-    public Sessao(Album albumSerGravado, LocalDate diaDeGravacao) {
+ /*   public Sessao(Album albumSerGravado, LocalDate diaDeGravacao) {
+        this.albumSerGravado = albumSerGravado;
+        this.diaDeGravacao = diaDeGravacao;
+    }
+   */
+
+    public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao) {
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
     }
@@ -26,23 +33,29 @@ public class Sessao implements Serializable{
     public Sessao() {
     }
 
-    public Album getAlbumSerGravado() {
+
+    public EdicaoAlbum getAlbumSerGravado() {
         return albumSerGravado;
     }
 
+    /*   public Album getAlbumSerGravado() {
+    return albumSerGravado;
+    }
     public void setAlbumSerGravado(Album albumSerGravado) {
+    this.albumSerGravado = albumSerGravado;
+    }
+     */
+    public void setAlbumSerGravado(EdicaoAlbum albumSerGravado) {
         this.albumSerGravado = albumSerGravado;
     }
 
-  /*  public String getDataFinalGravacao() {
-        return dataFinalGravacao;
+    /*  public String getDataFinalGravacao() {
+    return dataFinalGravacao;
     }
-
     public void setDataFinalGravacao(String dataFinalGravacao) {
-        this.dataFinalGravacao = dataFinalGravacao;
+    this.dataFinalGravacao = dataFinalGravacao;
     }
-*/
-
+     */
     public LocalDate getDiaDeGravacao() {
         return diaDeGravacao;
     }

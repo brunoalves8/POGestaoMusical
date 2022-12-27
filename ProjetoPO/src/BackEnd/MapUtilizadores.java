@@ -125,6 +125,8 @@ public class MapUtilizadores {
         }
         return null;
     }
+    
+
 
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);

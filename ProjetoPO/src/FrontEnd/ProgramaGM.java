@@ -8,6 +8,8 @@ import BackEnd.Album;
 import BackEnd.EdicaoAlbum;
 import BackEnd.Instrumento;
 import BackEnd.Musica;
+import BackEnd.Requisicao;
+import BackEnd.Sessao;
 import BackEnd.SetInstrumentos;
 import BackEnd.Sistema;
 import BackEnd.Utilizador;
@@ -173,7 +175,27 @@ public class ProgramaGM {
     }
     
     //Ponto 3 produtor
-    
+   /* private Sessao criarSessao() {
+        consola.escrever("Nova Sessão\n\n");
+        String titulo = consola.lerString("Introduza o nome: ");
+        //int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
+        LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+        for(int i = 0; i<numDias; i++){
+            LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+        }
+        Sessao sessao = new Sessao(titulo, dataEdicao);
+        Collection<Requisicao> requisicoes = new HashSet<>();
+        String opcao = consola.lerString("Pretende requisitar instrumentos?(s/n)");
+        if("s".equals(opcao)){
+            int numInstrumentos = consola.lerInteiro("Quantos instrumentos pretende requisitar?");
+                for(int i = 0; i<numInstrumentos; i++){
+                    requisicoes.add(procurarInstrumento());
+                } 
+        }
+        sistema.getSessoes().adicionarSessao(sessao);
+        consola.escrever("Música criada com sucesso!");      
+        
+    }*/
     private Album procurarAlbum(){
         String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende editar?");
         Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
@@ -185,13 +207,54 @@ public class ProgramaGM {
         return album;
     }
     
+    private Album procurarAlbumParaConcluirSessao(){
+        String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
+        Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
+        while(album == null){
+            consola.escrever("O álbum que introduziu não está no sistema\n\n");
+            tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
+            album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
+        }
+        return album;
+    }
+    
     private void iniciarEdicaoAlbum(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbum();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
+        
     }
-  
+    
+    private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
+        consola.escrever("Edição de Álbum\n\n");
+        Album album = procurarAlbum();
+        EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
+        sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
+        consola.escrever("\nDefinir sessoes\n");
+        int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
+        //LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+        for(int i = 0; i<numDias; i++){
+            LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+            Sessao sessao = new Sessao(edicaoAlbum, dataEdicao);
+            sistema.getSessoes().adicionarSessao(sessao);
+        }
+        consola.escrever("Sessões agendadas com sucesso!");
+    }
+    //Ponto 4 PRODUTOR (Concluir Sessoes)
+    public void concluirSessaoGravacao(Produtor utilizador){
+        consola.escrever("Concluir Sessao de Gravação\n\n");
+        //Album album = procurarAlbumParaConcluirSessao();
+        LocalDate dataSessao = consola.lerData("Qual é a data da sessão que pretende concluir?(aaaa-mm-dd)");
+        while(sistema.getSessoes().verificarExisteSessao(dataSessao) == false){
+            consola.escreverErro("Esse álbum não tem nenhuma sessão agendada para esse dia!");
+            dataSessao = consola.lerData("Introduza outra data(aaaa-mm-dd):");
+        }
+        sistema.getSessoes().concluirSessaoGravacao(dataSessao);
+        consola.escrever("Sessao concluida com sucesso");
+        
+    }
+    
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
     private void consultarDadosProdutor(Produtor produtor){
         consola.escrever("Dados do Produtor\n");
@@ -215,6 +278,7 @@ public class ProgramaGM {
     }
 
     //Fonte:Guardar e Carregar ficheiro do professor TPS
+    //Guardar e carregar ficheiros Utilizadores
     private void guardarFicheiroUtilizadores() {
         String nomeFicheiro = "Utilizadores";
         try {
@@ -237,7 +301,7 @@ public class ProgramaGM {
         }
     }
     
-    
+    //Guardar e carregar ficheiros Instrumentos
     private void guardarFicheiroInstrumentos() {
         String nomeFicheiro = "Instrumentos";
         try {
@@ -253,6 +317,52 @@ public class ProgramaGM {
         String nomeFicheiro = "Instrumentos";
         try {
             sistema.getInstrumentos().carregarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro carregado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel carregar o ficheiro: "
+                    + ex.getMessage());
+        }
+    }
+    
+    //Guardar e carregar ficheiros Albuns
+    private void guardarFicheiroAlbuns() {
+        String nomeFicheiro = "Albuns";
+        try {
+            sistema.getAlbuns().guardarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro guardado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel criar o ficheiro: "
+                    + ex.getLocalizedMessage());
+        }
+    }
+    
+    private void carregarFicheiroAlbuns() {
+        String nomeFicheiro = "Albuns";
+        try {
+            sistema.getAlbuns().carregarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro carregado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel carregar o ficheiro: "
+                    + ex.getMessage());
+        }
+    }
+    
+    //Guardar e carregar ficheiros Sessoes
+    private void guardarFicheiroSessoes() {
+        String nomeFicheiro = "Sessoes";
+        try {
+            sistema.getSessoes().guardarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro guardado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel criar o ficheiro: "
+                    + ex.getLocalizedMessage());
+        }
+    }
+    
+    private void carregarFicheiroSessoes() {
+        String nomeFicheiro = "Sessoes";
+        try {
+            sistema.getSessoes().carregarFicheiroObjetos(nomeFicheiro);
             consola.escrever("Ficheiro carregado");
         } catch (Exception ex) {
             consola.escrever("Não foi possivel carregar o ficheiro: "
@@ -359,8 +469,10 @@ public class ProgramaGM {
 
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
         
+        programa.carregarFicheiroAlbuns();
         programa.carregarFicheiroInstrumentos();
         programa.carregarFicheiroUtilizadores();
+        
         Utilizador admin = new Administrador("admin", "admin");
         programa.sistema.getUsers().adicionarUtilizador(admin);
         Utilizador utilizador = programa.autenticar();
@@ -421,6 +533,7 @@ public class ProgramaGM {
                             break;
                         //
                         case 8:
+                            programa.guardarFicheiroAlbuns();
                             programa.guardarFicheiroInstrumentos();
                             programa.guardarFicheiroUtilizadores();
 
@@ -460,10 +573,10 @@ public class ProgramaGM {
                             } while (opcaoP1 != opcoesProdutor1.length);
                             break;
                         case 2:
-                            
+                            programa.iniciarEdicaoAlbumDefinindoSessoes((Produtor) utilizador);
                             break;
                         case 3:
-                            programa.iniciarEdicaoAlbum((Produtor) utilizador);
+                            
                             break;
                         case 4:
 
