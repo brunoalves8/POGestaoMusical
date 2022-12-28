@@ -4,13 +4,14 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class SetSessoes {
-    
+public class SetSessoes implements Serializable {
+
     private Collection<Sessao> sessoes = new HashSet<>();
 
     public SetSessoes() {
@@ -25,11 +26,11 @@ public class SetSessoes {
         }
         return true;
     }
-    
-    public void adicionarSessao(Sessao sessao){
+
+    public void adicionarSessao(Sessao sessao) {
         sessoes.add(sessao);
     }
-    
+
     public boolean verificarExisteSessao(LocalDate dataSessao) {
 
         for (Sessao s : sessoes) {
@@ -39,14 +40,49 @@ public class SetSessoes {
         }
         return false;
     }
+    
+
+    
+    public Sessao procurarSessaoParaEditar(LocalDate dataSessao) {
+
+        for (Sessao s : sessoes) {
+            if (s.getDiaDeGravacao().compareTo(dataSessao) == 0) {
+                return s;
+            }
+        }
+        return null;
+    }
+   
+    
+    
+    public Collection<Sessao> listarSessoesAgendadas(){
+        Collection<Sessao> sessoesAgendadas= new HashSet<>();
+        for (Sessao s : sessoes) {
+            if (s.isSessaoConcluida()==false) {
+                sessoesAgendadas.add(s);
+                System.out.println(s.toString());
+            }
+        }
+        return sessoesAgendadas;
+    }
+    
+    public Collection<Sessao> listarSessoesConcluidas(){
+        Collection<Sessao> sessoesConcluidas = new HashSet<>();
+        for (Sessao s : sessoes) {
+            if (s.isSessaoConcluida()==true) {
+                sessoesConcluidas.add(s);
+                System.out.println(s.toString());
+            }
+        }
+        return sessoesConcluidas;
+    }
+
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
-        FileOutputStream fos = new FileOutputStream(nomeFicheiro);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        oos.writeObject(sessoes);
-
-        oos.close();
-        fos.close();
+        try (FileOutputStream fos = new FileOutputStream(nomeFicheiro); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            
+            oos.writeObject(sessoes);
+            
+        }
     }
 
     public void carregarFicheiroObjetos(String nomeFicheiro) throws Exception {
@@ -56,4 +92,10 @@ public class SetSessoes {
         oin.close();
         file.close();
     }
+
+    @Override
+    public String toString() {
+        return "Sessoes" + sessoes.toString() + '}';
+    }
+    
 }

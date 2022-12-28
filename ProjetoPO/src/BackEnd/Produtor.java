@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 public class Produtor extends Utilizador implements Serializable{
 
-    public Produtor(String username, String password) {
-        super(username, password);
+    public Produtor(String username, String password, String nome) {
+        super(username, password, nome);
     }
     
     public Produtor(String username, String password, String nome, int bi, String morada, LocalDate dataNasc) {

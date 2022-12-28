@@ -14,6 +14,7 @@ import BackEnd.SetInstrumentos;
 import BackEnd.Sistema;
 import BackEnd.Utilizador;
 import java.io.IOException;
+import static java.lang.System.exit;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -53,11 +54,11 @@ public class ProgramaGM {
     }
     
     private Instrumento procurarInstrumento(){
-        String nomeInstrumento = consola.lerString("Qual é o nome do instrumento que pretende adicionar?");
+        String nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
         Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
         while(instrumento == null){
             consola.escrever("O instrumento que introduziu não está no sistema\n\n");
-            nomeInstrumento = consola.lerString("Qual é o nome do instrumento que pretende adicionar?");
+            nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
             instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
         }
         return instrumento;
@@ -134,7 +135,7 @@ public class ProgramaGM {
     }
     
     private Musico procurarMusico(){
-        String nomeMusico = consola.lerString("Qual é o nome do músico que pretende adicionar?");
+        String nomeMusico = consola.lerString("Qual o nome do músico?");
         Musico musico = sistema.getUsers().procurarMusicosPorNome(nomeMusico);
         while(musico == null){
             consola.escrever("O músico que introduziu não está no sistema\n\n");
@@ -144,6 +145,7 @@ public class ProgramaGM {
         return musico;
     }
     
+    //ALBUM
     private Musica criarMusica() {
         consola.escrever("Nova Musica\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
@@ -164,7 +166,7 @@ public class ProgramaGM {
         String tipo = consola.lerString("Introduza o tipo: ");
         LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");      
         Album album = new Album(titulo, dataEdicao, tipo);
-        int numMusicas = consola.lerInteiro("Quantas músicas pretende adicionar ao álbum?");
+        int numMusicas = consola.lerInteiro("Por quantas músicas é composto o álbum?");
         Collection<Musica> musicas = new HashSet<>(); 
         for(int i = 0; i< numMusicas; i++){
           musicas.add(criarMusica());
@@ -172,6 +174,11 @@ public class ProgramaGM {
         
         sistema.getAlbuns().adicionarAlbum(album);
 
+    }
+    
+    
+    public void listarInstrumentos(){
+        consola.escrever(sistema.getInstrumentos().toString());
     }
     
     //Ponto 3 produtor
@@ -196,6 +203,7 @@ public class ProgramaGM {
         consola.escrever("Música criada com sucesso!");      
         
     }*/
+            
     private Album procurarAlbum(){
         String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende editar?");
         Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
@@ -236,7 +244,7 @@ public class ProgramaGM {
         //LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
         for(int i = 0; i<numDias; i++){
             LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
-            Sessao sessao = new Sessao(edicaoAlbum, dataEdicao);
+            Sessao sessao = new Sessao(edicaoAlbum, dataEdicao, false);
             sistema.getSessoes().adicionarSessao(sessao);
         }
         consola.escrever("Sessões agendadas com sucesso!");
@@ -250,9 +258,21 @@ public class ProgramaGM {
             consola.escreverErro("Esse álbum não tem nenhuma sessão agendada para esse dia!");
             dataSessao = consola.lerData("Introduza outra data(aaaa-mm-dd):");
         }
-        sistema.getSessoes().concluirSessaoGravacao(dataSessao);
-        consola.escrever("Sessao concluida com sucesso");
-        
+        sistema.getSessoes().procurarSessaoParaEditar(dataSessao).setSessaoConcluida(true);
+        consola.escrever("Sessao concluida com sucesso");  
+    }
+    
+    //Listar Sessoes
+    
+    public String listarSessoesAgendadas(){
+       consola.escrever("Sessões Agendadas");
+       return sistema.getSessoes().listarSessoesAgendadas().toString();
+       
+    }
+    
+    public String listarSessoesConcluidas(){
+       consola.escrever("Sessões Agendadas");
+       return sistema.getSessoes().listarSessoesConcluidas().toString();
     }
     
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
@@ -397,9 +417,9 @@ public class ProgramaGM {
             "Adicionar Músico/Produtor",
             "Registar Álbum",
             "Registar instrumentos de música",
-            "Listar os pedidos de requisição por estado (pendente, atribuído, recusado)",
-            "Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos",
-            "CListar os álbuns em edição e o seu estado (percentagem de sessões de gravação concluídas)",
+            "Listar Instrumentos",
+            "Guardar Ficheiros",
+            "Carregar Ficheiros",
             "Mostrar estatísticas totais ou para um determinado mês: a. Total de álbuns em edição b. Média da percentagem de sessões de gravação concluídas c. Total de álbuns concluídos",
             "Sair"};
 
@@ -466,15 +486,55 @@ public class ProgramaGM {
             "Editar dados Produtor",
             "Voltar"
         };
+        
+        String[] opcoesMusico5 = {
+            "Ver Sessoes Agendadas",
+            "Ver Sessoes Concluidas",
+            "Voltar"
+        };
 
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
         
         programa.carregarFicheiroAlbuns();
         programa.carregarFicheiroInstrumentos();
         programa.carregarFicheiroUtilizadores();
+        programa.carregarFicheiroSessoes();
         
-        Utilizador admin = new Administrador("admin", "admin");
+        
+        
+        
+        //Criar Administardores
+        Utilizador admin = new Administrador("admin", "admin", "administrador",5,"Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(admin);
+        //Criar Produtoes
+        Utilizador prod = new Produtor("prod", "prod", "produtor",4,"Rua", null);
+        programa.sistema.getUsers().adicionarUtilizador(prod);
+        // Criar Músicos eInstrumentos
+        Instrumento inst = new Instrumento("Piano");
+        programa.sistema.getInstrumentos().adicicionarInstrumento(inst);
+        Instrumento inst2 = new Instrumento("Guitarra");
+        programa.sistema.getInstrumentos().adicicionarInstrumento(inst2);
+        Instrumento inst3 = new Instrumento("Violino");
+        programa.sistema.getInstrumentos().adicicionarInstrumento(inst3);
+        Instrumento inst4 = new Instrumento("Pandeireta");
+        programa.sistema.getInstrumentos().adicicionarInstrumento(inst4);
+        Instrumento inst5 = new Instrumento("Violao");
+        programa.sistema.getInstrumentos().adicicionarInstrumento(inst5);
+        Collection<Instrumento> instrumentosMus1 = new HashSet<>();
+        instrumentosMus1.add(inst);
+        instrumentosMus1.add(inst2);
+        Utilizador mus = new Musico("drake", "drake", "Drake", 1, "Rua", null, instrumentosMus1);
+        programa.sistema.getUsers().adicionarUtilizador(mus);
+        Collection<Instrumento> instrumentosMus2 = new HashSet<>();
+        instrumentosMus2.add(inst3);
+        instrumentosMus2.add(inst4);       
+        Utilizador mus2 = new Musico("ye", "ye", "Kayne West", 2, "Rua", null, instrumentosMus2);
+        programa.sistema.getUsers().adicionarUtilizador(mus2);
+        Collection<Instrumento> instrumentosMus3 = new HashSet<>();
+        instrumentosMus3.add(inst5);       
+        Utilizador mus3 = new Musico("rhianna", "rhianna", "Rhianna", 3, "Rua", null, instrumentosMus3);
+        programa.sistema.getUsers().adicionarUtilizador(mus3);
+        
         Utilizador utilizador = programa.autenticar();
 
         int TipoInteger = 0;
@@ -506,6 +566,10 @@ public class ProgramaGM {
                                         programa.adicionarProdutor();
                                         break;
                                     case 3:
+                                    programa.guardarFicheiroAlbuns();
+                                    programa.guardarFicheiroInstrumentos();
+                                    programa.guardarFicheiroUtilizadores();
+                                    programa.guardarFicheiroSessoes();
 
                                 }
                             } while (opcao1 != opcoesAdministrador1.length);
@@ -521,12 +585,20 @@ public class ProgramaGM {
                             break;
                         //Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
                         case 4:
+                            programa.listarInstrumentos();
                             break;
                         //
                         case 5:
+                            programa.guardarFicheiroAlbuns();
+                            programa.guardarFicheiroInstrumentos();
+                            programa.guardarFicheiroUtilizadores();
+                            programa.guardarFicheiroSessoes();
                             break;
                         //
                         case 6:
+                            programa.carregarFicheiroAlbuns();
+                            programa.carregarFicheiroInstrumentos();
+                            programa.carregarFicheiroUtilizadores();
                             break;
                         //
                         case 7:
@@ -536,6 +608,7 @@ public class ProgramaGM {
                             programa.guardarFicheiroAlbuns();
                             programa.guardarFicheiroInstrumentos();
                             programa.guardarFicheiroUtilizadores();
+                            programa.guardarFicheiroSessoes();
 
                     }
                 }
@@ -568,6 +641,10 @@ public class ProgramaGM {
                                         programa.editarDadosProdutor((Produtor)utilizador);
                                         break;
                                     case 3:
+                                    programa.guardarFicheiroAlbuns();
+                                    programa.guardarFicheiroInstrumentos();
+                                    programa.guardarFicheiroUtilizadores();
+                                    programa.guardarFicheiroSessoes();
 
                                 }
                             } while (opcaoP1 != opcoesProdutor1.length);
@@ -585,7 +662,12 @@ public class ProgramaGM {
 
                             break;
                         case 6:
+                            break;
+                        case 7:
+                        programa.guardarFicheiroAlbuns();
+                        programa.guardarFicheiroInstrumentos();
                         programa.guardarFicheiroUtilizadores();
+                        programa.guardarFicheiroSessoes();
 
                     }
                 }
@@ -626,20 +708,34 @@ public class ProgramaGM {
                             
                             break;
                         case 3:
-
+                            
                             break;
                         case 4:
 
                             break;
                         case 5:
+                            int opcaoM5 = 0;
+                            do {
 
+                                opcaoM5 = programa.consola.lerOpcoesMenusInteiros(opcoesMusico5);
+                                switch (opcaoM5) {
+                                    case 1:
+                                        programa.listarSessoesAgendadas();
+                                        break;
+                                    case 2:
+                                        programa.listarSessoesConcluidas();
+                                        break;
+                                    case 3:
+
+                                }
+                            } while (opcaoM5 != opcoesMusico1.length);
                             break;
                         case 6:
-
-                            break;
-                        case 7:
+                        programa.guardarFicheiroAlbuns();
                         programa.guardarFicheiroInstrumentos();
                         programa.guardarFicheiroUtilizadores();
+                        programa.guardarFicheiroSessoes();
+                        exit(0);
 
                     }
                 }

@@ -22,4 +22,10 @@ public class Instrumento implements Serializable{
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
+    public String toString() {
+        return "Instrumento{" + "nome=" + nome + '}';
+    }
+    
 }

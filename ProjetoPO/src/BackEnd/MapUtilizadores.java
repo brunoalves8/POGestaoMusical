@@ -4,9 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
-public class MapUtilizadores {
+public class MapUtilizadores implements Serializable{
 
     private HashMap<String, Utilizador> utilizadores;
 
@@ -119,8 +120,8 @@ public class MapUtilizadores {
     public Musico procurarMusicosPorNome(String nome) {
 
         for (Utilizador u : utilizadores.values()) {
-            if (u.getNome().equals(nome) && (u instanceof Musico)) {
-                return (Musico) u;
+            if ((u instanceof Musico) && ((Musico)u).getNome().equals(nome)) {
+                return ((Musico)u);
             }
         }
         return null;

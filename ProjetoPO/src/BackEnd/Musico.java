@@ -8,8 +8,8 @@ public class Musico extends Utilizador implements Serializable {
     
     private Collection<Instrumento> instrumentosMusicoToca;
 
-    public Musico(String username, String password) {
-        super(username, password);
+    public Musico(String username, String password, String nome) {
+        super(username, password, nome);
     }
     
 

@@ -4,11 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class SetInstrumentos {
+public class SetInstrumentos implements Serializable {
 
     private Collection<Instrumento> instrumentos = new HashSet<>();
 
@@ -79,4 +80,11 @@ public class SetInstrumentos {
         oin.close();
         file.close();
     }
+
+    @Override
+    public String toString() {
+        return "Lista Instrumentos\n\n" + instrumentos.toString() + "\n";
+    }
+    
+    
 }

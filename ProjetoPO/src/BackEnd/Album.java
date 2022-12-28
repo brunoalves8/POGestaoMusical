@@ -97,6 +97,12 @@ public class Album implements Serializable{
     public void setMusicasDoAlbum(ArrayList<Musica> musicasDoAlbum) {
         this.musicasDoAlbum = musicasDoAlbum;
     }
+
+    @Override
+    public String toString() {
+        return "Album{" + "codigo=" + codigo + ", titulo=" + titulo +'}';
+    }
+    
     
 }
     

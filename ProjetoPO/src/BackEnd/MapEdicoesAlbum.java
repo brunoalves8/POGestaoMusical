@@ -1,8 +1,9 @@
 package BackEnd;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class MapEdicoesAlbum {
+public class MapEdicoesAlbum implements Serializable{
     
     private HashMap<Album, EdicaoAlbum> edicoesAlbum;
 

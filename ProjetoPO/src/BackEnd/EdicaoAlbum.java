@@ -41,8 +41,14 @@ public class EdicaoAlbum implements Serializable{
         this.sessoes = sessoes;
     }
     
-    public void adicionarSessao(Sessao sessao){
+    /*public void adicionarSessao(Sessao sessao){
         sessoes.addSessao(sessao);
+    }
+    */
+
+    @Override
+    public String toString() {
+        return "EdicaoAlbum{" + "album=" + album + '}';
     }
     
     

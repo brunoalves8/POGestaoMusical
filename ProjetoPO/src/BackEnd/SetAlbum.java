@@ -4,10 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class SetAlbum {
+public class SetAlbum implements Serializable {
 
     private Collection<Album> albuns = new HashSet<>();
 

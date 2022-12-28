@@ -11,6 +11,7 @@ public class Sessao implements Serializable{
     private LocalDate diaDeGravacao;
     //private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
     private Collection<Requisicao> requisicoes; 
+    private boolean sessaoConcluida;
     
  /*   public Sessao(Album albumSerGravado, LocalDate diaDeGravacao) {
         this.albumSerGravado = albumSerGravado;
@@ -24,11 +25,11 @@ public class Sessao implements Serializable{
     }
     
 
-    /*public Sessao(int codigoSessao, Album albumSerGravado, String dataFinalGravacao) {
-        this.codigoSessao = codigoSessao;
+    public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, boolean estadoSessao) {
         this.albumSerGravado = albumSerGravado;
-        this.dataFinalGravacao = dataFinalGravacao;
-    }*/
+        this.diaDeGravacao = diaDeGravacao;
+        this.sessaoConcluida = estadoSessao;
+    }
 
     public Sessao() {
     }
@@ -64,4 +65,18 @@ public class Sessao implements Serializable{
         this.diaDeGravacao = diaDeGravacao;
     }
 
+    public boolean isSessaoConcluida() {
+        return sessaoConcluida;
+    }
+
+    public void setSessaoConcluida(boolean sessaoConcluida) {
+        this.sessaoConcluida = sessaoConcluida;
+    }
+
+    @Override
+    public String toString() {
+        return "Sessao{" + "albumSerGravado=" + albumSerGravado + ", diaDeGravacao=" + diaDeGravacao + '}';
+    }
+     
+    
 }

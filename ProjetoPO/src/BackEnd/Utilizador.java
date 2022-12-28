@@ -22,9 +22,10 @@ public abstract class Utilizador implements Serializable {
         this.dataNasc = dataNasc;
     }
 
-    public Utilizador(String username, String password) {
+    public Utilizador(String username, String password, String nome) {
         this.username = username;
         this.password = password;
+        this.nome = nome;
     }
 
     //Construtor de editar dados

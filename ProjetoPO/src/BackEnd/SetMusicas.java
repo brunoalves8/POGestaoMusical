@@ -1,9 +1,10 @@
 package BackEnd;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.TreeSet;
 
-public class SetMusicas {
+public class SetMusicas implements Serializable{
 
     private Collection<Musica> musicas;
 
