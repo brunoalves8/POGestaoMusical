@@ -59,6 +59,26 @@ public class SetAlbum implements Serializable {
         return null;
     }
     
+    public boolean verificarAlbumPorCod(int codigo) {
+
+        for (Album a : albuns) {
+            if (a.getCodigo() == codigo) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Album procurarAlbumPorCod(int codigo) {
+
+        for (Album a : albuns) {
+            if (a.getCodigo() == codigo) {
+                return a;
+            }
+        }
+        return null;
+    }
+    
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

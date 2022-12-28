@@ -3,6 +3,8 @@ package BackEnd;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class Album implements Serializable{
     
@@ -10,11 +12,20 @@ public class Album implements Serializable{
     private String titulo;
     private LocalDate dataEdicao;
     private String tipo;
-    private ArrayList<Musica> musicasDoAlbum;
+    private Collection<Musica> musicasDoAlbum;
 
     public Album() {
-        musicasDoAlbum = new ArrayList<>();
+        musicasDoAlbum = new HashSet<>();
     }
+
+    public Album(int codigo,String titulo, LocalDate dataEdicao, String tipo, Collection<Musica> musicasDoAlbum) {
+        this.codigo=codigo;
+        this.titulo = titulo;
+        this.dataEdicao = dataEdicao;
+        this.tipo = tipo;
+        this.musicasDoAlbum = musicasDoAlbum;
+    }
+    
 
     public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo) {
         this.codigo = codigo;
@@ -85,16 +96,18 @@ public class Album implements Serializable{
     }
     
     */
+    
+  
 
     public void adicionarMusica(Musica musica){
         musicasDoAlbum.add(musica);
     }
     
-    public ArrayList<Musica> getMusicasDoAlbum() {
+    public Collection<Musica> getMusicasDoAlbum() {
         return musicasDoAlbum;
     }
 
-    public void setMusicasDoAlbum(ArrayList<Musica> musicasDoAlbum) {
+    public void setMusicasDoAlbum(Collection<Musica> musicasDoAlbum) {
         this.musicasDoAlbum = musicasDoAlbum;
     }
 

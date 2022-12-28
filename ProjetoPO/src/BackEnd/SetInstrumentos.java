@@ -51,7 +51,15 @@ public class SetInstrumentos implements Serializable {
         return null;
     }
      */
-    
+    public boolean verificarInstrumentoPorNome(String nome) {
+
+        for (Instrumento i : instrumentos) {
+            if (i.getNome().equalsIgnoreCase(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public Instrumento procurarInstrumentoPorNome(String nome) {
 

@@ -47,6 +47,10 @@ public class ProgramaGM {
     public void adicionarInstrumento(){
     consola.escrever("Criar Novo Instrumento");
     String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
+    while(sistema.getInstrumentos().verificarInstrumentoPorNome(nomeInstrumento) == true){
+        consola.escreverErro("O instrumento introduzido já existe no sistema");
+        nomeInstrumento = consola.lerString("Introduza o novamente um instrumento: ");
+    }
     Instrumento instrumento = new Instrumento(nomeInstrumento);
     
     sistema.getInstrumentos().adicicionarInstrumento(instrumento);
@@ -163,15 +167,19 @@ public class ProgramaGM {
     private void registarAlbum() {
         consola.escrever("Registar Álbum\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
+        int codigo = consola.lerInteiro("Introduza um código para o álbum:");
+        while(sistema.getAlbuns().verificarAlbumPorCod(codigo) == true){
+            consola.escreverErro("Este codigo já está associado a outro álbum, por favor insira outro!");
+            codigo = consola.lerInteiro("Introduza um novo código: ");
+        } 
         String tipo = consola.lerString("Introduza o tipo: ");
         LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");      
-        Album album = new Album(titulo, dataEdicao, tipo);
         int numMusicas = consola.lerInteiro("Por quantas músicas é composto o álbum?");
         Collection<Musica> musicas = new HashSet<>(); 
         for(int i = 0; i< numMusicas; i++){
           musicas.add(criarMusica());
         }
-        
+        Album album = new Album(codigo,titulo, dataEdicao, tipo, musicas);
         sistema.getAlbuns().adicionarAlbum(album);
 
     }
@@ -205,15 +213,27 @@ public class ProgramaGM {
     }*/
             
     private Album procurarAlbum(){
-        String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende editar?");
+        String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende consultar?");
         Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
         while(album == null){
-            consola.escrever("O álbum que introduziu não está no sistema\n\n");
-            tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende editar?");
+            consola.escreverErro("O álbum que introduziu não está no sistema\n\n");
+            tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende consultar?");
             album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
         }
         return album;
     }
+    
+    private Album procurarAlbumPorCod(){
+        int codigo = consola.lerInteiro("Qual é o cod do álbum que pretende consultar?");
+        Album album = sistema.getAlbuns().procurarAlbumPorCod(codigo);
+        while(album == null){
+            consola.escreverErro("O codigo que introduziu não corresponde a nenhum álbum do sistema\n\n");
+            codigo = consola.lerInteiro("Qual é o cod do álbum que pretende consultar?");
+            album = sistema.getAlbuns().procurarAlbumPorCod(codigo);
+        }
+        return album;
+    }
+    
     
     private Album procurarAlbumParaConcluirSessao(){
         String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
@@ -244,6 +264,10 @@ public class ProgramaGM {
         //LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
         for(int i = 0; i<numDias; i++){
             LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+            while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
+                consola.escreverErro("Já existe uma sessão marcada para esse dia");
+                dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
+            }
             Sessao sessao = new Sessao(edicaoAlbum, dataEdicao, false);
             sistema.getSessoes().adicionarSessao(sessao);
         }
@@ -262,7 +286,13 @@ public class ProgramaGM {
         consola.escrever("Sessao concluida com sucesso");  
     }
     
+    
+    
     //Listar Sessoes
+    
+    public Collection<Album> listarAlbunsDoMusico(Musico musico){
+       consola.escrever("Àlbuns em que está presente");
+    }
     
     public String listarSessoesAgendadas(){
        consola.escrever("Sessões Agendadas");
@@ -520,20 +550,54 @@ public class ProgramaGM {
         programa.sistema.getInstrumentos().adicicionarInstrumento(inst4);
         Instrumento inst5 = new Instrumento("Violao");
         programa.sistema.getInstrumentos().adicicionarInstrumento(inst5);
+        
         Collection<Instrumento> instrumentosMus1 = new HashSet<>();
         instrumentosMus1.add(inst);
         instrumentosMus1.add(inst2);
         Utilizador mus = new Musico("drake", "drake", "Drake", 1, "Rua", null, instrumentosMus1);
         programa.sistema.getUsers().adicionarUtilizador(mus);
+        
         Collection<Instrumento> instrumentosMus2 = new HashSet<>();
         instrumentosMus2.add(inst3);
         instrumentosMus2.add(inst4);       
         Utilizador mus2 = new Musico("ye", "ye", "Kayne West", 2, "Rua", null, instrumentosMus2);
         programa.sistema.getUsers().adicionarUtilizador(mus2);
+        
         Collection<Instrumento> instrumentosMus3 = new HashSet<>();
         instrumentosMus3.add(inst5);       
         Utilizador mus3 = new Musico("rhianna", "rhianna", "Rhianna", 3, "Rua", null, instrumentosMus3);
         programa.sistema.getUsers().adicionarUtilizador(mus3);
+        
+        //Criar Albúm e Musicas
+        Collection<Musico> musicos = new HashSet<>();
+        musicos.add((Musico) mus2);
+        musicos.add((Musico) mus3);
+        
+        Collection<Musico> musicos2 = new HashSet<>();
+        musicos.add((Musico) mus);
+        Musica musica = new Musica("Behind Barz",234,musicos);
+        programa.sistema.getMusicas().adicionarMusica(musica);
+        Musica musica2 = new Musica("Jimmy Cooks",234,musicos2);
+        programa.sistema.getMusicas().adicionarMusica(musica2);
+        
+        Collection<Musica> musicasAlbm1 = new HashSet<>();
+        musicasAlbm1.add(musica);
+        musicasAlbm1.add(musica2);
+  
+        Album albm = new Album(12345,"Donda",null,"Rap",musicasAlbm1);
+        programa.sistema.getAlbuns().adicionarAlbum(albm);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         Utilizador utilizador = programa.autenticar();
 
@@ -653,7 +717,7 @@ public class ProgramaGM {
                             programa.iniciarEdicaoAlbumDefinindoSessoes((Produtor) utilizador);
                             break;
                         case 3:
-                            
+                            programa.concluirSessaoGravacao((Produtor) utilizador);
                             break;
                         case 4:
 

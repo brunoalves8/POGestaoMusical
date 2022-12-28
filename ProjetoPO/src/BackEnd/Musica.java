@@ -4,13 +4,15 @@ package BackEnd;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Musica implements Serializable{
 
     private String titulo;
     private int duracao;
     private Collection<Musico> musicos; 
-
+    
+    
     public Musica(String titulo, int duracao, Collection<Musico> musicos) {
         this.titulo = titulo;
         this.duracao = duracao;
@@ -18,7 +20,7 @@ public class Musica implements Serializable{
     }
 
     public Musica() {
-        musicos = new ArrayList<>();
+        musicos = new HashSet<>();
     }
    
     

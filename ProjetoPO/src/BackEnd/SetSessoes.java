@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.chrono.IsoChronology;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,7 +35,7 @@ public class SetSessoes implements Serializable {
     public boolean verificarExisteSessao(LocalDate dataSessao) {
 
         for (Sessao s : sessoes) {
-            if (s.getDiaDeGravacao().compareTo(dataSessao) == 0) {
+            if (s.getDiaDeGravacao().compareTo(dataSessao) == 0 ) {
                 return true;
             }
         }
