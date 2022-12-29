@@ -18,6 +18,12 @@ public class Sessao implements Serializable{
         this.diaDeGravacao = diaDeGravacao;
     }
    */
+    public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, Collection<Requisicao> requisicoes, boolean sessaoConcluida) {
+        this.albumSerGravado = albumSerGravado;
+        this.diaDeGravacao = diaDeGravacao;
+        this.requisicoes = requisicoes;
+        this.sessaoConcluida = sessaoConcluida;
+    }
 
     public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao) {
         this.albumSerGravado = albumSerGravado;
@@ -39,24 +45,18 @@ public class Sessao implements Serializable{
         return albumSerGravado;
     }
 
-    /*   public Album getAlbumSerGravado() {
-    return albumSerGravado;
-    }
-    public void setAlbumSerGravado(Album albumSerGravado) {
-    this.albumSerGravado = albumSerGravado;
-    }
-     */
     public void setAlbumSerGravado(EdicaoAlbum albumSerGravado) {
         this.albumSerGravado = albumSerGravado;
     }
+ 
+    public Collection<Requisicao> getRequisicoes() {
+        return requisicoes;
+    }
 
-    /*  public String getDataFinalGravacao() {
-    return dataFinalGravacao;
+    public void setRequisicoes(Collection<Requisicao> requisicoes) {    
+        this.requisicoes = requisicoes;
     }
-    public void setDataFinalGravacao(String dataFinalGravacao) {
-    this.dataFinalGravacao = dataFinalGravacao;
-    }
-     */
+
     public LocalDate getDiaDeGravacao() {
         return diaDeGravacao;
     }

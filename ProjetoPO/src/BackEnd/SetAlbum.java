@@ -20,6 +20,7 @@ public class SetAlbum implements Serializable {
         albuns.add(album);
     }
 
+ /*
     public void removerAlbum(int cod) {
         for (Album albm : albuns) {
             if (albm.getCodigo() == cod) {
@@ -48,7 +49,7 @@ public class SetAlbum implements Serializable {
         System.out.println("Não existe nenhum album com esse codigo.");
         return null;
     }
-
+*/
     public Album procurarAlbumPorTitulo(String titulo) {
 
         for (Album a : albuns) {
@@ -59,7 +60,7 @@ public class SetAlbum implements Serializable {
         return null;
     }
     
-    public boolean verificarAlbumPorCod(int codigo) {
+  /*  public boolean verificarAlbumPorCod(int codigo) {
 
         for (Album a : albuns) {
             if (a.getCodigo() == codigo) {
@@ -78,7 +79,7 @@ public class SetAlbum implements Serializable {
         }
         return null;
     }
-    
+    */
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

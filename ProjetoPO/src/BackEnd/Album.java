@@ -2,13 +2,11 @@ package BackEnd;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
 public class Album implements Serializable{
-    
-    private int codigo;
+   
     private String titulo;
     private LocalDate dataEdicao;
     private String tipo;
@@ -18,21 +16,13 @@ public class Album implements Serializable{
         musicasDoAlbum = new HashSet<>();
     }
 
-    public Album(int codigo,String titulo, LocalDate dataEdicao, String tipo, Collection<Musica> musicasDoAlbum) {
-        this.codigo=codigo;
+    public Album(String titulo, LocalDate dataEdicao, String tipo, Collection<Musica> musicasDoAlbum) {
         this.titulo = titulo;
         this.dataEdicao = dataEdicao;
         this.tipo = tipo;
         this.musicasDoAlbum = musicasDoAlbum;
     }
     
-
-    public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo) {
-        this.codigo = codigo;
-        this.titulo = titulo;
-        this.dataEdicao = dataEdicao;
-        this.tipo = tipo;
-    }
 
     public Album(String titulo, LocalDate dataEdicao, String tipo) {
         this.titulo = titulo;
@@ -65,26 +55,7 @@ public class Album implements Serializable{
         this.tipo = tipo;
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-   /* public ArrayList<Musica> getMusicasDoAlbum() {
-        return musicasDoAlbum;
-    }
-    
-    public void setMusicasDoAlbum(ArrayList<Musica> musicasDoAlbum) {
-        this.musicasDoAlbum = musicasDoAlbum;
-    }
-      
-    public void adicionarMusica(Musica music){
-        musicasDoAlbum.add(music);
-    }
-    
+/* 
     public String removerMusica(String nomeMusica){
         for (Musica m: musicasDoAlbum) {
             if(m.getTitulo().equals(nomeMusica)){
@@ -96,8 +67,7 @@ public class Album implements Serializable{
     }
     
     */
-    
-  
+     
 
     public void adicionarMusica(Musica musica){
         musicasDoAlbum.add(musica);
@@ -113,9 +83,10 @@ public class Album implements Serializable{
 
     @Override
     public String toString() {
-        return "Album{" + "codigo=" + codigo + ", titulo=" + titulo +'}';
+        return "Album{" + "titulo=" + titulo + ", tipo=" + tipo + '}';
     }
-    
+
+
     
 }
     

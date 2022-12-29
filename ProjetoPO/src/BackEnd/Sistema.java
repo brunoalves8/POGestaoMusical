@@ -9,6 +9,7 @@ public class Sistema {
     private final MapEdicoesAlbum edicoesAlbum;
     private final SetSessoes sessoes;
     private final SetMusicas musicas;
+    private final RepositorioRequisicoes requisicoes;
 
    /* public Sistema(MapUtilizadores users, SetAlbum albuns, SetInstrumentos instrumentos, MapEdicoesAlbum edicoesAlbum) {
         this.users = users;
@@ -24,6 +25,7 @@ public class Sistema {
         edicoesAlbum = new MapEdicoesAlbum();
         sessoes = new SetSessoes();
         musicas = new SetMusicas();
+        requisicoes = new RepositorioRequisicoes();
     }
     
     
@@ -47,6 +49,10 @@ public class Sistema {
         return sessoes;
     }
     
+    public RepositorioRequisicoes getRequisicoes(){
+        return requisicoes;
+    }
+    
     
    /* public Sistema getSistema(){
         Sistema sistema = new Sistema(getUsers(), getAlbuns(), getInstrumentos(), getEdicoesAlbum());
@@ -56,4 +62,5 @@ public class Sistema {
     public SetMusicas getMusicas() {
         return musicas;
     }
+
 }

@@ -6,9 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.chrono.IsoChronology;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class SetSessoes implements Serializable {
@@ -44,11 +42,11 @@ public class SetSessoes implements Serializable {
     
 
     
-    public Sessao procurarSessaoParaEditar(LocalDate dataSessao) {
+    public Sessao procurarSessao(LocalDate dataSessao) {
 
         for (Sessao s : sessoes) {
             if (s.getDiaDeGravacao().compareTo(dataSessao) == 0) {
-                return s;
+                return (Sessao) s;
             }
         }
         return null;
@@ -70,7 +68,7 @@ public class SetSessoes implements Serializable {
     public Collection<Sessao> listarSessoesAgendadasPorMusico(Musico musico){
         Collection<Sessao> sessoesAgendadas= new HashSet<>();
         for (Sessao s : sessoes) {
-            if (s.isSessaoConcluida()==false && s.getAlbumSerGravado().getAlbum().getMusicasDoAlbum().) {
+            if (s.isSessaoConcluida()==false) {
                 sessoesAgendadas.add(s);
                 System.out.println(s.toString());
             }
