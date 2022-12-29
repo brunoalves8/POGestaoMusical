@@ -167,6 +167,11 @@ public class ProgramaGM {
     private void registarAlbum() {
         consola.escrever("Registar Álbum\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
+        int codigo = consola.lerInteiro("Introduza um código para o álbum:");
+        while(sistema.getAlbuns().verificarAlbumPorCod(codigo) == true){
+            consola.escreverErro("Este codigo já está associado a outro álbum, por favor insira outro!");
+            codigo = consola.lerInteiro("Introduza um novo código: ");
+        } 
         String tipo = consola.lerString("Introduza o tipo: ");
         LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");      
         int numMusicas = consola.lerInteiro("Por quantas músicas é composto o álbum?");
@@ -174,7 +179,7 @@ public class ProgramaGM {
         for(int i = 0; i< numMusicas; i++){
           musicas.add(criarMusica());
         }
-        Album album = new Album(titulo, dataEdicao, tipo, musicas);
+        Album album = new Album(codigo, titulo, dataEdicao, tipo, musicas);
         sistema.getAlbuns().adicionarAlbum(album);
     }
     
@@ -205,7 +210,8 @@ public class ProgramaGM {
         consola.escrever("Música criada com sucesso!");      
         
     }*/
-            
+
+    /*POR TITULO
     private Album procurarAlbum(){
         String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende consultar?");
         Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
@@ -215,9 +221,8 @@ public class ProgramaGM {
             album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
         }
         return album;
-    }
-    
-  /*  private Album procurarAlbumPorCod(){
+    }*/
+    private Album procurarAlbumPorCod(){
         int codigo = consola.lerInteiro("Qual é o cod do álbum que pretende consultar?");
         Album album = sistema.getAlbuns().procurarAlbumPorCod(codigo);
         while(album == null){
@@ -227,7 +232,7 @@ public class ProgramaGM {
         }
         return album;
     }
-    */
+    
     
     private Album procurarAlbumParaConcluirSessao(){
         String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
@@ -242,7 +247,7 @@ public class ProgramaGM {
     
     private void iniciarEdicaoAlbum(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
-        Album album = procurarAlbum();
+        Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
         
@@ -250,7 +255,7 @@ public class ProgramaGM {
     
     private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
-        Album album = procurarAlbum();
+        Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
         consola.escrever("\nDefinir sessoes\n");
@@ -642,7 +647,7 @@ public class ProgramaGM {
         musicasAlbm1.add(musica);
         musicasAlbm1.add(musica2);
   
-        Album albm = new Album("Donda",null,"Rap",musicasAlbm1);
+        Album albm = new Album(12345, "Donda",null,"Rap",musicasAlbm1);
         programa.sistema.getAlbuns().adicionarAlbum(albm);
         
         

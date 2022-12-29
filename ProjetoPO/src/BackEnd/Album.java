@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 public class Album implements Serializable{
    
+    private int codigo;
     private String titulo;
     private LocalDate dataEdicao;
     private String tipo;
@@ -16,18 +17,33 @@ public class Album implements Serializable{
         musicasDoAlbum = new HashSet<>();
     }
 
-    public Album(String titulo, LocalDate dataEdicao, String tipo, Collection<Musica> musicasDoAlbum) {
+    public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo, Collection<Musica> musicasDoAlbum) {
+        this.codigo = codigo;
         this.titulo = titulo;
         this.dataEdicao = dataEdicao;
         this.tipo = tipo;
         this.musicasDoAlbum = musicasDoAlbum;
     }
-    
 
     public Album(String titulo, LocalDate dataEdicao, String tipo) {
         this.titulo = titulo;
         this.dataEdicao = dataEdicao;
         this.tipo = tipo;
+    }
+
+    public Album(int codigo, String titulo, LocalDate dataEdicao, String tipo) {
+        this.codigo = codigo;
+        this.titulo = titulo;
+        this.dataEdicao = dataEdicao;
+        this.tipo = tipo;
+    }
+    
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
 
@@ -54,6 +70,7 @@ public class Album implements Serializable{
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+    
 
 /* 
     public String removerMusica(String nomeMusica){
