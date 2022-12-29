@@ -8,7 +8,7 @@
   - [ ] 3. Ver os álbuns a que está associado
   - [ ] 4. Ver as sessões gravações que tem agendadas
   - [ ] 5. Fazer a requisição de instrumentos para uma determinada sessão de gravação
-  - [ ] 6. Ver o estado das sessões de gravação (agendada ou concluída) 
+  - [X] 6. Ver o estado das sessões de gravação (agendada ou concluída) 
 
     # Administrador
   - [X] 1. Autenticar-se como administrador
@@ -35,8 +35,8 @@
     necessárias
     - [X] 3.1. Iniciar edições de album
     - [ ] 3.2. Editar ediçoes de album
-    - [ ] 3.3. Definir sessões de gravação
-  - [ ] 4. Concluir sessões de gravação
+    - [X] 3.3. Definir sessões de gravação
+  - [X] 4. Concluir sessões de gravação
   - [ ] 5. Aceder a informação relativa à situação atual (estado, sessões de gravação,
     etc.) de um determinado álbum
   - [ ] 6. Listar os álbuns que produz ou produziu
