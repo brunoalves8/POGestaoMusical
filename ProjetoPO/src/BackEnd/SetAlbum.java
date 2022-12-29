@@ -80,6 +80,16 @@ public class SetAlbum implements Serializable {
         return null;
     }
     
+   /* public Collection<EdicaoAlbum> listarAlbunsProdutor(Produtor produtor){
+        Collection<EdicaoAlbum> albuns = new HashSet<>();
+        for (EdicaoAlbum a : albuns) {
+            if (a.getProdutor()== produtor) {
+                albuns.add(a);
+                System.out.println(a.toString());
+            }
+        }
+        return albuns;
+    }*/
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

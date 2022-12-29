@@ -121,6 +121,16 @@ public class ProgramaGM {
         consola.escrever("Musico adicionado com sucesso!");
     }
 */
+    private void removerProdutor(Produtor produtor){
+        consola.escrever("Remover Produtor\n\n");
+        String username = consola.lerString("Introduza o nome de utilizador do produtor: ");
+        while(sistema.getUsers().verificarExisteUtilizador(username) == false){
+            consola.escreverErro("Este nome de utilizador não existe no sistema, por favor insira outro!");
+            username = consola.lerString("Introduza o nome de utilizador: ");
+        }  
+        sistema.getUsers().removerProdutor(username, produtor);
+        consola.escrever("Produtor removido com sucesso!");
+    }
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
         String nome = consola.lerString("Introduza o nome: ");
@@ -130,7 +140,7 @@ public class ProgramaGM {
         String username = consola.lerString("Introduza o nome de utilizador: ");
         while(sistema.getUsers().verificarExisteUtilizador(username) == true){
             consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
-            username = consola.lerString("Introduza o nome de usuário: ");
+            username = consola.lerString("Introduza o nome de utilizador: ");
         }  
         String password = consola.lerString("Introduza a palavra-chave: ");
 
@@ -287,7 +297,7 @@ public class ProgramaGM {
     
     
     //Ponto 5 Músico
-    private Sessao procurarSessao(){
+    private Sessao procurarSessaoParaRequisitar(){
         LocalDate dataSessao = consola.lerData("Qual é a data da sessão para a qual pretende requisitar instrumentos?");
         Sessao sessao = sistema.getSessoes().procurarSessao(dataSessao);
         while(sessao == null){
@@ -309,7 +319,7 @@ public class ProgramaGM {
     }
     public void RequisitarInstrumentosParaSessao(Musico musico){
         consola.escrever("Requisitar Instrumentos\n\n");
-        Sessao sessao = procurarSessao();
+        Sessao sessao = procurarSessaoParaRequisitar();
         int numInstrumentos = consola.lerInteiro("Quantos instrumentos pretende requisitar?");
         Collection<Instrumento> instrumentos = new HashSet<>();
         for (int i = 0; i < numInstrumentos; i++) {
@@ -322,7 +332,16 @@ public class ProgramaGM {
     
     
     //Listar Sessoes
-    
+    private Sessao procurarSessaoParaListar(){
+        LocalDate dataSessao = consola.lerData("Introduza a data:");
+        Sessao sessao = sistema.getSessoes().procurarSessao(dataSessao);
+        while(sessao == null){
+            consola.escreverErro("Não há nenhuma sessão agendada para essa data.\n\n");
+            dataSessao = consola.lerData("Introduza outra data:");
+            sessao = sistema.getSessoes().procurarSessao(dataSessao);
+        }
+        return sessao;
+    }
     /*public Collection<Album> listarAlbunsDoMusico(Musico musico){
        consola.escrever("Álbuns em que está presente");
        return sistema.getAlbuns().
@@ -343,6 +362,16 @@ public class ProgramaGM {
        return sistema.getSessoes().listarSessoesConcluidas().toString();
     }
     
+    public String listarAlbunsProdutor(Produtor produtor){
+       consola.escrever("Álbuns Produzidos");
+       return sistema.getEdicoesAlbum().listarAlbunsProdutor(produtor).toString();
+    }
+  /*  public String listarSessoesAgendadasProdutorPorDia(){
+        consola.escrever("Sessões Agendadas");
+        Sessao sessao = procurarSessaoParaListar();
+        return sistema.getSessoes().listarSessoesAgendadasPorProdutor(sessao).toString();
+    }
+    */
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
     private void consultarDadosProdutor(Produtor produtor){
         consola.escrever("Dados do Produtor\n");
@@ -504,7 +533,7 @@ public class ProgramaGM {
         ProgramaGM programa = new ProgramaGM();
         
         String[] opcoesAdministrador = {
-            "Adicionar Músico/Produtor",
+            "Adicionar/Apagar Músico/Produtor",
             "Registar Álbum",
             "Registar instrumentos de música",
             "Listar Instrumentos",
@@ -516,6 +545,8 @@ public class ProgramaGM {
         String[] opcoesAdministrador1 = {
             "Adicionar Musico",
             "Adicionar Produtor",
+            "Apagar Produtor",
+            "Apagar Músico",
             "Voltar"};
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -693,6 +724,8 @@ public class ProgramaGM {
                                         programa.adicionarProdutor();
                                         break;
                                     case 3:
+                                        programa.removerProdutor((Produtor) utilizador);
+                                    case 4:
                                     programa.guardarFicheiroAlbuns();
                                     programa.guardarFicheiroInstrumentos();
                                     programa.guardarFicheiroUtilizadores();
@@ -788,9 +821,10 @@ public class ProgramaGM {
 
                             break;
                         case 5:
-
+                            programa.listarAlbunsProdutor((Produtor) utilizador);
                             break;
                         case 6:
+                            //programa.listarSessoesAgendadasProdutorPorDia();
                             break;
                         case 7:
                         programa.guardarFicheiroAlbuns();

@@ -68,7 +68,7 @@ public class SetSessoes implements Serializable {
     public Collection<Sessao> listarSessoesAgendadasPorMusico(Musico musico){
         Collection<Sessao> sessoesAgendadas= new HashSet<>();
         for (Sessao s : sessoes) {
-            if (s.isSessaoConcluida()==false) {
+            if (s.isSessaoConcluida()==false && s.getRequisicoes().contains(musico) == true) {
                 sessoesAgendadas.add(s);
                 System.out.println(s.toString());
             }
@@ -76,6 +76,16 @@ public class SetSessoes implements Serializable {
         return sessoesAgendadas;
     }
     
+    public Collection<Sessao> listarSessoesAgendadasPorProdutor(){
+        Collection<Sessao> sessoesAgendadas= new HashSet<>();
+        for (Sessao s : sessoes) {
+            if (s.isSessaoConcluida()==false) {
+                sessoesAgendadas.add(s);
+                System.out.println(s.toString());
+            }
+        }
+        return sessoesAgendadas;
+    }
     public Collection<Sessao> listarSessoesConcluidas(){
         Collection<Sessao> sessoesConcluidas = new HashSet<>();
         for (Sessao s : sessoes) {

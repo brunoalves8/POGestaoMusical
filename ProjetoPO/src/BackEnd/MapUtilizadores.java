@@ -66,10 +66,10 @@ public class MapUtilizadores implements Serializable{
         }
     }
     
-    public void removerProdutor(int cod) {
+    public void removerProdutor(String username, Produtor produtor) {
         for (Utilizador u : utilizadores.values()) {
-            if (u instanceof Produtor && u.getBi() == cod) {
-                utilizadores.remove(u.getUsername());
+            if (u instanceof Produtor && u.getUsername().equals(username)) {
+                utilizadores.remove(u.getUsername(), produtor);
             }
         }
 

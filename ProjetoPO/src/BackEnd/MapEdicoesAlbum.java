@@ -15,5 +15,15 @@ public class MapEdicoesAlbum implements Serializable{
         edicoesAlbum.put(edicaoAlbum.getAlbum(), edicaoAlbum);
     }
     
+    public HashMap<Album, EdicaoAlbum> listarAlbunsProdutor(Produtor produtor){
+        HashMap<Album, EdicaoAlbum> albuns = new HashMap<>();
+        for (EdicaoAlbum a : albuns.values()) {
+            if (a.getProdutor()== produtor) {
+               
+                System.out.println(albuns.toString());
+            }
+        }
+        return albuns;
+    }
 
 }

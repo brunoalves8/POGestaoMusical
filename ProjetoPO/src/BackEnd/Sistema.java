@@ -44,7 +44,7 @@ public class Sistema {
     public MapEdicoesAlbum getEdicoesAlbum() {
         return edicoesAlbum;
     }
-    
+
     public SetSessoes getSessoes(){
         return sessoes;
     }
