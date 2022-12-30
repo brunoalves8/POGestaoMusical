@@ -61,7 +61,7 @@ public class ProgramaGM {
         String nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
         Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
         while(instrumento == null){
-            consola.escrever("O instrumento que introduziu não está no sistema\n\n");
+            consola.escreverErro("O instrumento que introduziu não está no sistema\n\n");
             nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
             instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
         }
@@ -121,16 +121,28 @@ public class ProgramaGM {
         consola.escrever("Musico adicionado com sucesso!");
     }
 */
-    private void removerProdutor(Produtor produtor){
+    private void removerProdutor(){
         consola.escrever("Remover Produtor\n\n");
-        String username = consola.lerString("Introduza o nome de utilizador do produtor: ");
-        while(sistema.getUsers().verificarExisteUtilizador(username) == false){
-            consola.escreverErro("Este nome de utilizador não existe no sistema, por favor insira outro!");
+        String username = consola.lerString("Introduza o nome de utilizador do produtor a remover: ");
+        while(sistema.getUsers().verificarExisteProdutor(username) == false){
+            consola.escreverErro("Não existe nenhum produtor com esse nome de utilizador, por favor insira outro!");
             username = consola.lerString("Introduza o nome de utilizador: ");
         }  
-        sistema.getUsers().removerProdutor(username, produtor);
+        sistema.getUsers().removerProdutorOuMusico(username);
         consola.escrever("Produtor removido com sucesso!");
     }
+    
+    private void removerMusico(){
+        consola.escrever("Remover Musico\n\n");
+        String username = consola.lerString("Introduza o nome de utilizador do musico a remover: ");
+        while(sistema.getUsers().verificarExisteMusico(username) == false){
+            consola.escreverErro("Não existe nenhum musico com esse nome de utilizador, por favor insira outro!");
+            username = consola.lerString("Introduza o nome de utilizador: ");
+        }  
+        sistema.getUsers().removerProdutorOuMusico(username);
+        consola.escrever("Produtor removido com sucesso!");
+    }
+        
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
         String nome = consola.lerString("Introduza o nome: ");
@@ -366,6 +378,7 @@ public class ProgramaGM {
        consola.escrever("Álbuns Produzidos");
        return sistema.getEdicoesAlbum().listarAlbunsProdutor(produtor).toString();
     }
+   
   /*  public String listarSessoesAgendadasProdutorPorDia(){
         consola.escrever("Sessões Agendadas");
         Sessao sessao = procurarSessaoParaListar();
@@ -390,7 +403,36 @@ public class ProgramaGM {
         String morada = consola.lerString("Introduza a morada: ");
         LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
         //sistema.getUsers().editarDadosProdutor(produtor);
-        sistema.getUsers().atualizarProdutor(new Produtor(nome, bi, morada, dataNascimento));
+        sistema.getUsers().atualizarUtilizador(new Produtor(nome, bi, morada, dataNascimento));
+        consola.escrever("Dados editados com sucesso!");
+    }
+    
+    private void editarDadosMusico() {
+        consola.escrever("Editar dados Musico\n\n");
+        Collection<Instrumento> instrumentos = new HashSet<>();
+        String nome = consola.lerString("Introduza o nome:");
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        String morada = consola.lerString("Introduza a morada: ");
+        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        int resposta = 0;
+        resposta = consola.lerInteiro("Pretende alterar os instrumentos que o músico toca?\n1-Sim \n2-Não");
+        while(resposta != 1 || resposta != 2){
+
+            if(resposta == 1){
+                int numInstrumentos = consola.lerInteiro("Quantos instrumentos toca o músico:");
+                for (int i = 0; i < numInstrumentos; i++) {
+                instrumentos.add(procurarInstrumento());
+                break;
+                }
+                break;
+            }
+            else if(resposta == 2){
+                break;
+            }
+            consola.escreverErro("Opção Inválida");
+            resposta = consola.lerInteiro("Introduza uma das opções");
+        }
+        sistema.getUsers().atualizarUtilizador(new Musico(instrumentos,nome, bi, morada, dataNascimento));
         consola.escrever("Dados editados com sucesso!");
     }
 
@@ -509,6 +551,9 @@ public class ProgramaGM {
                     + ex.getMessage());
         }
     }
+    
+    
+ 
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -724,8 +769,12 @@ public class ProgramaGM {
                                         programa.adicionarProdutor();
                                         break;
                                     case 3:
-                                        programa.removerProdutor((Produtor) utilizador);
+                                        programa.removerProdutor();
+                                        break;
                                     case 4:
+                                        programa.removerMusico();
+                                        break;
+                                    case 5:
                                     programa.guardarFicheiroAlbuns();
                                     programa.guardarFicheiroInstrumentos();
                                     programa.guardarFicheiroUtilizadores();
@@ -862,7 +911,8 @@ public class ProgramaGM {
                                         programa.consultarDadosMusico((Musico) utilizador);
                                         break;
                                     case 2:
-
+                                        programa.editarDadosMusico();
+                                        break;
                                     case 3:
 
                                 }

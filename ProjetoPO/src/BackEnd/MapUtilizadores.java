@@ -20,17 +20,15 @@ public class MapUtilizadores implements Serializable{
 
     }
     
-    public void atualizarProdutor(Utilizador User) {
+    public void atualizarUtilizador(Utilizador User) {
         utilizadores.replace(User.getUsername(), User);
 
     }
-
-    public void removerMusico(int cod) {
-        for (Utilizador u : utilizadores.values()) {
-            if (u instanceof Musico && u.getBi() == cod) {
-                utilizadores.remove(u.getUsername());
-            }
-        }
+    
+  
+    
+    public void removerProdutorOuMusico(String username) {
+                utilizadores.remove(username);
 
     }
 
@@ -97,16 +95,25 @@ public class MapUtilizadores implements Serializable{
         return false;
     }
 
-    public boolean verificarExisteProdutor(String username, String password) {
+    public boolean verificarExisteProdutor(String username) {
 
         for (Utilizador u : utilizadores.values()) {
-            if (u.getUsername().compareTo(username) == 0 && u.getPassword().compareTo(password) == 0) {
+            if (u.getUsername().compareTo(username) == 0 && u instanceof Produtor) {
                 return true;
             }
         }
         return false;
     }
+    
+    public boolean verificarExisteMusico(String username) {
 
+        for (Utilizador u : utilizadores.values()) {
+            if (u.getUsername().compareTo(username) == 0 && u instanceof Musico) {
+                return true;
+            }
+        }
+        return false;
+    }
     public boolean verificarExisteUtilizador(String Username) {
 
         for (Utilizador u : utilizadores.values()) {

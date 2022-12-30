@@ -11,13 +11,12 @@ public class Musico extends Utilizador implements Serializable {
     public Musico(String username, String password, String nome) {
         super(username, password, nome);
     }
-    
 
     public Musico(String username, String password, String nome, int bi, String morada, LocalDate dataNasc, Collection<Instrumento> instrumentosMusicoToca) {
         super(username, password, nome, bi, morada, dataNasc);
         this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
-
+    
     public Musico(Collection<Instrumento> instrumentosMusicoToca, String nome, int bi, String morada, LocalDate dataNasc) {
         super(nome, bi, morada, dataNasc);
         this.instrumentosMusicoToca = instrumentosMusicoToca;

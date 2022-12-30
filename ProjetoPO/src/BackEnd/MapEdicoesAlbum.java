@@ -1,7 +1,9 @@
 package BackEnd;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class MapEdicoesAlbum implements Serializable{
     
@@ -15,15 +17,22 @@ public class MapEdicoesAlbum implements Serializable{
         edicoesAlbum.put(edicaoAlbum.getAlbum(), edicaoAlbum);
     }
     
-    public HashMap<Album, EdicaoAlbum> listarAlbunsProdutor(Produtor produtor){
-        HashMap<Album, EdicaoAlbum> albuns = new HashMap<>();
-        for (EdicaoAlbum a : albuns.values()) {
-            if (a.getProdutor()== produtor) {
-               
-                System.out.println(albuns.toString());
+    public Collection<Album> listarAlbunsProdutor(Produtor produtor){
+        Collection<Album> albuns = new HashSet<>();
+            for (EdicaoAlbum a : edicoesAlbum.values()) {
+                if (a.getProdutor()== produtor) {
+                    albuns.add(a.getAlbum());               
+                }  
             }
-        }
         return albuns;
     }
+    
 
+
+    @Override
+    public String toString() {
+        return "MapEdicoesAlbum{" + "edicoesAlbum=" + edicoesAlbum + '}';
+    }
+    
+    
 }

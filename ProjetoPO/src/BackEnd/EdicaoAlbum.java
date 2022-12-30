@@ -1,6 +1,8 @@
 package BackEnd;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class EdicaoAlbum implements Serializable{
    
@@ -45,6 +47,7 @@ public class EdicaoAlbum implements Serializable{
         sessoes.addSessao(sessao);
     }
     */
+  
 
     @Override
     public String toString() {
