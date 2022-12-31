@@ -3,6 +3,7 @@ package BackEnd;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Musico extends Utilizador implements Serializable {
     
@@ -10,6 +11,7 @@ public class Musico extends Utilizador implements Serializable {
 
     public Musico(String username, String password, String nome) {
         super(username, password, nome);
+        instrumentosMusicoToca = new HashSet<>();
     }
 
     public Musico(String username, String password, String nome, int bi, String morada, LocalDate dataNasc, Collection<Instrumento> instrumentosMusicoToca) {
@@ -29,7 +31,11 @@ public class Musico extends Utilizador implements Serializable {
     public void setInstrumentosMusicoToca(Collection<Instrumento> instrumentosMusicoToca) {
         this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
-
+    
+    public void adicionarInstrumentos(Instrumento instrumento){
+        instrumentosMusicoToca.add(instrumento);
+    }
+    
     @Override
     public String toString() {
         return "Musico" + super.toString() + "\n" +

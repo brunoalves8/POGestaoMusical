@@ -267,13 +267,13 @@ public class ProgramaGM {
         return album;
     }
     
-    private void iniciarEdicaoAlbum(Produtor utilizador){
+   /* private void iniciarEdicaoAlbum(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
         
-    }
+    }*/
     
     private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
@@ -285,12 +285,14 @@ public class ProgramaGM {
         //LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
         for(int i = 0; i<numDias; i++){
             LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+            Collection<Sessao> sessoes = new HashSet<>();
             while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
                 consola.escreverErro("Já existe uma sessão marcada para esse dia");
                 dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
             }
             Sessao sessao = new Sessao(edicaoAlbum, dataEdicao, false);
             sistema.getSessoes().adicionarSessao(sessao);
+            
         }
         consola.escrever("Sessões agendadas com sucesso!");
     }
@@ -654,8 +656,8 @@ public class ProgramaGM {
             "Sair"};
 
         String[] opcoesMusico1 = {
-            "Ver dados Produtor",
-            "Editar dados Produtor",
+            "Ver dados Músico",
+            "Editar dados Músico",
             "Voltar"
         };
         

@@ -3,6 +3,7 @@ package BackEnd;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Requisicao implements Serializable{
 
@@ -10,7 +11,9 @@ public class Requisicao implements Serializable{
     private Collection<Instrumento> instrumentos;
     private Sessao sessaoGravacao;
     private LocalDate dataRequisicao;
+    
     public Requisicao() {
+        instrumentos = new HashSet<>();
     }
 
     public Requisicao(Musico requisitor, Collection<Instrumento> instrumentos, LocalDate dataRequisicao, Sessao sessaoGravacao) {
@@ -51,7 +54,10 @@ public class Requisicao implements Serializable{
     public void setSessaoGravacao(Sessao sessaoGravacao) {
         this.sessaoGravacao = sessaoGravacao;
     }
-
+    
+    public void adicionarInstrumento(Instrumento instrumento){
+        instrumentos.add(instrumento);
+    }
     @Override
     public String toString() {
         return "Requisicao{" + "requisitor=" + requisitor + ", instrumentos=" + instrumentos + ", dataRequisicao=" + dataRequisicao + ", sessaoGravacao=" + sessaoGravacao + '}';

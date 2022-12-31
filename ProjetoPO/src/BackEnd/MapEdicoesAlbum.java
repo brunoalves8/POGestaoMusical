@@ -20,14 +20,14 @@ public class MapEdicoesAlbum implements Serializable{
     public Collection<Album> listarAlbunsProdutor(Produtor produtor){
         Collection<Album> albuns = new HashSet<>();
             for (EdicaoAlbum a : edicoesAlbum.values()) {
-                if (a.getProdutor()== produtor) {
-                    albuns.add(a.getAlbum());               
+                if (a.getProdutor() == produtor) {
+                    albuns.add(a.getAlbum());
+                    System.out.println(a.toString());
                 }  
             }
         return albuns;
     }
     
-
 
     @Override
     public String toString() {

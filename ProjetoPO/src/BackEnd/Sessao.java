@@ -3,6 +3,7 @@ package BackEnd;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Sessao implements Serializable{
 
@@ -18,6 +19,10 @@ public class Sessao implements Serializable{
         this.diaDeGravacao = diaDeGravacao;
     }
    */
+    public Sessao() {
+        requisicoes = new HashSet<>();
+    }
+    
     public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, Collection<Requisicao> requisicoes, boolean sessaoConcluida) {
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
@@ -35,9 +40,6 @@ public class Sessao implements Serializable{
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
         this.sessaoConcluida = estadoSessao;
-    }
-
-    public Sessao() {
     }
 
 
@@ -72,7 +74,10 @@ public class Sessao implements Serializable{
     public void setSessaoConcluida(boolean sessaoConcluida) {
         this.sessaoConcluida = sessaoConcluida;
     }
-
+    
+    public void adicionarRequisicao(Requisicao requisicao){
+        requisicoes.add(requisicao);
+    }
     @Override
     public String toString() {
         return "Sessao{" + "albumSerGravado=" + albumSerGravado + ", diaDeGravacao=" + diaDeGravacao + '}';

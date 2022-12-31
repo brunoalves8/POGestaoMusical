@@ -8,16 +8,30 @@ public class EdicaoAlbum implements Serializable{
    
     private Album album;
     private Produtor produtor;
-    private SetSessoes sessoes;
+    //private SetSessoes sessoes;
+    private Collection<Sessao> sessoesEdicao;
 
     public EdicaoAlbum() {
+        sessoesEdicao = new HashSet<>();
+    }
+
+  /*  public EdicaoAlbum(Album album, Produtor produtor) {
+        this.album = album;
+        this.produtor = produtor;
+        this.sessoes = new SetSessoes();
+    }
+*/
+    public EdicaoAlbum(Album album, Produtor produtor, Collection<Sessao> sessoesEdicao) {
+        this.album = album;
+        this.produtor = produtor;
+        this.sessoesEdicao = sessoesEdicao;
     }
 
     public EdicaoAlbum(Album album, Produtor produtor) {
         this.album = album;
         this.produtor = produtor;
-        this.sessoes = new SetSessoes();
     }
+    
 
     public Album getAlbum() {
         return album;
@@ -35,19 +49,18 @@ public class EdicaoAlbum implements Serializable{
         this.produtor = produtor;
     }
 
-    public SetSessoes getSessoes() {
+/*    public SetSessoes getSessoes() {
         return sessoes;
     }
 
     public void setSessoes(SetSessoes sessoes) {
         this.sessoes = sessoes;
     }
-    
-    /*public void adicionarSessao(Sessao sessao){
-        sessoes.addSessao(sessao);
+  */  
+    public void adicionarSessao(Sessao sessao){
+        sessoesEdicao.add(sessao);
     }
-    */
-  
+    
 
     @Override
     public String toString() {
