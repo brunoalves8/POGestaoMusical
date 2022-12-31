@@ -399,21 +399,27 @@ public class ProgramaGM {
     private void editarDadosProdutor(Produtor produtor) {
         consola.escrever("Editar dados Produtor\n\n");
         String nome = consola.lerString("Introduza o nome:");
+        produtor.setNome(nome);
         int bi = consola.lerInteiro("Introduza o número do CC: ");
+        produtor.setBi(bi);
         String morada = consola.lerString("Introduza a morada: ");
+        produtor.setMorada(morada);
         LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
-        //sistema.getUsers().editarDadosProdutor(produtor);
-        sistema.getUsers().atualizarUtilizador(new Produtor(nome, bi, morada, dataNascimento));
+        produtor.setDataNasc(dataNascimento);
         consola.escrever("Dados editados com sucesso!");
     }
     
-    private void editarDadosMusico() {
+    private void editarDadosMusico(Musico musico) {
         consola.escrever("Editar dados Musico\n\n");
         Collection<Instrumento> instrumentos = new HashSet<>();
         String nome = consola.lerString("Introduza o nome:");
+        musico.setNome(nome);
         int bi = consola.lerInteiro("Introduza o número do CC: ");
+        musico.setBi(bi);
         String morada = consola.lerString("Introduza a morada: ");
+        musico.setMorada(morada);
         LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        musico.setDataNasc(dataNascimento);
         int resposta = 0;
         resposta = consola.lerInteiro("Pretende alterar os instrumentos que o músico toca?\n1-Sim \n2-Não");
         while(resposta != 1 || resposta != 2){
@@ -421,7 +427,8 @@ public class ProgramaGM {
             if(resposta == 1){
                 int numInstrumentos = consola.lerInteiro("Quantos instrumentos toca o músico:");
                 for (int i = 0; i < numInstrumentos; i++) {
-                instrumentos.add(procurarInstrumento());
+                    instrumentos.add(procurarInstrumento());
+                    musico.setInstrumentosMusicoToca(instrumentos);
                 break;
                 }
                 break;
@@ -432,7 +439,6 @@ public class ProgramaGM {
             consola.escreverErro("Opção Inválida");
             resposta = consola.lerInteiro("Introduza uma das opções");
         }
-        sistema.getUsers().atualizarUtilizador(new Musico(instrumentos,nome, bi, morada, dataNascimento));
         consola.escrever("Dados editados com sucesso!");
     }
 
@@ -911,7 +917,7 @@ public class ProgramaGM {
                                         programa.consultarDadosMusico((Musico) utilizador);
                                         break;
                                     case 2:
-                                        programa.editarDadosMusico();
+                                        programa.editarDadosMusico((Musico) utilizador);
                                         break;
                                     case 3:
 

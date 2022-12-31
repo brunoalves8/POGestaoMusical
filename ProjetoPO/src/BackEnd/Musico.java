@@ -26,6 +26,10 @@ public class Musico extends Utilizador implements Serializable {
         return instrumentosMusicoToca;
     }
 
+    public void setInstrumentosMusicoToca(Collection<Instrumento> instrumentosMusicoToca) {
+        this.instrumentosMusicoToca = instrumentosMusicoToca;
+    }
+
     @Override
     public String toString() {
         return "Musico" + super.toString() + "\n" +

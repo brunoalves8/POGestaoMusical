@@ -28,7 +28,7 @@ public class MapUtilizadores implements Serializable{
   
     
     public void removerProdutorOuMusico(String username) {
-                utilizadores.remove(username);
+        utilizadores.remove(username);
 
     }
 
