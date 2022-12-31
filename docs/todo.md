@@ -2,9 +2,9 @@
 
    # Músico
   - [X] 1. Autenticar 
-  - [ ] 2. Ver/editar os seus dados
+  - [X] 2. Ver/editar os seus dados
     - [X] 2.1. Ver os seus dados
-    - [ ] 2.2 Editar os seus dados 
+    - [X] 2.2 Editar os seus dados 
   - [ ] 3. Ver os álbuns a que está associado
   - [ ] 4. Ver as sessões gravações que tem agendadas
   - [ ] 5. Fazer a requisição de instrumentos para uma determinada sessão de gravação
@@ -28,9 +28,9 @@
  
  # Produtor
   - [X] 1. Autenticar
-  - [ ] 2. Ver/editar os seus dados
+  - [X] 2. Ver/editar os seus dados
     - [x] 2.1. Ver os seus dados
-    - [ ] 2.2. Editar os seus dados 
+    - [X] 2.2. Editar os seus dados 
   - [ ] 3. Iniciar/editar a edição de um álbum, definindo as sessões de gravação
     necessárias
     - [X] 3.1. Iniciar edições de album
