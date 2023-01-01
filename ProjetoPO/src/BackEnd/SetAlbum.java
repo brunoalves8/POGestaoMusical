@@ -80,16 +80,16 @@ public class SetAlbum implements Serializable {
         return null;
     }
     
-   /* public Collection<EdicaoAlbum> listarAlbunsProdutor(Produtor produtor){
-        Collection<EdicaoAlbum> albuns = new HashSet<>();
-        for (EdicaoAlbum a : albuns) {
-            if (a.getProdutor()== produtor) {
-                albuns.add(a);
-                System.out.println(a.toString());
+    public Collection<Musica> listarAlbunsMusico(Musico musico){
+        Collection<Musica> musicos = new HashSet<>();
+        for (Musica m : musicos) {
+            if (m.getMusicos()== musico) {
+                musicos.add(m);
+                System.out.println(m.toString());
             }
         }
-        return albuns;
-    }*/
+        return musicos;
+    }
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -107,4 +107,11 @@ public class SetAlbum implements Serializable {
         oin.close();
         file.close();
     }
+
+    @Override
+    public String toString() {
+        return "SetAlbum{" + "albuns=" + albuns + '}';
+    }
+    
+    
 }

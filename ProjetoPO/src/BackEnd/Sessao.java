@@ -7,12 +7,11 @@ import java.util.HashSet;
 
 public class Sessao implements Serializable{
 
-    private Album albumSerGravado;
-    //private EdicaoAlbum albumSerGravado;
+    //private Album albumSerGravado;
+    private EdicaoAlbum albumSerGravado;
     private LocalDate diaDeGravacao;
     //private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
     private Collection<Requisicao> requisicoes; 
-    private Collection<Album> albuns;
     private boolean sessaoConcluida;
     
  /*   public Sessao(Album albumSerGravado, LocalDate diaDeGravacao) {
@@ -23,38 +22,32 @@ public class Sessao implements Serializable{
     public Sessao() {
         requisicoes = new HashSet<>();
     }
-
-    public Sessao(LocalDate diaDeGravacao, Collection<Album> albuns, boolean sessaoConcluida) {
-        this.diaDeGravacao = diaDeGravacao;
-        this.albuns = albuns;
-        this.sessaoConcluida = sessaoConcluida;
-    }
     
-    public Sessao(Album albumSerGravado, LocalDate diaDeGravacao, Collection<Requisicao> requisicoes, boolean sessaoConcluida) {
+    public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, Collection<Requisicao> requisicoes, boolean sessaoConcluida) {
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
         this.requisicoes = requisicoes;
         this.sessaoConcluida = sessaoConcluida;
     }
 
-    public Sessao(Album albumSerGravado, LocalDate diaDeGravacao) {
+    public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao) {
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
     }
     
 
-    public Sessao(Album albumSerGravado, LocalDate diaDeGravacao, boolean estadoSessao) {
+    public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, boolean estadoSessao) {
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
         this.sessaoConcluida = estadoSessao;
     }
 
 
-    public Album getAlbumSerGravado() {
+    public EdicaoAlbum getAlbumSerGravado() {
         return albumSerGravado;
     }
 
-    public void setAlbumSerGravado(Album albumSerGravado) {
+    public void setAlbumSerGravado(EdicaoAlbum albumSerGravado) {
         this.albumSerGravado = albumSerGravado;
     }
  
@@ -86,9 +79,6 @@ public class Sessao implements Serializable{
         requisicoes.add(requisicao);
     }
     
-    public void adicionarAlbum(Album album){
-        albuns.add(album);
-    }
     @Override
     public String toString() {
         return "Sessao{" + "albumSerGravado=" + albumSerGravado + ", diaDeGravacao=" + diaDeGravacao + '}';

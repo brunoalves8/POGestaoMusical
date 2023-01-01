@@ -40,6 +40,14 @@ public class Musica implements Serializable{
         this.duracao = duracao;
     }
 
+    public Collection<Musico> getMusicos() {
+        return musicos;
+    }
+
+    public void setMusicos(Collection<Musico> musicos) {
+        this.musicos = musicos;
+    }
+
     public void adicionarMusico(Musico musico){
         musicos.add(musico);
     }

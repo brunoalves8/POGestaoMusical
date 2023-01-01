@@ -272,7 +272,7 @@ public class ProgramaGM {
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
-        
+        consola.escrever("Sessão iniciada com sucesso");
     }
     
     /*private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
@@ -297,19 +297,28 @@ public class ProgramaGM {
         }
         consola.escrever("Sessões agendadas com sucesso!");
     }*/
+    private EdicaoAlbum procurarEdicaoAlbum(){
+        Album album = procurarAlbumPorCod();
+        EdicaoAlbum edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
+        while(edicaoAlbum == null){
+            consola.escrever("O Album que pretende não está no sistema\n\n");
+            album = procurarAlbumPorCod();
+            edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
+        }
+        return edicaoAlbum;
+    }
     private void DefinirSessao() {
         consola.escrever("Definir Sessao\n\n");
+        EdicaoAlbum edicaoAlbum = procurarEdicaoAlbum();
         int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
         LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+        for(int i = 0; i < numDias; i++){
         while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
             consola.escreverErro("Já existe uma sessão marcada para esse dia");
             dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
         }
-        Collection<Album> albuns = new HashSet<>();
-        for(int i = 0; i<numDias; i++){
-            albuns.add(procurarAlbumPorCod());
         }
-        Sessao sessao = new Sessao( dataEdicao, albuns, false);
+        Sessao sessao = new Sessao( edicaoAlbum, dataEdicao, false);
         sistema.getSessoes().adicionarSessao(sessao);
     }
     
@@ -373,10 +382,10 @@ public class ProgramaGM {
         }
         return sessao;
     }
-    /*public Collection<Album> listarAlbunsDoMusico(Musico musico){
+    public String listarAlbunsDoMusico(Musico musico){
        consola.escrever("Álbuns em que está presente");
-       return sistema.getAlbuns().
-    }*/
+       return sistema.getAlbuns().listarAlbunsMusico(musico).toString();
+    }
     public String listarSessoesAgendadas(){
        consola.escrever("Sessões Agendadas");
        return sistema.getSessoes().listarSessoesAgendadas().toString();
@@ -967,7 +976,7 @@ public class ProgramaGM {
                             } while (opcaoM1 != opcoesMusico1.length);
                             break;
                         case 2:
-                            
+                            programa.listarAlbunsDoMusico((Musico) utilizador);
                             break;
                         case 3:
                             programa.listarSessoesAgendadasMusico((Musico) utilizador);

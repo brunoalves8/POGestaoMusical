@@ -28,6 +28,10 @@ public class MapEdicoesAlbum implements Serializable{
         return albuns;
     }
     
+    public EdicaoAlbum procurarEdicaoAlbumPorAlbum(Album album) {
+            return edicoesAlbum.get(album);       
+
+    }
 
     @Override
     public String toString() {
