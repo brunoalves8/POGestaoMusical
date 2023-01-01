@@ -267,15 +267,15 @@ public class ProgramaGM {
         return album;
     }
     
-   /* private void iniciarEdicaoAlbum(Produtor utilizador){
+    private void iniciarEdicaoAlbum(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
         
-    }*/
+    }
     
-    private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
+    /*private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
@@ -289,13 +289,30 @@ public class ProgramaGM {
             while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
                 consola.escreverErro("Já existe uma sessão marcada para esse dia");
                 dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
+                sessoes.add();
             }
             Sessao sessao = new Sessao(edicaoAlbum, dataEdicao, false);
             sistema.getSessoes().adicionarSessao(sessao);
             
         }
         consola.escrever("Sessões agendadas com sucesso!");
+    }*/
+    private void DefinirSessao() {
+        consola.escrever("Definir Sessao\n\n");
+        int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
+        LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+        while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
+            consola.escreverErro("Já existe uma sessão marcada para esse dia");
+            dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
+        }
+        Collection<Album> albuns = new HashSet<>();
+        for(int i = 0; i<numDias; i++){
+            albuns.add(procurarAlbumPorCod());
+        }
+        Sessao sessao = new Sessao( dataEdicao, albuns, false);
+        sistema.getSessoes().adicionarSessao(sessao);
     }
+    
     //Ponto 4 PRODUTOR (Concluir Sessoes)
     public void concluirSessaoGravacao(Produtor utilizador){
         consola.escrever("Concluir Sessao de Gravação\n\n");
@@ -636,6 +653,12 @@ public class ProgramaGM {
             "Editar dados Produtor",
             "Voltar"
         };
+     
+        String[] opcoesProdutor2 = {
+            "Iniciar Edição de Álbum",
+            "Definir sessões de gravação",
+            "Voltar"
+        };
         
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -869,7 +892,24 @@ public class ProgramaGM {
                             } while (opcaoP1 != opcoesProdutor1.length);
                             break;
                         case 2:
-                            programa.iniciarEdicaoAlbumDefinindoSessoes((Produtor) utilizador);
+                            int opcaoP2 = 0;
+                            do {
+                                opcaoP2 = programa.consola.lerOpcoesMenusInteiros(opcoesProdutor2);
+                                switch (opcaoP2) {
+                                    case 1:
+                                        programa.iniciarEdicaoAlbum((Produtor) utilizador);
+                                        break;
+                                    case 2:
+                                        programa.DefinirSessao();
+                                        break;
+                                    case 3:
+                                    programa.guardarFicheiroAlbuns();
+                                    programa.guardarFicheiroInstrumentos();
+                                    programa.guardarFicheiroUtilizadores();
+                                    programa.guardarFicheiroSessoes();
+
+                                }
+                            } while (opcaoP2 != opcoesProdutor2.length);
                             break;
                         case 3:
                             programa.concluirSessaoGravacao((Produtor) utilizador);
