@@ -301,7 +301,7 @@ public class ProgramaGM {
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
         while(edicaoAlbum == null){
-            consola.escrever("O Album que pretende não está no sistema\n\n");
+            consola.escrever("O Album que introduziu não tem a sua edição iniciada.\n");
             album = procurarAlbumPorCod();
             edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
         }
@@ -311,8 +311,9 @@ public class ProgramaGM {
         consola.escrever("Definir Sessao\n\n");
         EdicaoAlbum edicaoAlbum = procurarEdicaoAlbum();
         int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
-        LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+        LocalDate dataEdicao = null;
         for(int i = 0; i < numDias; i++){
+            dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
         while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
             consola.escreverErro("Já existe uma sessão marcada para esse dia");
             dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
