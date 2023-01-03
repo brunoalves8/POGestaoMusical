@@ -311,16 +311,18 @@ public class ProgramaGM {
         consola.escrever("Definir Sessao\n\n");
         EdicaoAlbum edicaoAlbum = procurarEdicaoAlbum();
         int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
-        LocalDate dataEdicao = null;
+        
         for(int i = 0; i < numDias; i++){
-            dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
-        while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
-            consola.escreverErro("Já existe uma sessão marcada para esse dia");
-            dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
+            LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+            while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
+                consola.escreverErro("Já existe uma sessão marcada para esse dia");
+                dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
+            }
+            Sessao sessao = new Sessao( edicaoAlbum, dataEdicao, false);
+            sistema.getSessoes().adicionarSessao(sessao);
+        
         }
-        }
-        Sessao sessao = new Sessao( edicaoAlbum, dataEdicao, false);
-        sistema.getSessoes().adicionarSessao(sessao);
+
     }
     
     //Ponto 4 PRODUTOR (Concluir Sessoes)
