@@ -31,10 +31,9 @@
   - [X] 2. Ver/editar os seus dados
     - [x] 2.1. Ver os seus dados
     - [X] 2.2. Editar os seus dados 
-  - [ ] 3. Iniciar/editar a edição de um álbum, definindo as sessões de gravação
+  - [X] 3. Iniciar/editar a edição de um álbum, definindo as sessões de gravação
     necessárias
     - [X] 3.1. Iniciar edições de album
-    - [ ] 3.2. Editar ediçoes de album
     - [X] 3.3. Definir sessões de gravação
   - [X] 4. Concluir sessões de gravação
   - [ ] 5. Aceder a informação relativa à situação atual (estado, sessões de gravação,
