@@ -16,5 +16,14 @@ public class SetMusicas implements Serializable{
     public void adicionarMusica(Musica musica) {
         musicas.add(musica);
     }
-
+    
+    
+    public Collection<Musica> listarMusicasPorMusico(Musico musico){
+        Collection<Musica> musicasPorMusico = new HashSet();
+        for(Musica m: musicas){
+            if(m.getMusicos().contains(musico))
+            musicasPorMusico.add(m);
+        }
+        return musicasPorMusico;
+    }
 }

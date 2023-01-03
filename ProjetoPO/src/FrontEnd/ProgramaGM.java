@@ -44,34 +44,31 @@ public class ProgramaGM {
 
     }
 
-    public void adicionarInstrumento(){
-    consola.escrever("Criar Novo Instrumento");
-    String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
-    while(sistema.getInstrumentos().verificarInstrumentoPorNome(nomeInstrumento) == true){
-        consola.escreverErro("O instrumento introduzido já existe no sistema");
-        nomeInstrumento = consola.lerString("Introduza o novamente um instrumento: ");
+    public void adicionarInstrumento() {
+        consola.escrever("Criar Novo Instrumento");
+        String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
+        while (sistema.getInstrumentos().verificarInstrumentoPorNome(nomeInstrumento) == true) {
+            consola.escreverErro("O instrumento introduzido já existe no sistema");
+            nomeInstrumento = consola.lerString("Introduza o novamente um instrumento: ");
+        }
+        Instrumento instrumento = new Instrumento(nomeInstrumento);
+
+        sistema.getInstrumentos().adicicionarInstrumento(instrumento);
+        consola.escrever("Instrumento adicionado com sucesso!");
     }
-    Instrumento instrumento = new Instrumento(nomeInstrumento);
-    
-    sistema.getInstrumentos().adicicionarInstrumento(instrumento);
-    consola.escrever("Instrumento adicionado com sucesso!");
-    }
-    
-    private Instrumento procurarInstrumento(){
+
+    private Instrumento procurarInstrumento() {
         String nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
         Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
-        while(instrumento == null){
+        while (instrumento == null) {
             consola.escreverErro("O instrumento que introduziu não está no sistema\n\n");
             nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
             instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
         }
         return instrumento;
     }
-    
-    
-    
+
     //######################################ADICIONAR MUSICO KIKO###############################################
-    
     private void adicionarMusico() {
         consola.escrever("Criar Novo Musico\n\n");
         String nome = consola.lerString("Introduza o nome: ");
@@ -79,21 +76,22 @@ public class ProgramaGM {
         String morada = consola.lerString("Introduza a morada: ");
         LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
         String username = consola.lerString("Introduza o nome de utilizador: ");
-        
-        while(sistema.getUsers().verificarExisteUtilizador(username) == true){        //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
-                consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
-                username = consola.lerString("Introduza o nome de usuário: ");
-        }      
+
+        while (sistema.getUsers().verificarExisteUtilizador(username) == true) {        //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
+            consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
+            username = consola.lerString("Introduza o nome de usuário: ");
+        }
         String password = consola.lerString("Introduza a palavra-chave: ");
         int numInstrumentos = consola.lerInteiro("Quantos instrumentos toca o músico:");
         Collection<Instrumento> instrumentos = new HashSet<>();
         for (int i = 0; i < numInstrumentos; i++) {
             instrumentos.add(procurarInstrumento());
         }
-        sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, dataNasc, instrumentos ));
+        sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, dataNasc, instrumentos));
         consola.escrever("Musico adicionado com sucesso!");
     }
-  /*  
+
+    /*  
     private void adicionarMusico() {
         consola.escrever("Criar Novo Musico\n\n");
         String nome = consola.lerString("Introduza o nome: ");
@@ -120,29 +118,29 @@ public class ProgramaGM {
         sistema.getInstrumentos().adicicionarInstrumento(instrumento);
         consola.escrever("Musico adicionado com sucesso!");
     }
-*/
-    private void removerProdutor(){
+     */
+    private void removerProdutor() {
         consola.escrever("Remover Produtor\n\n");
         String username = consola.lerString("Introduza o nome de utilizador do produtor a remover: ");
-        while(sistema.getUsers().verificarExisteProdutor(username) == false){
+        while (sistema.getUsers().verificarExisteProdutor(username) == false) {
             consola.escreverErro("Não existe nenhum produtor com esse nome de utilizador, por favor insira outro!");
             username = consola.lerString("Introduza o nome de utilizador: ");
-        }  
+        }
         sistema.getUsers().removerProdutorOuMusico(username);
         consola.escrever("Produtor removido com sucesso!");
     }
-    
-    private void removerMusico(){
+
+    private void removerMusico() {
         consola.escrever("Remover Musico\n\n");
         String username = consola.lerString("Introduza o nome de utilizador do musico a remover: ");
-        while(sistema.getUsers().verificarExisteMusico(username) == false){
+        while (sistema.getUsers().verificarExisteMusico(username) == false) {
             consola.escreverErro("Não existe nenhum musico com esse nome de utilizador, por favor insira outro!");
             username = consola.lerString("Introduza o nome de utilizador: ");
-        }  
+        }
         sistema.getUsers().removerProdutorOuMusico(username);
         consola.escrever("Produtor removido com sucesso!");
     }
-        
+
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
         String nome = consola.lerString("Introduza o nome: ");
@@ -150,27 +148,27 @@ public class ProgramaGM {
         String morada = consola.lerString("Introduza a morada: ");
         LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
         String username = consola.lerString("Introduza o nome de utilizador: ");
-        while(sistema.getUsers().verificarExisteUtilizador(username) == true){
+        while (sistema.getUsers().verificarExisteUtilizador(username) == true) {
             consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
             username = consola.lerString("Introduza o nome de utilizador: ");
-        }  
+        }
         String password = consola.lerString("Introduza a palavra-chave: ");
 
         sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, dataNascimento));
         consola.escrever("Produtor adicionado com sucesso!");
     }
-    
-    private Musico procurarMusico(){
+
+    private Musico procurarMusico() {
         String nomeMusico = consola.lerString("Qual o nome do músico?");
         Musico musico = sistema.getUsers().procurarMusicosPorNome(nomeMusico);
-        while(musico == null){
+        while (musico == null) {
             consola.escrever("O músico que introduziu não está no sistema\n\n");
             nomeMusico = consola.lerString("Qual é o nome do músico que pretende adicionar?");
             musico = sistema.getUsers().procurarMusicosPorNome(nomeMusico);
         }
         return musico;
     }
-    
+
     //ALBUM
     private Musica criarMusica() {
         consola.escrever("Nova Musica\n\n");
@@ -178,40 +176,39 @@ public class ProgramaGM {
         int duracao = consola.lerInteiro("Introduza a duração da música: ");
         int numMusicos = consola.lerInteiro("Quantos músicos fazem parte da música?");
         Collection<Musico> musicos = new HashSet<>();
-        for(int i = 0; i<numMusicos; i++){
+        for (int i = 0; i < numMusicos; i++) {
             musicos.add(procurarMusico());
-        } 
+        }
         Musica musica = new Musica(titulo, duracao, musicos);
-        consola.escrever("Música criada com sucesso!");      
+        consola.escrever("Música criada com sucesso!");
         return musica;
     }
-    
+
     private void registarAlbum() {
         consola.escrever("Registar Álbum\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
         int codigo = consola.lerInteiro("Introduza um código para o álbum:");
-        while(sistema.getAlbuns().verificarAlbumPorCod(codigo) == true){
+        while (sistema.getAlbuns().verificarAlbumPorCod(codigo) == true) {
             consola.escreverErro("Este codigo já está associado a outro álbum, por favor insira outro!");
             codigo = consola.lerInteiro("Introduza um novo código: ");
-        } 
+        }
         String tipo = consola.lerString("Introduza o tipo: ");
-        LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");      
+        LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");
         int numMusicas = consola.lerInteiro("Por quantas músicas é composto o álbum?");
-        Collection<Musica> musicas = new HashSet<>(); 
-        for(int i = 0; i< numMusicas; i++){
-          musicas.add(criarMusica());
+        Collection<Musica> musicas = new HashSet<>();
+        for (int i = 0; i < numMusicas; i++) {
+            musicas.add(criarMusica());
         }
         Album album = new Album(codigo, titulo, dataEdicao, tipo, musicas);
         sistema.getAlbuns().adicionarAlbum(album);
     }
-    
-    
-    public void listarInstrumentos(){
+
+    public void listarInstrumentos() {
         consola.escrever(sistema.getInstrumentos().toString());
     }
-    
+
     //Ponto 3 produtor
-   /* private Sessao criarSessao() {
+    /* private Sessao criarSessao() {
         consola.escrever("Nova Sessão\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
         //int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
@@ -233,7 +230,7 @@ public class ProgramaGM {
         
     }*/
 
-    /*POR TITULO
+ /*POR TITULO
     private Album procurarAlbum(){
         String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende consultar?");
         Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
@@ -244,37 +241,36 @@ public class ProgramaGM {
         }
         return album;
     }*/
-    private Album procurarAlbumPorCod(){
+    private Album procurarAlbumPorCod() {
         int codigo = consola.lerInteiro("Qual é o cod do álbum que pretende consultar?");
         Album album = sistema.getAlbuns().procurarAlbumPorCod(codigo);
-        while(album == null){
+        while (album == null) {
             consola.escreverErro("O codigo que introduziu não corresponde a nenhum álbum do sistema\n\n");
             codigo = consola.lerInteiro("Qual é o cod do álbum que pretende consultar?");
             album = sistema.getAlbuns().procurarAlbumPorCod(codigo);
         }
         return album;
     }
-    
-    
-    private Album procurarAlbumParaConcluirSessao(){
+
+    private Album procurarAlbumParaConcluirSessao() {
         String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
         Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
-        while(album == null){
+        while (album == null) {
             consola.escrever("O álbum que introduziu não está no sistema\n\n");
             tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
             album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
         }
         return album;
     }
-    
-    private void iniciarEdicaoAlbum(Produtor utilizador){
+
+    private void iniciarEdicaoAlbum(Produtor utilizador) {
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
         consola.escrever("Sessão iniciada com sucesso");
     }
-    
+
     /*private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbumPorCod();
@@ -297,136 +293,150 @@ public class ProgramaGM {
         }
         consola.escrever("Sessões agendadas com sucesso!");
     }*/
-    private EdicaoAlbum procurarEdicaoAlbum(){
+    private EdicaoAlbum procurarEdicaoAlbum() {
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
-        while(edicaoAlbum == null){
+        while (edicaoAlbum == null) {
             consola.escrever("O Album que introduziu não tem a sua edição iniciada.\n");
             album = procurarAlbumPorCod();
             edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
         }
         return edicaoAlbum;
     }
+
     private void DefinirSessao() {
         consola.escrever("Definir Sessao\n\n");
         EdicaoAlbum edicaoAlbum = procurarEdicaoAlbum();
         int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
-        
-        for(int i = 0; i < numDias; i++){
+
+        for (int i = 0; i < numDias; i++) {
+            int codigo = consola.lerInteiro("Introduza um código para a sessão: ");
             LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
-            while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
-                consola.escreverErro("Já existe uma sessão marcada para esse dia");
-                dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
-            }
-            Sessao sessao = new Sessao( edicaoAlbum, dataEdicao, false);
+            Sessao sessao = new Sessao(codigo, edicaoAlbum, dataEdicao, false);
             sistema.getSessoes().adicionarSessao(sessao);
-        
         }
 
     }
-    
+
     //Ponto 4 PRODUTOR (Concluir Sessoes)
-    public void concluirSessaoGravacao(Produtor utilizador){
+    public void concluirSessaoGravacao(Produtor utilizador) {
         consola.escrever("Concluir Sessao de Gravação\n\n");
         //Album album = procurarAlbumParaConcluirSessao();
-        LocalDate dataSessao = consola.lerData("Qual é a data da sessão que pretende concluir?(aaaa-mm-dd)");
-        while(sistema.getSessoes().verificarExisteSessao(dataSessao) == false){
-            consola.escreverErro("Esse álbum não tem nenhuma sessão agendada para esse dia!");
-            dataSessao = consola.lerData("Introduza outra data(aaaa-mm-dd):");
+        int codigo = consola.lerInteiro("Qual é o código da sessão que pretende concluir?");
+        while (sistema.getSessoes().verificarExisteSessao(codigo) == false) {
+            consola.escreverErro("O código introduzido não corresponde a nenhuma sessão");
+            codigo = consola.lerInteiro("Introduza um código válido");
         }
-        sistema.getSessoes().procurarSessao(dataSessao).setSessaoConcluida(true);
-        consola.escrever("Sessao concluida com sucesso");  
+        sistema.getSessoes().procurarSessao(codigo).setSessaoConcluida(true);
+        consola.escrever("Sessao concluida com sucesso");
     }
-    
-    
+
     //Ponto 5 Músico
-    private Sessao procurarSessaoParaRequisitar(){
-        LocalDate dataSessao = consola.lerData("Qual é a data da sessão para a qual pretende requisitar instrumentos?");
-        Sessao sessao = sistema.getSessoes().procurarSessao(dataSessao);
-        while(sessao == null){
-            consola.escreverErro("Não há nenhuma sessão agendada para essa data.\n\n");
-            dataSessao = consola.lerData("Qual é a data da sessão para a qual pretende requisitar instrumentos?");
-            sessao = sistema.getSessoes().procurarSessao(dataSessao);
+    private Sessao procurarSessaoParaRequisitar() {
+        int codigo = consola.lerInteiro("Qual é o codigo da sessão para a qual pretende requisitar instrumentos?");
+        Sessao sessao = sistema.getSessoes().procurarSessao(codigo);
+        while (sessao == null) {
+            consola.escreverErro("Não há nenhuma sessão com esse código.\n\n");
+            codigo = consola.lerInteiro("Qual é o codigo da sessão para a qual pretende requisitar instrumentos?");
+            sessao = sistema.getSessoes().procurarSessao(codigo);
         }
         return sessao;
     }
-    private Instrumento procurarInstrumentoParaRequisitar(){
+
+    private Instrumento procurarInstrumentoParaRequisitar() {
         String nome = consola.lerString("Qual é o instrumento que pretende requisitar?");
         Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nome);
-        while(instrumento == null){
+        while (instrumento == null) {
             consola.escreverErro("Não há nenhum instrumento com esse nome.\n\n");
             nome = consola.lerString("Qual é o instrumento que pretende requisitar?");
             instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nome);
         }
         return instrumento;
     }
-    public void RequisitarInstrumentosParaSessao(Musico musico){
-        consola.escrever("Requisitar Instrumentos\n\n");
+
+    public void RequisitarInstrumentosParaSessao(Musico musico) {
+        consola.escrever("Pedido Para Requisitar Instrumentos\n\n");
         Sessao sessao = procurarSessaoParaRequisitar();
         int numInstrumentos = consola.lerInteiro("Quantos instrumentos pretende requisitar?");
         Collection<Instrumento> instrumentos = new HashSet<>();
         for (int i = 0; i < numInstrumentos; i++) {
             instrumentos.add(procurarInstrumentoParaRequisitar());
         }
-        //falta data de Requisição
-        Requisicao requisicao = new Requisicao(musico, instrumentos, null, sessao);
+
+        Requisicao requisicao = new Requisicao(musico, instrumentos, LocalDate.now(), sessao, "Pendente");
+        sessao.adicionarRequisicao(requisicao);
         sistema.getRequisicoes().adicionarRequisicao(requisicao);
+        sistema.getSessoes().adicionarRequisicoesAumaSessao(sessao);
+
+        consola.escrever("Pedido de requisição enviado com sucesso!");
     }
-    
-    
+
+    public String listarRequisicoes(String Estado) {
+        consola.escrever("Requisicoes " + Estado);
+        return sistema.getRequisicoes().listarRequisicoes(Estado).toString();
+
+    }
+
     //Listar Sessoes
-    private Sessao procurarSessaoParaListar(){
-        LocalDate dataSessao = consola.lerData("Introduza a data:");
-        Sessao sessao = sistema.getSessoes().procurarSessao(dataSessao);
-        while(sessao == null){
-            consola.escreverErro("Não há nenhuma sessão agendada para essa data.\n\n");
-            dataSessao = consola.lerData("Introduza outra data:");
-            sessao = sistema.getSessoes().procurarSessao(dataSessao);
+    private Sessao procurarSessaoParaListar() {
+        int codigo = consola.lerInteiro("Introduza o codigo:");
+        Sessao sessao = sistema.getSessoes().procurarSessao(codigo);
+        while (sessao == null) {
+            consola.escreverErro("Não há nenhuma sessão com esse código.\n");
+            codigo = consola.lerInteiro("Introduza o código:");
+            sessao = sistema.getSessoes().procurarSessao(codigo);
         }
         return sessao;
     }
-    public String listarAlbunsDoMusico(Musico musico){
-       consola.escrever("Álbuns em que está presente");
-       return sistema.getAlbuns().listarAlbunsMusico(musico).toString();
+
+    public String listarAlbunsDoMusico(Musico musico) {
+        consola.escrever("Álbuns em que está presente");
+        return sistema.getAlbuns().listarAlbunsMusico(musico).toString();
     }
-    public String listarSessoesAgendadas(){
-       consola.escrever("Sessões Agendadas");
-       return sistema.getSessoes().listarSessoesAgendadas().toString();
-       
-    }
-    public String listarSessoesAgendadasMusico(Musico musico){
-       consola.escrever("Sessões Agendadas");
-       return sistema.getSessoes().listarSessoesAgendadasPorMusico(musico).toString();
-       
-    }
-    
-    public String listarSessoesConcluidas(){
-       consola.escrever("Sessões Concluidas");
-       return sistema.getSessoes().listarSessoesConcluidas().toString();
-    }
-    
-    public String listarAlbunsProdutor(Produtor produtor){
-       consola.escrever("Álbuns Produzidos");
-       return sistema.getEdicoesAlbum().listarAlbunsProdutor(produtor).toString();
-    }
-   
-  /*  public String listarSessoesAgendadasProdutorPorDia(){
+
+    public String listarSessoesAgendadas() {
         consola.escrever("Sessões Agendadas");
-        Sessao sessao = procurarSessaoParaListar();
-        return sistema.getSessoes().listarSessoesAgendadasPorProdutor(sessao).toString();
+        return sistema.getSessoes().listarSessoesAgendadas().toString();
     }
-    */
+
+    public String listarSessoesAgendadasMusico(Musico musico) {
+        consola.escrever("Sessões Agendadas");
+        return sistema.getSessoes().listarSessoesAgendadasPorMusico(musico).toString();
+
+    }
+
+    public String listarSessoesConcluidas() {
+        consola.escrever("Sessões Concluidas");
+        return sistema.getSessoes().listarSessoesConcluidas().toString();
+    }
+
+    public String listarAlbunsProdutor(Produtor produtor) {
+        consola.escrever("Álbuns Produzidos");
+        return sistema.getEdicoesAlbum().listarAlbunsProdutor(produtor).toString();
+    }
+
+    public String listarSessoesAgendadasPorDia() {
+        LocalDate data = consola.lerData("Pretende ver as sessões agendadas de que dia?");
+        while (data == null) {
+            consola.escrever("Data Inválida");
+            data = consola.lerData("Pretende ver as sessões agendadas de que dia?");
+        }
+        consola.escrever("Sessoes Agendadas " + data);
+        return sistema.getSessoes().listarSessoesAgendadasPorDia(data).toString();
+
+    }
+
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
-    private void consultarDadosProdutor(Produtor produtor){
+    private void consultarDadosProdutor(Produtor produtor) {
         consola.escrever("Dados do Produtor\n");
         consola.escrever(produtor.toString());
     }
-    
-    private void consultarDadosMusico(Musico musico){
+
+    private void consultarDadosMusico(Musico musico) {
         consola.escrever("Dados do Músico\n");
         consola.escrever(musico.toString());
     }
-    
+
     private void editarDadosProdutor(Produtor produtor) {
         consola.escrever("Editar dados Produtor\n\n");
         String nome = consola.lerString("Introduza o nome:");
@@ -439,7 +449,7 @@ public class ProgramaGM {
         produtor.setDataNasc(dataNascimento);
         consola.escrever("Dados editados com sucesso!");
     }
-    
+
     private void editarDadosMusico(Musico musico) {
         consola.escrever("Editar dados Musico\n\n");
         Collection<Instrumento> instrumentos = new HashSet<>();
@@ -453,18 +463,17 @@ public class ProgramaGM {
         musico.setDataNasc(dataNascimento);
         int resposta = 0;
         resposta = consola.lerInteiro("Pretende alterar os instrumentos que o músico toca?\n1-Sim \n2-Não");
-        while(resposta != 1 || resposta != 2){
+        while (resposta != 1 || resposta != 2) {
 
-            if(resposta == 1){
+            if (resposta == 1) {
                 int numInstrumentos = consola.lerInteiro("Quantos instrumentos toca o músico:");
                 for (int i = 0; i < numInstrumentos; i++) {
                     instrumentos.add(procurarInstrumento());
                     musico.setInstrumentosMusicoToca(instrumentos);
-                break;
+                    break;
                 }
                 break;
-            }
-            else if(resposta == 2){
+            } else if (resposta == 2) {
                 break;
             }
             consola.escreverErro("Opção Inválida");
@@ -472,6 +481,8 @@ public class ProgramaGM {
         }
         consola.escrever("Dados editados com sucesso!");
     }
+    
+            
 
     //Fonte:Guardar e Carregar ficheiro do professor TPS
     //Guardar e carregar ficheiros Utilizadores
@@ -485,7 +496,7 @@ public class ProgramaGM {
                     + ex.getLocalizedMessage());
         }
     }
-    
+
     private void carregarFicheiroUtilizadores() {
         String nomeFicheiro = "Utilizadores";
         try {
@@ -496,7 +507,7 @@ public class ProgramaGM {
                     + ex.getMessage());
         }
     }
-    
+
     //Guardar e carregar ficheiros Instrumentos
     private void guardarFicheiroInstrumentos() {
         String nomeFicheiro = "Instrumentos";
@@ -508,7 +519,7 @@ public class ProgramaGM {
                     + ex.getLocalizedMessage());
         }
     }
-    
+
     private void carregarFicheiroInstrumentos() {
         String nomeFicheiro = "Instrumentos";
         try {
@@ -519,7 +530,7 @@ public class ProgramaGM {
                     + ex.getMessage());
         }
     }
-    
+
     //Guardar e carregar ficheiros Albuns
     private void guardarFicheiroAlbuns() {
         String nomeFicheiro = "Albuns";
@@ -531,7 +542,7 @@ public class ProgramaGM {
                     + ex.getLocalizedMessage());
         }
     }
-    
+
     private void carregarFicheiroAlbuns() {
         String nomeFicheiro = "Albuns";
         try {
@@ -542,7 +553,7 @@ public class ProgramaGM {
                     + ex.getMessage());
         }
     }
-    
+
     //Guardar e carregar ficheiros Sessoes
     private void guardarFicheiroSessoes() {
         String nomeFicheiro = "Sessoes";
@@ -554,7 +565,7 @@ public class ProgramaGM {
                     + ex.getLocalizedMessage());
         }
     }
-    
+
     private void carregarFicheiroSessoes() {
         String nomeFicheiro = "Sessoes";
         try {
@@ -565,7 +576,7 @@ public class ProgramaGM {
                     + ex.getMessage());
         }
     }
-    
+
     //Guardar e carregar ficheiros Requisicoes
     private void guardarFicheiroRequisicoes() {
         String nomeFicheiro = "Requisicoes";
@@ -577,7 +588,7 @@ public class ProgramaGM {
                     + ex.getLocalizedMessage());
         }
     }
-    
+
     private void carregarFicheiroRequisicoes() {
         String nomeFicheiro = "Requisicoes";
         try {
@@ -588,9 +599,30 @@ public class ProgramaGM {
                     + ex.getMessage());
         }
     }
-    
-    
- 
+
+    //Guardar e carregar ficheiros Edicao de Album
+    private void guardarFicheiroEdicoesAlbum() {
+        String nomeFicheiro = "EdicoesAlbum";
+        try {
+            sistema.getEdicoesAlbum().guardarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro guardado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel criar o ficheiro: "
+                    + ex.getLocalizedMessage());
+        }
+    }
+
+    private void carregarFicheiroEdicoesAlbum() {
+        String nomeFicheiro = "EdicoesAlbum";
+        try {
+            sistema.getEdicoesAlbum().carregarFicheiroObjetos(nomeFicheiro);
+            consola.escrever("Ficheiro carregado");
+        } catch (Exception ex) {
+            consola.escrever("Não foi possivel carregar o ficheiro: "
+                    + ex.getMessage());
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -613,12 +645,12 @@ public class ProgramaGM {
     public static void main(String[] args) {
 
         ProgramaGM programa = new ProgramaGM();
-        
+
         String[] opcoesAdministrador = {
             "Adicionar/Apagar Músico/Produtor",
             "Registar Álbum",
             "Registar instrumentos de música",
-            "Listar Instrumentos",
+            "Listar os pedidos de requisição por estado (pendente, atribuído, recusado)",
             "Guardar Ficheiros",
             "Carregar Ficheiros",
             "Mostrar estatísticas totais ou para um determinado mês: a. Total de álbuns em edição b. Média da percentagem de sessões de gravação concluídas c. Total de álbuns concluídos",
@@ -630,15 +662,21 @@ public class ProgramaGM {
             "Apagar Produtor",
             "Apagar Músico",
             "Voltar"};
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
+        
+        String[] opcoesAdministrador2 = {
+            "Total de álbuns em edição",
+            "Média da percentagem de sessões de gravação concluídas",
+            "Total de álbuns concluídos",
+            "Voltar"};
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
 
         /*String[] opcoesProdutor = {   
             "Ver/editar os seus dados",
@@ -649,9 +687,9 @@ public class ProgramaGM {
             "Listar os albuns que está a produzir ou que já produziu",
             "Listar as sessões de gravação agendadas para um dia",
             "Sair"};
-*/
+         */
         //Opcoes teste
-        String[] opcoesProdutor = {   
+        String[] opcoesProdutor = {
             "Ver/editar os seus dados",
             "Iniciar/editar a edição de um álbum, definindo as sessões de gravação necessárias",
             "Concluir sessões de gravação",
@@ -659,34 +697,33 @@ public class ProgramaGM {
             "Listar os albuns que está a produzir ou que já produziu",
             "Listar as sessões de gravação agendadas para um dia",
             "Sair"};
-        
+
         String[] opcoesProdutor1 = {
             "Ver dados Produtor",
             "Editar dados Produtor",
             "Voltar"
         };
-     
+
         String[] opcoesProdutor2 = {
             "Iniciar Edição de Álbum",
             "Definir sessões de gravação",
             "Voltar"
         };
-        
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
 
-        String[] opcoesMusico = {   
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+        String[] opcoesMusico = {
             "Ver/editar os seus dados",
             "Ver albuns a que esta associado",
             "Ver as sessoes gravações que tem agendadas",
-            "Fazer a requisição de instrumentos para uma determinada sessão",
+            "Fazer pedido de requisição de instrumentos para uma determinada sessão",
             "Ver o estado das sessoes de gravação",
             "Sair"};
 
@@ -695,7 +732,7 @@ public class ProgramaGM {
             "Editar dados Músico",
             "Voltar"
         };
-        
+
         String[] opcoesMusico5 = {
             "Ver Sessoes Agendadas",
             "Ver Sessoes Concluidas",
@@ -703,21 +740,19 @@ public class ProgramaGM {
         };
 
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
-        
+
         programa.carregarFicheiroAlbuns();
         programa.carregarFicheiroInstrumentos();
         programa.carregarFicheiroUtilizadores();
         programa.carregarFicheiroSessoes();
         programa.carregarFicheiroRequisicoes();
-        
-        
-        
-        
+        programa.carregarFicheiroEdicoesAlbum();
+
         //Criar Administardores
-        Utilizador admin = new Administrador("admin", "admin", "administrador",5,"Rua", null);
+        Utilizador admin = new Administrador("admin", "admin", "administrador", 5, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(admin);
         //Criar Produtoes
-        Utilizador prod = new Produtor("prod", "prod", "produtor",4,"Rua", null);
+        Utilizador prod = new Produtor("prod", "prod", "produtor", 4, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(prod);
         // Criar Músicos eInstrumentos
         Instrumento inst = new Instrumento("Piano");
@@ -730,57 +765,45 @@ public class ProgramaGM {
         programa.sistema.getInstrumentos().adicicionarInstrumento(inst4);
         Instrumento inst5 = new Instrumento("Violao");
         programa.sistema.getInstrumentos().adicicionarInstrumento(inst5);
-        
+
         Collection<Instrumento> instrumentosMus1 = new HashSet<>();
         instrumentosMus1.add(inst);
         instrumentosMus1.add(inst2);
         Utilizador mus = new Musico("drake", "drake", "Drake", 1, "Rua", null, instrumentosMus1);
         programa.sistema.getUsers().adicionarUtilizador(mus);
-        
+
         Collection<Instrumento> instrumentosMus2 = new HashSet<>();
         instrumentosMus2.add(inst3);
-        instrumentosMus2.add(inst4);       
+        instrumentosMus2.add(inst4);
         Utilizador mus2 = new Musico("ye", "ye", "Kayne West", 2, "Rua", null, instrumentosMus2);
         programa.sistema.getUsers().adicionarUtilizador(mus2);
-        
+
         Collection<Instrumento> instrumentosMus3 = new HashSet<>();
-        instrumentosMus3.add(inst5);       
+        instrumentosMus3.add(inst5);
         Utilizador mus3 = new Musico("rhianna", "rhianna", "Rhianna", 3, "Rua", null, instrumentosMus3);
         programa.sistema.getUsers().adicionarUtilizador(mus3);
-        
+
         Utilizador mus5 = new Musico("sza", "sza", "Sza", 8, "Rua", null, instrumentosMus3);
         programa.sistema.getUsers().adicionarUtilizador(mus5);
         //Criar Albúm e Musicas
         Collection<Musico> musicos = new HashSet<>();
         musicos.add((Musico) mus2);
         musicos.add((Musico) mus3);
-        
+
         Collection<Musico> musicos2 = new HashSet<>();
         musicos.add((Musico) mus);
-        Musica musica = new Musica("Behind Barz",234,musicos);
+        Musica musica = new Musica("Behind Barz", 234, musicos);
         programa.sistema.getMusicas().adicionarMusica(musica);
-        Musica musica2 = new Musica("Jimmy Cooks",234,musicos2);
+        Musica musica2 = new Musica("Jimmy Cooks", 234, musicos2);
         programa.sistema.getMusicas().adicionarMusica(musica2);
-        
+
         Collection<Musica> musicasAlbm1 = new HashSet<>();
         musicasAlbm1.add(musica);
         musicasAlbm1.add(musica2);
-  
-        Album albm = new Album(12345, "Donda",null,"Rap",musicasAlbm1);
+
+        Album albm = new Album(12345, "Donda", null, "Rap", musicasAlbm1);
         programa.sistema.getAlbuns().adicionarAlbum(albm);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         Utilizador utilizador = programa.autenticar();
 
         int TipoInteger = 0;
@@ -818,10 +841,12 @@ public class ProgramaGM {
                                         programa.removerMusico();
                                         break;
                                     case 5:
-                                    programa.guardarFicheiroAlbuns();
-                                    programa.guardarFicheiroInstrumentos();
-                                    programa.guardarFicheiroUtilizadores();
-                                    programa.guardarFicheiroSessoes();
+                                        programa.guardarFicheiroAlbuns();
+                                        programa.guardarFicheiroInstrumentos();
+                                        programa.guardarFicheiroUtilizadores();
+                                        programa.guardarFicheiroSessoes();
+                                        programa.guardarFicheiroEdicoesAlbum();
+                                        programa.guardarFicheiroRequisicoes();
 
                                 }
                             } while (opcao1 != opcoesAdministrador1.length);
@@ -837,7 +862,7 @@ public class ProgramaGM {
                             break;
                         //Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
                         case 4:
-                            programa.listarInstrumentos();
+                            programa.listarRequisicoes("Pendente");
                             break;
                         //
                         case 5:
@@ -853,10 +878,28 @@ public class ProgramaGM {
                             programa.carregarFicheiroInstrumentos();
                             programa.carregarFicheiroUtilizadores();
                             break;
-                        //
-                        case 7:
-                            break;
-                        //
+                        //Mostrar estatísticas totais ou para um determinado mês
+                        case 7: {
+                            int opcaoA2=0;
+                            do {
+                                opcaoA2 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador2);
+                                switch (opcaoA2) {
+                                    case 1:
+                                        
+                                        break;
+                                    case 2:
+                                        
+                                        break;
+                                    case 3:
+                                        
+                                        break;
+                                    case 4:
+                            
+                                }
+                            } while (opcaoA2 != opcoesAdministrador2.length);
+                        }
+                        break;
+
                         case 8:
                             programa.guardarFicheiroAlbuns();
                             programa.guardarFicheiroInstrumentos();
@@ -867,18 +910,18 @@ public class ProgramaGM {
                     }
                 }
                 break;
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////           
-    //Produtor
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////           
+            //Produtor
             case 2:
                 int opcaoP = 0;
-                 while (opcoesProdutor.length != opcaoP){
+                while (opcoesProdutor.length != opcaoP) {
                     opcaoP = programa.consola.lerOpcoesMenusInteiros(opcoesProdutor);
 
                     switch (opcaoP) {
@@ -892,13 +935,15 @@ public class ProgramaGM {
                                         programa.consultarDadosProdutor((Produtor) utilizador);
                                         break;
                                     case 2:
-                                        programa.editarDadosProdutor((Produtor)utilizador);
+                                        programa.editarDadosProdutor((Produtor) utilizador);
                                         break;
                                     case 3:
-                                    programa.guardarFicheiroAlbuns();
-                                    programa.guardarFicheiroInstrumentos();
-                                    programa.guardarFicheiroUtilizadores();
-                                    programa.guardarFicheiroSessoes();
+                                        programa.guardarFicheiroAlbuns();
+                                        programa.guardarFicheiroInstrumentos();
+                                        programa.guardarFicheiroUtilizadores();
+                                        programa.guardarFicheiroSessoes();
+                                        programa.guardarFicheiroEdicoesAlbum();
+                                        programa.guardarFicheiroRequisicoes();
 
                                 }
                             } while (opcaoP1 != opcoesProdutor1.length);
@@ -915,10 +960,12 @@ public class ProgramaGM {
                                         programa.DefinirSessao();
                                         break;
                                     case 3:
-                                    programa.guardarFicheiroAlbuns();
-                                    programa.guardarFicheiroInstrumentos();
-                                    programa.guardarFicheiroUtilizadores();
-                                    programa.guardarFicheiroSessoes();
+                                        programa.guardarFicheiroAlbuns();
+                                        programa.guardarFicheiroInstrumentos();
+                                        programa.guardarFicheiroUtilizadores();
+                                        programa.guardarFicheiroSessoes();
+                                        programa.guardarFicheiroEdicoesAlbum();
+                                        programa.guardarFicheiroRequisicoes();
 
                                 }
                             } while (opcaoP2 != opcoesProdutor2.length);
@@ -933,31 +980,32 @@ public class ProgramaGM {
                             programa.listarAlbunsProdutor((Produtor) utilizador);
                             break;
                         case 6:
-                            //programa.listarSessoesAgendadasProdutorPorDia();
+                            programa.listarSessoesAgendadasPorDia();
                             break;
                         case 7:
-                        programa.guardarFicheiroAlbuns();
-                        programa.guardarFicheiroInstrumentos();
-                        programa.guardarFicheiroUtilizadores();
-                        programa.guardarFicheiroSessoes();
-                        programa.guardarFicheiroRequisicoes();
+                            programa.guardarFicheiroAlbuns();
+                            programa.guardarFicheiroInstrumentos();
+                            programa.guardarFicheiroUtilizadores();
+                            programa.guardarFicheiroSessoes();
+                            programa.guardarFicheiroRequisicoes();
+                            programa.guardarFicheiroEdicoesAlbum();
 
                     }
                 }
 
                 break;
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    //Musico
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////
+            //Musico
             case 3:
                 int opcaoM = 0;
-                 while (opcoesProdutor.length != opcaoM){
+                while (opcoesProdutor.length != opcaoM) {
                     opcaoM = programa.consola.lerOpcoesMenusInteiros(opcoesMusico);
 
                     switch (opcaoM) {
@@ -982,7 +1030,8 @@ public class ProgramaGM {
                             programa.listarAlbunsDoMusico((Musico) utilizador);
                             break;
                         case 3:
-                            programa.listarSessoesAgendadasMusico((Musico) utilizador);
+                            programa.listarRequisicoes("Pendente");
+                            //programa.listarSessoesAgendadasMusico((Musico) utilizador);
                             break;
                         case 4:
                             programa.RequisitarInstrumentosParaSessao((Musico) utilizador);
@@ -1006,18 +1055,20 @@ public class ProgramaGM {
                             } while (opcaoM5 != opcoesMusico1.length);
                             break;
                         case 6:
-                        programa.guardarFicheiroAlbuns();
-                        programa.guardarFicheiroInstrumentos();
-                        programa.guardarFicheiroUtilizadores();
-                        programa.guardarFicheiroSessoes();
-                        programa.guardarFicheiroRequisicoes();
-                        exit(0);
+                            programa.guardarFicheiroAlbuns();
+                            programa.guardarFicheiroInstrumentos();
+                            programa.guardarFicheiroUtilizadores();
+                            programa.guardarFicheiroSessoes();
+                            programa.guardarFicheiroRequisicoes();
+                            programa.guardarFicheiroEdicoesAlbum();
+
+                            exit(0);
 
                     }
                 }
 
                 break;
-                
+
         }
 
     }

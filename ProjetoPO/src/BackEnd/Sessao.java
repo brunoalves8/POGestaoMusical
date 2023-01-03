@@ -7,7 +7,7 @@ import java.util.HashSet;
 
 public class Sessao implements Serializable{
 
-    //private Album albumSerGravado;
+    private int codigo;
     private EdicaoAlbum albumSerGravado;
     private LocalDate diaDeGravacao;
     //private ArrayList<Musico> musicosSessaoGravacao = new ArrayList<>();
@@ -20,7 +20,15 @@ public class Sessao implements Serializable{
     }
    */
     public Sessao() {
-        requisicoes = new HashSet<>();
+        
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
     public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, Collection<Requisicao> requisicoes, boolean sessaoConcluida) {
@@ -36,10 +44,12 @@ public class Sessao implements Serializable{
     }
     
 
-    public Sessao(EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, boolean estadoSessao) {
+    public Sessao(int codigo,EdicaoAlbum albumSerGravado, LocalDate diaDeGravacao, boolean estadoSessao) {
+        this.codigo = codigo;
         this.albumSerGravado = albumSerGravado;
         this.diaDeGravacao = diaDeGravacao;
         this.sessaoConcluida = estadoSessao;
+        requisicoes = new HashSet<>();
     }
 
 
@@ -78,11 +88,13 @@ public class Sessao implements Serializable{
     public void adicionarRequisicao(Requisicao requisicao){
         requisicoes.add(requisicao);
     }
-    
+
     @Override
     public String toString() {
-        return "Sessao{" + "albumSerGravado=" + albumSerGravado + ", diaDeGravacao=" + diaDeGravacao + '}';
+        return "Sessao{" + "codigo=" + codigo + ", albumSerGravado=" + albumSerGravado + ", diaDeGravacao=" + diaDeGravacao + '}';
     }
+    
+  
      
     
 }

@@ -29,11 +29,21 @@ public class SetSessoes implements Serializable {
     public void adicionarSessao(Sessao sessao) {
         sessoes.add(sessao);
     }
+    
+    public void adicionarRequisicoesAumaSessao(Sessao sessao){
+        for(Sessao s: sessoes){
+            if(s.getCodigo()== sessao.getCodigo()){
+                s.setRequisicoes(sessao.getRequisicoes());        
+            }
+        }
+            
+    }
+    
 
-    public boolean verificarExisteSessao(LocalDate dataSessao) {
+    public boolean verificarExisteSessao(int cod) {
 
         for (Sessao s : sessoes) {
-            if (s.getDiaDeGravacao().compareTo(dataSessao) == 0 ) {
+            if (s.getCodigo() == cod ) {
                 return true;
             }
         }
@@ -42,10 +52,10 @@ public class SetSessoes implements Serializable {
     
 
     
-    public Sessao procurarSessao(LocalDate dataSessao) {
+    public Sessao procurarSessao(int cod) {
 
         for (Sessao s : sessoes) {
-            if (s.getDiaDeGravacao().compareTo(dataSessao) == 0) {
+            if (s.getCodigo() == cod) {
                 return (Sessao) s;
             }
         }
@@ -64,6 +74,20 @@ public class SetSessoes implements Serializable {
         }
         return sessoesAgendadas;
     }
+    
+    public Collection<Sessao> listarSessoesAgendadasPorDia(LocalDate data){
+        Collection<Sessao> sessoesAgendadas= new HashSet<>();
+        for (Sessao s : sessoes) {
+            if (s.isSessaoConcluida()==false && (s.getDiaDeGravacao().compareTo(data)) == 0) {
+                sessoesAgendadas.add(s);
+                System.out.println(s.toString());
+            }
+        }
+        return sessoesAgendadas;
+    }
+    
+    
+    
     
     public Collection<Sessao> listarSessoesAgendadasPorMusico(Musico musico){
         Collection<Sessao> sessoesAgendadas= new HashSet<>();

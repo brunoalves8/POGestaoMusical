@@ -1,7 +1,9 @@
 package BackEnd;
 
+import java.io.Serializable;
 
-public class Sistema {
+
+public class Sistema implements Serializable {
     
     private final MapUtilizadores users;
     private final SetAlbum albuns;

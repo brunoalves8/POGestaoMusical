@@ -59,7 +59,9 @@ public class Musica implements Serializable{
             }
         }
     }
-
+    
+    
+    
     @Override
     public String toString() {
         return "Musica{" + "titulo=" + titulo + ", duracao=" + duracao + ", musicos=" + musicos + '}';

@@ -80,16 +80,22 @@ public class SetAlbum implements Serializable {
         return null;
     }
     
-    public Collection<Musica> listarAlbunsMusico(Musico musico){
-        Collection<Musica> musicos = new HashSet<>();
-        for (Musica m : musicos) {
-            if (m.getMusicos()== musico) {
-                musicos.add(m);
-                System.out.println(m.toString());
+    public Collection<Album> listarAlbunsMusico(Musico musico){
+            Collection<Album> albunsMusico = new HashSet<>();
+        for(Album a: albuns){
+            Collection<Musica> musicasAlbum = new HashSet<>();
+            musicasAlbum = a.getMusicasDoAlbum();
+            for(Musica m: musicasAlbum){
+                if(m.getMusicos().contains(musico)){
+                    albunsMusico.add(a);
+                }
             }
         }
-        return musicos;
+        return albunsMusico;
+            
     }
+ 
+    
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

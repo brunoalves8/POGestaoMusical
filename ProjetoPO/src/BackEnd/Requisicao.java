@@ -11,16 +11,26 @@ public class Requisicao implements Serializable{
     private Collection<Instrumento> instrumentos;
     private Sessao sessaoGravacao;
     private LocalDate dataRequisicao;
+    private String estadoRequisicao;
     
     public Requisicao() {
         instrumentos = new HashSet<>();
     }
 
-    public Requisicao(Musico requisitor, Collection<Instrumento> instrumentos, LocalDate dataRequisicao, Sessao sessaoGravacao) {
+    public Requisicao(Musico requisitor, Collection<Instrumento> instrumentos, LocalDate dataRequisicao, Sessao sessaoGravacao, String estadoRequisicao) {
         this.requisitor = requisitor;
         this.instrumentos = instrumentos;
         this.dataRequisicao = dataRequisicao;
         this.sessaoGravacao = sessaoGravacao;
+        this.estadoRequisicao = estadoRequisicao;
+    }
+
+    public String getEstadoRequisicao() {
+        return estadoRequisicao;
+    }
+
+    public void setEstadoRequisicao(String estadoRequisicao) {
+        this.estadoRequisicao = estadoRequisicao;
     }
 
     public Collection<Instrumento> getInstrumentos() {

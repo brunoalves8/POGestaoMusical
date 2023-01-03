@@ -20,12 +20,30 @@ public class RepositorioRequisicoes implements Serializable{
         requisicoes.add(requisicao);
     }
     
-    public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
-        try (FileOutputStream fos = new FileOutputStream(nomeFicheiro); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            
-            oos.writeObject(requisicoes);
-            
+    
+
+    
+    
+    public Collection<Requisicao> listarRequisicoes(String Estado){ // Estado "Pendente", "Atribuido", "Recusado"
+        Collection<Requisicao> requisicoesO = new HashSet<>();
+        for(Requisicao r: requisicoes){
+            if(r.getEstadoRequisicao().equals(Estado))
+                requisicoesO.add(r);         
         }
+        return requisicoesO;
+    }
+    
+    
+    
+    
+    public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
+        FileOutputStream fos = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(requisicoes);
+
+        oos.close();
+        fos.close();
     }
 
     public void carregarFicheiroObjetos(String nomeFicheiro) throws Exception {
@@ -34,6 +52,11 @@ public class RepositorioRequisicoes implements Serializable{
         requisicoes = (HashSet<Requisicao>) oin.readObject();
         oin.close();
         file.close();
+    }
+
+    @Override
+    public String toString() {
+        return "RepositorioRequisicoes{" + "requisicoes=" + requisicoes + '}';
     }
     
     
