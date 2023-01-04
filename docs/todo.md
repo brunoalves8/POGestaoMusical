@@ -39,4 +39,4 @@
   - [ ] 5. Aceder a informação relativa à situação atual (estado, sessões de gravação,
     etc.) de um determinado álbum
   - [X] 6. Listar os álbuns que produz ou produziu
-  - [ ] 7. Listar as sessões de gravação agendadas para um dia 
+  - [X] 7. Listar as sessões de gravação agendadas para um dia 
