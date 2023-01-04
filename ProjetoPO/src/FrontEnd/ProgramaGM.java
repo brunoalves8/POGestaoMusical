@@ -415,14 +415,14 @@ public class ProgramaGM {
         return sistema.getEdicoesAlbum().listarAlbunsProdutor(produtor).toString();
     }
 
-    public String listarSessoesAgendadasPorDia() {
+    public String listarSessoesAgendadasPorDia(Produtor produtor) {
         LocalDate data = consola.lerData("Pretende ver as sessões agendadas de que dia?");
         while (data == null) {
             consola.escrever("Data Inválida");
             data = consola.lerData("Pretende ver as sessões agendadas de que dia?");
         }
         consola.escrever("Sessoes Agendadas " + data);
-        return sistema.getSessoes().listarSessoesAgendadasPorDia(data).toString();
+        return sistema.getSessoes().listarSessoesAgendadasPorDia(produtor, data).toString();
 
     }
 
@@ -752,7 +752,7 @@ public class ProgramaGM {
         Utilizador admin = new Administrador("admin", "admin", "administrador", 5, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(admin);
         //Criar Produtoes
-        Utilizador prod = new Produtor("prod", "prod", "produtor", 4, "Rua", null);
+       /* Utilizador prod = new Produtor("prod", "prod", "produtor", 4, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(prod);
         // Criar Músicos eInstrumentos
         Instrumento inst = new Instrumento("Piano");
@@ -803,7 +803,7 @@ public class ProgramaGM {
 
         Album albm = new Album(12345, "Donda", null, "Rap", musicasAlbm1);
         programa.sistema.getAlbuns().adicionarAlbum(albm);
-
+*/
         Utilizador utilizador = programa.autenticar();
 
         int TipoInteger = 0;
@@ -980,7 +980,7 @@ public class ProgramaGM {
                             programa.listarAlbunsProdutor((Produtor) utilizador);
                             break;
                         case 6:
-                            programa.listarSessoesAgendadasPorDia();
+                            programa.listarSessoesAgendadasPorDia((Produtor) utilizador);
                             break;
                         case 7:
                             programa.guardarFicheiroAlbuns();

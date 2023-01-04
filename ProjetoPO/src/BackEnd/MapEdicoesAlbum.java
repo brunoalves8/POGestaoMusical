@@ -24,7 +24,7 @@ public class MapEdicoesAlbum implements Serializable {
     public Collection<Album> listarAlbunsProdutor(Produtor produtor) {
         Collection<Album> albuns = new HashSet<>();
         for (EdicaoAlbum a : edicoesAlbum.values()) {
-            if (a.getProdutor() == produtor) {
+            if (a.getProdutor().equals(produtor)) {
                 albuns.add(a.getAlbum());
                 System.out.println(a.toString());
             }

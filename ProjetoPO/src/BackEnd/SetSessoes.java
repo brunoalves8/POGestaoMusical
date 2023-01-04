@@ -75,17 +75,16 @@ public class SetSessoes implements Serializable {
         return sessoesAgendadas;
     }
     
-    public Collection<Sessao> listarSessoesAgendadasPorDia(LocalDate data){
+    public Collection<Sessao> listarSessoesAgendadasPorDia(Produtor produtor, LocalDate data){
         Collection<Sessao> sessoesAgendadas= new HashSet<>();
         for (Sessao s : sessoes) {
-            if (s.isSessaoConcluida()==false && (s.getDiaDeGravacao().compareTo(data)) == 0) {
+            if (s.getAlbumSerGravado().getProdutor().equals(produtor) && s.isSessaoConcluida()==false && (s.getDiaDeGravacao().equals(data))) {
                 sessoesAgendadas.add(s);
                 System.out.println(s.toString());
             }
         }
         return sessoesAgendadas;
     }
-    
     
     
     
