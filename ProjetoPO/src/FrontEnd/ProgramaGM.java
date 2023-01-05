@@ -1032,8 +1032,8 @@ public class ProgramaGM {
                             programa.listarAlbunsDoMusico((Musico) utilizador);
                             break;
                         case 3:
-                            programa.listarRequisicoes("Pendente");
-                            //programa.listarSessoesAgendadasMusico((Musico) utilizador);
+                            //programa.listarRequisicoes("Pendente");
+                            programa.listarSessoesAgendadasMusico((Musico) utilizador);
                             break;
                         case 4:
                             programa.RequisitarInstrumentosParaSessao((Musico) utilizador);

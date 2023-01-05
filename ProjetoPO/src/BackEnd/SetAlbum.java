@@ -89,7 +89,7 @@ public class SetAlbum implements Serializable {
                 Collection<Musico> musicosMusica = new HashSet<>();
                 musicosMusica = m.getMusicos();
                 for(Musico mu : musicosMusica){
-                    if(mu.getNome().equals(musico.getNome())){
+                    if(mu.equals(musico)){
                         albunsMusico.add(a);
                         
                     }

@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class Musico extends Utilizador implements Serializable {
-    
+
     private Collection<Instrumento> instrumentosMusicoToca;
 
     public Musico(String username, String password, String nome) {
@@ -18,7 +18,7 @@ public class Musico extends Utilizador implements Serializable {
         super(username, password, nome, bi, morada, dataNasc);
         this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
-    
+
     public Musico(Collection<Instrumento> instrumentosMusicoToca, String nome, int bi, String morada, LocalDate dataNasc) {
         super(nome, bi, morada, dataNasc);
         this.instrumentosMusicoToca = instrumentosMusicoToca;
@@ -31,16 +31,26 @@ public class Musico extends Utilizador implements Serializable {
     public void setInstrumentosMusicoToca(Collection<Instrumento> instrumentosMusicoToca) {
         this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
-    
-    public void adicionarInstrumentos(Instrumento instrumento){
+
+    public void adicionarInstrumentos(Instrumento instrumento) {
         instrumentosMusicoToca.add(instrumento);
     }
-    
+
     @Override
     public String toString() {
-        return "Musico" + super.toString() + "\n" +
-               "Instrumentos Musico Toca=" + getInstrumentosMusicoToca();
+        return "Musico" + super.toString() + "\n"
+                + "Instrumentos Musico Toca=" + getInstrumentosMusicoToca();
     }
-    
-    
+
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Musico) {
+            Musico outro = (Musico) o;
+            return outro.getUsername().equals(getUsername());
+        }
+        return false;
+    }
+
 }
