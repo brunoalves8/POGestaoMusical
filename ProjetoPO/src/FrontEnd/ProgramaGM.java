@@ -319,12 +319,12 @@ public class ProgramaGM {
     }
 
     //Ponto 4 PRODUTOR (Concluir Sessoes)
-    public void concluirSessaoGravacao(Produtor utilizador) {
+    public void concluirSessaoGravacao(Produtor produtor) {
         consola.escrever("Concluir Sessao de Gravação\n\n");
         //Album album = procurarAlbumParaConcluirSessao();
         int codigo = consola.lerInteiro("Qual é o código da sessão que pretende concluir?");
-        while (sistema.getSessoes().verificarExisteSessao(codigo) == false) {
-            consola.escreverErro("O código introduzido não corresponde a nenhuma sessão");
+        while (sistema.getSessoes().verificarExisteSessaoProdutor(codigo, produtor) == false) {
+            consola.escreverErro("O código introduzido não corresponde a nenhuma sessão agendada para este produtor!");
             codigo = consola.lerInteiro("Introduza um código válido");
         }
         sistema.getSessoes().procurarSessao(codigo).setSessaoConcluida(true);
@@ -332,35 +332,35 @@ public class ProgramaGM {
     }
 
     //Ponto 5 Músico
-    private Sessao procurarSessaoParaRequisitar() {
+    private Sessao procurarSessaoParaRequisitar(Musico musico) {
         int codigo = consola.lerInteiro("Qual é o codigo da sessão para a qual pretende requisitar instrumentos?");
-        Sessao sessao = sistema.getSessoes().procurarSessao(codigo);
+        Sessao sessao = sistema.getSessoes().procurarSessaoPorMusico(codigo, musico);
         while (sessao == null) {
-            consola.escreverErro("Não há nenhuma sessão com esse código.\n\n");
+            consola.escreverErro("Não há nenhuma sessão associada a esse código para este músico.\n\n");
             codigo = consola.lerInteiro("Qual é o codigo da sessão para a qual pretende requisitar instrumentos?");
-            sessao = sistema.getSessoes().procurarSessao(codigo);
+            sessao = sistema.getSessoes().procurarSessaoPorMusico(codigo, musico);
         }
         return sessao;
     }
 
-    private Instrumento procurarInstrumentoParaRequisitar() {
-        String nome = consola.lerString("Qual é o instrumento que pretende requisitar?");
-        Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nome);
+    private Instrumento procurarInstrumentoParaRequisitar(Musico musico) {
+        String nomeInstrumento = consola.lerString("Qual é o instrumento que pretende requisitar?");
+        Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNomeEMusico(nomeInstrumento, musico);
         while (instrumento == null) {
-            consola.escreverErro("Não há nenhum instrumento com esse nome.\n\n");
-            nome = consola.lerString("Qual é o instrumento que pretende requisitar?");
-            instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nome);
+            consola.escreverErro("Não há nenhum instrumento com esse nome. Ou o músico não sabe tocar esse instrumento.\n\n");
+            nomeInstrumento = consola.lerString("Qual é o instrumento que pretende requisitar?");
+            instrumento = sistema.getInstrumentos().procurarInstrumentoPorNomeEMusico(nomeInstrumento, musico);
         }
         return instrumento;
     }
 
     public void RequisitarInstrumentosParaSessao(Musico musico) {
         consola.escrever("Pedido Para Requisitar Instrumentos\n\n");
-        Sessao sessao = procurarSessaoParaRequisitar();
+        Sessao sessao = procurarSessaoParaRequisitar(musico);
         int numInstrumentos = consola.lerInteiro("Quantos instrumentos pretende requisitar?");
         Collection<Instrumento> instrumentos = new HashSet<>();
         for (int i = 0; i < numInstrumentos; i++) {
-            instrumentos.add(procurarInstrumentoParaRequisitar());
+            instrumentos.add(procurarInstrumentoParaRequisitar(musico));
         }
 
         Requisicao requisicao = new Requisicao(musico, instrumentos, LocalDate.now(), sessao, "Pendente");
@@ -388,7 +388,7 @@ public class ProgramaGM {
         }
         return sessao;
     }
-    
+
     //A funcionar Direito também
     public String listarAlbunsDoMusico(Musico musico) {
         consola.escrever("Álbuns em que está presente");
@@ -406,11 +406,17 @@ public class ProgramaGM {
 
     }
 
+    public String listarEstadoSessoesPorMusico(Musico musico) {
+        consola.escrever("Sessões Agendadas");
+        return sistema.getSessoes().listarEstadoSessoesPorMusico(musico).toString();
+
+    }
+
     public String listarSessoesConcluidas() {
         consola.escrever("Sessões Concluidas");
         return sistema.getSessoes().listarSessoesConcluidas().toString();
     }
-    
+
     //A funcionar direito
     public String listarAlbunsProdutor(Produtor produtor) {
         consola.escrever("Álbuns Produzidos");
@@ -483,8 +489,6 @@ public class ProgramaGM {
         }
         consola.escrever("Dados editados com sucesso!");
     }
-    
-            
 
     //Fonte:Guardar e Carregar ficheiro do professor TPS
     //Guardar e carregar ficheiros Utilizadores
@@ -664,11 +668,17 @@ public class ProgramaGM {
             "Apagar Produtor",
             "Apagar Músico",
             "Voltar"};
-        
+
         String[] opcoesAdministrador2 = {
             "Total de álbuns em edição",
             "Média da percentagem de sessões de gravação concluídas",
             "Total de álbuns concluídos",
+            "Voltar"};
+        
+        String[] opcoesAdministrador5 = {
+            "Listar pedidos de requisição pendentes",
+            "Listar pedidos de requisição aceites",
+            "Listar pedidos de requisição recusados",
             "Voltar"};
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -735,12 +745,6 @@ public class ProgramaGM {
             "Voltar"
         };
 
-        String[] opcoesMusico5 = {
-            "Ver Sessoes Agendadas",
-            "Ver Sessoes Concluidas",
-            "Voltar"
-        };
-
         programa.consola.escrever("MENU AUTENTICAÇÃO\n");
 
         programa.carregarFicheiroAlbuns();
@@ -754,7 +758,7 @@ public class ProgramaGM {
         Utilizador admin = new Administrador("admin", "admin", "administrador", 5, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(admin);
         //Criar Produtoes
-       /* Utilizador prod = new Produtor("prod", "prod", "produtor", 4, "Rua", null);
+        /* Utilizador prod = new Produtor("prod", "prod", "produtor", 4, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(prod);
         // Criar Músicos eInstrumentos
         Instrumento inst = new Instrumento("Piano");
@@ -805,7 +809,7 @@ public class ProgramaGM {
 
         Album albm = new Album(12345, "Donda", null, "Rap", musicasAlbm1);
         programa.sistema.getAlbuns().adicionarAlbum(albm);
-*/
+         */
         Utilizador utilizador = programa.autenticar();
 
         int TipoInteger = 0;
@@ -863,8 +867,25 @@ public class ProgramaGM {
                             programa.adicionarInstrumento();
                             break;
                         //Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
-                        case 4:
-                            programa.listarRequisicoes("Pendente");
+                        case 4:{
+                            int opcaoA5 = 0;
+                            do {
+                                opcaoA5 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador5);
+                                switch (opcaoA5) {
+                                    case 1:
+                                        programa.listarRequisicoes("Pendente");
+                                        break;
+                                    case 2:
+                                        programa.listarRequisicoes("Atribuido");
+                                        break;
+                                    case 3:
+                                        programa.listarRequisicoes("Recusado");
+                                        break;
+                                    case 4:
+                                        
+                                }
+                            } while (opcaoA5 != opcoesAdministrador2.length);
+                        }
                             break;
                         //
                         case 5:
@@ -882,21 +903,21 @@ public class ProgramaGM {
                             break;
                         //Mostrar estatísticas totais ou para um determinado mês
                         case 7: {
-                            int opcaoA2=0;
+                            int opcaoA2 = 0;
                             do {
                                 opcaoA2 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador2);
                                 switch (opcaoA2) {
                                     case 1:
-                                        
+
                                         break;
                                     case 2:
-                                        
+
                                         break;
                                     case 3:
-                                        
+
                                         break;
                                     case 4:
-                            
+
                                 }
                             } while (opcaoA2 != opcoesAdministrador2.length);
                         }
@@ -1040,21 +1061,7 @@ public class ProgramaGM {
                             programa.guardarFicheiroRequisicoes();
                             break;
                         case 5:
-                            int opcaoM5 = 0;
-                            do {
-
-                                opcaoM5 = programa.consola.lerOpcoesMenusInteiros(opcoesMusico5);
-                                switch (opcaoM5) {
-                                    case 1:
-                                        programa.listarSessoesAgendadas();
-                                        break;
-                                    case 2:
-                                        programa.listarSessoesConcluidas();
-                                        break;
-                                    case 3:
-
-                                }
-                            } while (opcaoM5 != opcoesMusico1.length);
+                            programa.listarEstadoSessoesPorMusico((Musico) utilizador);
                             break;
                         case 6:
                             programa.guardarFicheiroAlbuns();

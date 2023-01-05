@@ -61,16 +61,32 @@ public class SetInstrumentos implements Serializable {
         return false;
     }
     
-    public Instrumento procurarInstrumentoPorNome(String nome) {
+    public Instrumento procurarInstrumentoPorNomeEMusico(String nome, Musico musico) {
 
         for (Instrumento i : instrumentos) {
-            if (i.getNome().equals(nome)) {
-                return i;
+            if (i.getNome().equalsIgnoreCase(nome)) {
+                Collection <Instrumento> instrumentosMusico = new HashSet<>();
+                instrumentosMusico = musico.getInstrumentosMusicoToca();
+                for(Instrumento inst : instrumentosMusico){
+                    if(inst.equals(i)){
+                        return inst;
+                    }
+                }
+                
             }
         }
         return null;
     }
+    public Instrumento procurarInstrumentoPorNome(String nome) {
 
+        for (Instrumento i : instrumentos) {
+            if (i.getNome().equalsIgnoreCase(nome)) {
+                        return i;
+                    }
+                }
+                
+        return null;
+    }
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);

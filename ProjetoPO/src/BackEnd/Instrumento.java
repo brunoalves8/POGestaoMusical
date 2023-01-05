@@ -2,11 +2,9 @@ package BackEnd;
 
 import java.io.Serializable;
 
+public class Instrumento implements Serializable {
 
-public class Instrumento implements Serializable{
-    
     private String nome;
-
 
     public Instrumento() {
     }
@@ -27,5 +25,15 @@ public class Instrumento implements Serializable{
     public String toString() {
         return "Instrumento{" + "nome=" + nome + '}';
     }
-    
+
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Instrumento) {
+            Instrumento outro = (Instrumento) o;
+            return outro.getNome().equals(getNome());
+        }
+        return false;
+    }
 }

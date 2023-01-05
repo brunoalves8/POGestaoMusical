@@ -73,6 +73,15 @@ public class Requisicao implements Serializable{
         return "Requisicao{" + "requisitor=" + requisitor + ", instrumentos=" + instrumentos + ", dataRequisicao=" + dataRequisicao + ", sessaoGravacao=" + sessaoGravacao + '}';
     }
 
-
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Requisicao) {
+            Requisicao outro = (Requisicao) o;
+            return outro.getEstadoRequisicao().equals(getEstadoRequisicao());
+        }
+        return false;
+    }
 
 }

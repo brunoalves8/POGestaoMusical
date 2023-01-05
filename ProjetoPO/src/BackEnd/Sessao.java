@@ -20,7 +20,7 @@ public class Sessao implements Serializable{
     }
    */
     public Sessao() {
-        
+        requisicoes = new HashSet<>();
     }
 
     public int getCodigo() {

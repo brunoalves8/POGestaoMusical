@@ -28,7 +28,8 @@ public class RepositorioRequisicoes implements Serializable{
         Collection<Requisicao> requisicoesO = new HashSet<>();
         for(Requisicao r: requisicoes){
             if(r.getEstadoRequisicao().equals(Estado))
-                requisicoesO.add(r);         
+                requisicoesO.add(r);
+                System.out.println(r.toString());
         }
         return requisicoesO;
     }
