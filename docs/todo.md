@@ -5,7 +5,7 @@
   - [X] 2. Ver/editar os seus dados
     - [X] 2.1. Ver os seus dados
     - [X] 2.2 Editar os seus dados 
-  - [ ] 3. Ver os álbuns a que está associado
+  - [X] 3. Ver os álbuns a que está associado
   - [ ] 4. Ver as sessões gravações que tem agendadas
   - [ ] 5. Fazer a requisição de instrumentos para uma determinada sessão de gravação
   - [X] 6. Ver o estado das sessões de gravação (agendada ou concluída) 
