@@ -43,10 +43,11 @@ public class SetAlbum implements Serializable {
     public Album consultarDadosAlbum(int codigo) {
         for (Album albm : albuns) {
             if (albm.getCodigo() == codigo) {
+                System.out.println(albm.toString());
                 return albm;
+                
             }
         }
-        System.out.println("Não existe nenhum album com esse codigo.");
         return null;
     }
 

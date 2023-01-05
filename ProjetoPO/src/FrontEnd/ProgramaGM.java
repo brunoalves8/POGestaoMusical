@@ -465,6 +465,20 @@ public class ProgramaGM {
 
     }
 
+    //Ponto 5 Produtor
+    public String informacaoAlbum(Produtor produtor) {
+        listarAlbunsProdutor(produtor);
+        consola.escrever("Informações Album.");
+        int codigo = consola.lerInteiro("Introduza o codigo:");
+        Album album = sistema.getAlbuns().consultarDadosAlbum(codigo);
+        while (sistema.getAlbuns().verificarAlbumPorCod(codigo) == false) {
+            consola.escreverErro("Não há nenhum álbum com esse código.\n");
+            codigo = consola.lerInteiro("Introduza o código:");
+            album = sistema.getAlbuns().consultarDadosAlbum(codigo);
+        }
+        return sistema.getAlbuns().consultarDadosAlbum(codigo).toString();
+    }
+
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
     private void consultarDadosProdutor(Produtor produtor) {
         consola.escrever("Dados do Produtor\n");
@@ -923,8 +937,7 @@ public class ProgramaGM {
                         }
                         break;
                         //
-                        case 5:
-                            {
+                        case 5: {
                             int opcaoA5 = 0;
                             do {
                                 opcaoA5 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador5);
@@ -1045,7 +1058,7 @@ public class ProgramaGM {
                             programa.concluirSessaoGravacao((Produtor) utilizador);
                             break;
                         case 4:
-
+                            programa.informacaoAlbum((Produtor) utilizador);
                             break;
                         case 5:
                             programa.listarAlbunsProdutor((Produtor) utilizador);
