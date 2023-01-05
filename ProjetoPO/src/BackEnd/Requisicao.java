@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Requisicao implements Serializable{
 
@@ -12,17 +13,19 @@ public class Requisicao implements Serializable{
     private Sessao sessaoGravacao;
     private LocalDate dataRequisicao;
     private String estadoRequisicao;
+    private int codigo;
     
     public Requisicao() {
         instrumentos = new HashSet<>();
     }
 
-    public Requisicao(Musico requisitor, Collection<Instrumento> instrumentos, LocalDate dataRequisicao, Sessao sessaoGravacao, String estadoRequisicao) {
+    public Requisicao(Musico requisitor, Collection<Instrumento> instrumentos, LocalDate dataRequisicao, Sessao sessaoGravacao, String estadoRequisicao, int codigo) {
         this.requisitor = requisitor;
         this.instrumentos = instrumentos;
         this.dataRequisicao = dataRequisicao;
         this.sessaoGravacao = sessaoGravacao;
         this.estadoRequisicao = estadoRequisicao;
+        this.codigo = codigo;
     }
 
     public String getEstadoRequisicao() {
@@ -64,15 +67,25 @@ public class Requisicao implements Serializable{
     public void setSessaoGravacao(Sessao sessaoGravacao) {
         this.sessaoGravacao = sessaoGravacao;
     }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
     
     public void adicionarInstrumento(Instrumento instrumento){
         instrumentos.add(instrumento);
     }
+
     @Override
     public String toString() {
-        return "Requisicao{" + "requisitor=" + requisitor + ", instrumentos=" + instrumentos + ", dataRequisicao=" + dataRequisicao + ", sessaoGravacao=" + sessaoGravacao + '}';
+        return "Requisicao{" + "requisitor=" + requisitor + ", instrumentos=" + instrumentos + ", sessaoGravacao=" + sessaoGravacao + ", dataRequisicao=" + dataRequisicao + ", estadoRequisicao=" + estadoRequisicao + ", codigo=" + codigo + '}';
     }
-
+    
+    
     public boolean equals(Object o) {
         if (o == null) {
             return false;

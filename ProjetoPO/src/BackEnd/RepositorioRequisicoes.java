@@ -21,15 +21,39 @@ public class RepositorioRequisicoes implements Serializable{
     }
     
     
+    public boolean verificarExisteRequisicao(int cod) {
 
+        for (Requisicao r : requisicoes) {
+            if (r.getCodigo() == cod) {
+                return true;
+            }
+        }
+        return false;
+    }
     
-    
+    public void aceitarRequisicao(int codRequisicao){
+         for (Requisicao r : requisicoes) {
+            if (r.getCodigo() == codRequisicao && r.getEstadoRequisicao().equals("Pendente")) {
+                r.setEstadoRequisicao("Atribuido");
+            }
+        }
+        
+    }
+    public void recusarRequisicao(int codRequisicao){
+         for (Requisicao r : requisicoes) {
+            if (r.getCodigo() == codRequisicao && r.getEstadoRequisicao().equals("Pendente")) {
+                r.setEstadoRequisicao("Recusado");
+            }
+        }
+        
+    }
     public Collection<Requisicao> listarRequisicoes(String Estado){ // Estado "Pendente", "Atribuido", "Recusado"
         Collection<Requisicao> requisicoesO = new HashSet<>();
         for(Requisicao r: requisicoes){
-            if(r.getEstadoRequisicao().equals(Estado))
+            if(r.getEstadoRequisicao().equals(Estado)){
                 requisicoesO.add(r);
                 System.out.println(r.toString());
+            }
         }
         return requisicoesO;
     }

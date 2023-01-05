@@ -311,6 +311,10 @@ public class ProgramaGM {
 
         for (int i = 0; i < numDias; i++) {
             int codigo = consola.lerInteiro("Introduza um código para a sessão: ");
+            while (sistema.getSessoes().verificarExisteSessao(codigo) == true) {
+                consola.escreverErro("Este codigo já está associado a uma sessão, por favor insira outro!");
+                codigo = consola.lerInteiro("Qual o código que pretende associar à sessão? ");
+            }
             LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
             Sessao sessao = new Sessao(codigo, edicaoAlbum, dataEdicao, false);
             sistema.getSessoes().adicionarSessao(sessao);
@@ -357,13 +361,18 @@ public class ProgramaGM {
     public void RequisitarInstrumentosParaSessao(Musico musico) {
         consola.escrever("Pedido Para Requisitar Instrumentos\n\n");
         Sessao sessao = procurarSessaoParaRequisitar(musico);
+        int codigo = consola.lerInteiro("Qual o código que pretende associar à requisição?");
+        while (sistema.getRequisicoes().verificarExisteRequisicao(codigo) == true) {
+            consola.escreverErro("Este codigo já está associado a uma requisição, por favor insira outro!");
+            codigo = consola.lerInteiro("Qual o código que pretende associar à requisição? ");
+        }
         int numInstrumentos = consola.lerInteiro("Quantos instrumentos pretende requisitar?");
         Collection<Instrumento> instrumentos = new HashSet<>();
         for (int i = 0; i < numInstrumentos; i++) {
             instrumentos.add(procurarInstrumentoParaRequisitar(musico));
         }
 
-        Requisicao requisicao = new Requisicao(musico, instrumentos, LocalDate.now(), sessao, "Pendente");
+        Requisicao requisicao = new Requisicao(musico, instrumentos, LocalDate.now(), sessao, "Pendente", codigo);
         sessao.adicionarRequisicao(requisicao);
         sistema.getRequisicoes().adicionarRequisicao(requisicao);
         sistema.getSessoes().adicionarRequisicoesAumaSessao(sessao);
@@ -371,10 +380,32 @@ public class ProgramaGM {
         consola.escrever("Pedido de requisição enviado com sucesso!");
     }
 
-    public String listarRequisicoes(String Estado) {
+    public String listarRequisicoesPorEstado(String Estado) {
         consola.escrever("Requisicoes " + Estado);
         return sistema.getRequisicoes().listarRequisicoes(Estado).toString();
 
+    }
+
+    public void aceitarPedidoRequisicao() {
+        consola.escrever("Aceitar pedidos de requisição\n\n");
+        int codigo = consola.lerInteiro("Introduza o código da requisição que pretende aceitar.");
+        while (sistema.getRequisicoes().verificarExisteRequisicao(codigo) == false) {
+            consola.escreverErro("Este codigo não corresponde a nenhum pedido de requisição!");
+            codigo = consola.lerInteiro("Qual o código da requisição que pretende aceitar? ");
+        }
+        sistema.getRequisicoes().aceitarRequisicao(codigo);
+        consola.escrever("Requisição aceite!");
+    }
+
+    public void recusarPedidoRequisicao() {
+        consola.escrever("Aceitar pedidos de requisição\n\n");
+        int codigo = consola.lerInteiro("Introduza o código da requisição que pretende recusar.");
+        while (sistema.getRequisicoes().verificarExisteRequisicao(codigo) == false) {
+            consola.escreverErro("Este codigo não corresponde a nenhum pedido de requisição!");
+            codigo = consola.lerInteiro("Qual o código da requisição que pretende recusar? ");
+        }
+        sistema.getRequisicoes().recusarRequisicao(codigo);
+        consola.escrever("Requisição recusada!");
     }
 
     //Listar Sessoes
@@ -657,8 +688,8 @@ public class ProgramaGM {
             "Registar Álbum",
             "Registar instrumentos de música",
             "Listar os pedidos de requisição por estado (pendente, atribuído, recusado)",
-            "Guardar Ficheiros",
-            "Carregar Ficheiros",
+            "Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos.",
+            "Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação concluídas)",
             "Mostrar estatísticas totais ou para um determinado mês: a. Total de álbuns em edição b. Média da percentagem de sessões de gravação concluídas c. Total de álbuns concluídos",
             "Sair"};
 
@@ -674,11 +705,15 @@ public class ProgramaGM {
             "Média da percentagem de sessões de gravação concluídas",
             "Total de álbuns concluídos",
             "Voltar"};
-        
-        String[] opcoesAdministrador5 = {
+
+        String[] opcoesAdministrador4 = {
             "Listar pedidos de requisição pendentes",
             "Listar pedidos de requisição aceites",
             "Listar pedidos de requisição recusados",
+            "Voltar"};
+        String[] opcoesAdministrador5 = {
+            "Aceitar pedidos de requisição",
+            "Recusar pedidos de requisição",
             "Voltar"};
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -867,34 +902,47 @@ public class ProgramaGM {
                             programa.adicionarInstrumento();
                             break;
                         //Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
-                        case 4:{
+                        case 4: {
+                            int opcaoA4 = 0;
+                            do {
+                                opcaoA4 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador4);
+                                switch (opcaoA4) {
+                                    case 1:
+                                        programa.listarRequisicoesPorEstado("Pendente");
+                                        break;
+                                    case 2:
+                                        programa.listarRequisicoesPorEstado("Atribuido");
+                                        break;
+                                    case 3:
+                                        programa.listarRequisicoesPorEstado("Recusado");
+                                        break;
+                                    case 4:
+
+                                }
+                            } while (opcaoA4 != opcoesAdministrador2.length);
+                        }
+                        break;
+                        //
+                        case 5:
+                            {
                             int opcaoA5 = 0;
                             do {
                                 opcaoA5 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador5);
                                 switch (opcaoA5) {
                                     case 1:
-                                        programa.listarRequisicoes("Pendente");
+                                        programa.listarRequisicoesPorEstado("Pendente");
+                                        programa.aceitarPedidoRequisicao();
                                         break;
                                     case 2:
-                                        programa.listarRequisicoes("Atribuido");
+                                        programa.listarRequisicoesPorEstado("Pendente");
+                                        programa.recusarPedidoRequisicao();
                                         break;
                                     case 3:
-                                        programa.listarRequisicoes("Recusado");
-                                        break;
-                                    case 4:
-                                        
+
                                 }
-                            } while (opcaoA5 != opcoesAdministrador2.length);
+                            } while (opcaoA5 != opcoesAdministrador5.length);
                         }
-                            break;
-                        //
-                        case 5:
-                            programa.guardarFicheiroAlbuns();
-                            programa.guardarFicheiroInstrumentos();
-                            programa.guardarFicheiroUtilizadores();
-                            programa.guardarFicheiroSessoes();
-                            programa.guardarFicheiroRequisicoes();
-                            break;
+                        break;
                         //
                         case 6:
                             programa.carregarFicheiroAlbuns();
