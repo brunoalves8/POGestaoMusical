@@ -388,7 +388,8 @@ public class ProgramaGM {
         }
         return sessao;
     }
-
+    
+    //A funcionar Direito também
     public String listarAlbunsDoMusico(Musico musico) {
         consola.escrever("Álbuns em que está presente");
         return sistema.getAlbuns().listarAlbunsMusico(musico).toString();
@@ -409,7 +410,8 @@ public class ProgramaGM {
         consola.escrever("Sessões Concluidas");
         return sistema.getSessoes().listarSessoesConcluidas().toString();
     }
-
+    
+    //A funcionar direito
     public String listarAlbunsProdutor(Produtor produtor) {
         consola.escrever("Álbuns Produzidos");
         return sistema.getEdicoesAlbum().listarAlbunsProdutor(produtor).toString();

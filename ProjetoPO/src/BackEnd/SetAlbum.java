@@ -86,10 +86,16 @@ public class SetAlbum implements Serializable {
             Collection<Musica> musicasAlbum = new HashSet<>();
             musicasAlbum = a.getMusicasDoAlbum();
             for(Musica m: musicasAlbum){
-                if(m.getMusicos().contains(musico)){
-                    albunsMusico.add(a);
+                Collection<Musico> musicosMusica = new HashSet<>();
+                musicosMusica = m.getMusicos();
+                for(Musico mu : musicosMusica){
+                    if(mu.getNome().equals(musico.getNome())){
+                        albunsMusico.add(a);
+                        
+                    }
                 }
             }
+            System.out.println(a.toString());
         }
         return albunsMusico;
             
