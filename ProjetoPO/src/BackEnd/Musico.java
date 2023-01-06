@@ -42,6 +42,7 @@ public class Musico extends Utilizador implements Serializable {
                 + "Instrumentos Musico Toca=" + getInstrumentosMusicoToca();
     }
 
+  
     public boolean equals(Object o) {
         if (o == null) {
             return false;

@@ -91,7 +91,7 @@ public class Sessao implements Serializable{
 
     @Override
     public String toString() {
-        return "Sessao{" + "codigo=" + codigo + ", albumSerGravado=" + albumSerGravado + ", diaDeGravacao=" + diaDeGravacao + '}';
+        return  "\nCodigo Sessao: " + codigo + "\n Dia de Gravação" + diaDeGravacao + "\n Estado Da Sessão" + sessaoConcluida;
     }
     
   

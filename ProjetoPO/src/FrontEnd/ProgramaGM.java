@@ -193,13 +193,12 @@ public class ProgramaGM {
             codigo = consola.lerInteiro("Introduza um novo código: ");
         }
         String tipo = consola.lerString("Introduza o tipo: ");
-        LocalDate dataEdicao = consola.lerData("Introduza a data de edição(ano-mes-dia): ");
         int numMusicas = consola.lerInteiro("Por quantas músicas é composto o álbum?");
         Collection<Musica> musicas = new HashSet<>();
         for (int i = 0; i < numMusicas; i++) {
             musicas.add(criarMusica());
         }
-        Album album = new Album(codigo, titulo, dataEdicao, tipo, musicas);
+        Album album = new Album(codigo, titulo, null, tipo, musicas);
         sistema.getAlbuns().adicionarAlbum(album);
     }
 
@@ -266,9 +265,14 @@ public class ProgramaGM {
     private void iniciarEdicaoAlbum(Produtor utilizador) {
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbumPorCod();
+        while(sistema.getEdicoesAlbum().verificarExisteEdicaoAlbumParaUmAlbum(album) == true){
+            consola.escreverErro("Já foi iniciada uma edição para esse albúm");
+            album = procurarAlbumPorCod();
+        }
+        album.setDataEdicao(LocalDate.now());
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
-        consola.escrever("Sessão iniciada com sucesso");
+        consola.escrever("Edição de album iniciada com sucesso");
     }
 
     /*private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
@@ -317,6 +321,9 @@ public class ProgramaGM {
             }
             LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
             Sessao sessao = new Sessao(codigo, edicaoAlbum, dataEdicao, false);
+            edicaoAlbum.adicionarSessao(sessao);
+            sistema.getEdicoesAlbum().removerEdicaoAlbum(edicaoAlbum);
+            sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
             sistema.getSessoes().adicionarSessao(sessao);
         }
 
@@ -467,16 +474,13 @@ public class ProgramaGM {
 
     //Ponto 5 Produtor
     public String informacaoAlbum(Produtor produtor) {
-        listarAlbunsProdutor(produtor);
         consola.escrever("Informações Album.");
-        int codigo = consola.lerInteiro("Introduza o codigo:");
-        Album album = sistema.getAlbuns().consultarDadosAlbum(codigo);
-        while (sistema.getAlbuns().verificarAlbumPorCod(codigo) == false) {
+        int codigo = consola.lerInteiro("Introduza o codigo do album que pretende consultar:");
+        while (sistema.getEdicoesAlbum().verificarAlbumProdutorPorCod(produtor, codigo) == false) {
             consola.escreverErro("Não há nenhum álbum com esse código.\n");
             codigo = consola.lerInteiro("Introduza o código:");
-            album = sistema.getAlbuns().consultarDadosAlbum(codigo);
         }
-        return sistema.getAlbuns().consultarDadosAlbum(codigo).toString();
+        return sistema.getEdicoesAlbum().retornarAlbumProdutorPorCod(produtor, codigo).toString();
     }
 
 ////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////

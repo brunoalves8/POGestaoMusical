@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Album implements Serializable{
    
@@ -100,9 +101,24 @@ public class Album implements Serializable{
 
     @Override
     public String toString() {
-        return "Album{" + "titulo=" + titulo + ", tipo=" + tipo + '}';
+        return  "            ALBUM\n" + "-----------------------------" + "\nCodigo Album: " + codigo +"\nTitulo: " + titulo + "\nTipo: " + tipo + "\nData Inicio Edição Album: " + dataEdicao;
+    }
+    
+    
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Album) {
+            Album outro = (Album) o;
+            return outro.getCodigo() == getCodigo();
+        }
+        return false;
     }
 
+
+    
+    
 
     
 }

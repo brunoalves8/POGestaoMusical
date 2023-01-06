@@ -20,6 +20,10 @@ public class MapEdicoesAlbum implements Serializable {
     public void adicionarEdicaoAlbum(EdicaoAlbum edicaoAlbum) {
         edicoesAlbum.put(edicaoAlbum.getAlbum(), edicaoAlbum);
     }
+    
+    public void removerEdicaoAlbum(EdicaoAlbum edicao){
+        edicoesAlbum.remove(edicao.getAlbum());
+    }
 
     public Collection<Album> listarAlbunsProdutor(Produtor produtor) {
         Collection<Album> albuns = new HashSet<>();
@@ -31,10 +35,44 @@ public class MapEdicoesAlbum implements Serializable {
         }
         return albuns;
     }
-
+    
+    public boolean verificarAlbumProdutorPorCod(Produtor produtor, int codigo) {
+        Collection<Album> albuns = new HashSet<>();
+        for (EdicaoAlbum a : edicoesAlbum.values()) {
+            if (a.getProdutor().equals(produtor) && a.getAlbum().getCodigo() == codigo) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public Album retornarAlbumProdutorPorCod(Produtor produtor, int codigo) {
+        Collection<Album> albuns = new HashSet<>();
+        for (EdicaoAlbum a : edicoesAlbum.values()) {
+            if (a.getProdutor().equals(produtor) && a.getAlbum().getCodigo() == codigo) {
+                System.out.println(a.toString());
+                return a.getAlbum();
+                
+            }
+        }
+        return null;
+    }
+    
+    public boolean verificarExisteEdicaoAlbumParaUmAlbum(Album album){
+        for(EdicaoAlbum ea: edicoesAlbum.values()){
+            if(ea.getAlbum().equals(album)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public EdicaoAlbum procurarEdicaoAlbumPorAlbum(Album album) {
-        return edicoesAlbum.get(album);
-
+        for(EdicaoAlbum a: edicoesAlbum.values())
+            if(a.getAlbum().equals(album)){
+                return a;
+            }
+        return null;
     }
 
 
