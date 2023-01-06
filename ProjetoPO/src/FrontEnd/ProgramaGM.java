@@ -345,6 +345,9 @@ public class ProgramaGM {
             consola.escreverErro("O código introduzido não corresponde a nenhuma sessão agendada para este produtor!");
             codigo = consola.lerInteiro("Introduza um código válido");
         }
+        
+        
+        sistema.getEdicoesAlbum().concluirSessao(codigo);
         sistema.getSessoes().procurarSessao(codigo).setSessaoConcluida(true);
         consola.escrever("Sessao concluida com sucesso");
     }

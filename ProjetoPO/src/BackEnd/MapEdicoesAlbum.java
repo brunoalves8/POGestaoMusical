@@ -24,6 +24,28 @@ public class MapEdicoesAlbum implements Serializable {
     public void removerEdicaoAlbum(EdicaoAlbum edicao) {
         edicoesAlbum.remove(edicao.getAlbum());
     }
+    
+    public void concluirSessao(int cod){
+        for (EdicaoAlbum e : edicoesAlbum.values()) {
+            for(Sessao s: e.getSessoes()){
+                if(s.getCodigo()==cod)
+                    s.setSessaoConcluida(true);
+            }
+        }
+        
+    }
+    
+    
+    
+    
+    public EdicaoAlbum getEdicaoAlbumPorAlbum(Album Album){
+        for(EdicaoAlbum ed: edicoesAlbum.values()){
+            if(ed.getAlbum().equals(Album)){
+                return ed;
+            }
+        }
+        return null;
+    }
 
     public Collection<Album> listarAlbunsProdutor(Produtor produtor) {
         Collection<Album> albuns = new HashSet<>();
@@ -83,9 +105,7 @@ public class MapEdicoesAlbum implements Serializable {
         double percentagem = 0.0;
         for (EdicaoAlbum ed : edicoesAlbum.values()) {
             if (ed.getAlbum().equals(album)) {
-                Collection<Sessao> sessoesAlbum = new HashSet<>();
-                sessoesAlbum = ed.getSessoes();
-                for (Sessao s : sessoesAlbum) {
+                for (Sessao s : ed.getSessoes()) {
                     totalSessoes++;
                     if (s.isSessaoConcluida() == true) {
                         numSessoesConcluidas++;
