@@ -118,7 +118,14 @@ public class ProgramaGM {
         sistema.getInstrumentos().adicicionarInstrumento(instrumento);
         consola.escrever("Musico adicionado com sucesso!");
     }
-     */
+    */
+    
+    public String listarAlbunsEstadoEPercentagem(){
+       consola.escrever("Estado Albuns");
+       return sistema.getEdicoesAlbum().listarAlbunsEstadoERespetivasPercentagens().toString();
+        
+    }
+    
     private void removerProdutor() {
         consola.escrever("Remover Produtor\n\n");
         String username = consola.lerString("Introduza o nome de utilizador do produtor a remover: ");
@@ -962,9 +969,7 @@ public class ProgramaGM {
                         break;
                         //
                         case 6:
-                            programa.carregarFicheiroAlbuns();
-                            programa.carregarFicheiroInstrumentos();
-                            programa.carregarFicheiroUtilizadores();
+                            programa.listarAlbunsEstadoEPercentagem();
                             break;
                         //Mostrar estatísticas totais ou para um determinado mês
                         case 7: {

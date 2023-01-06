@@ -155,7 +155,38 @@ public class SetSessoes implements Serializable {
         }
         return sessoesAgendadas;
     }
-
+    
+    
+    public double percentagemSessoesConcluidasPorAlbum(Album album){
+        int totalSessoes=0;
+        int numSessoesConcluidas=0;
+        double percentagem=0.0;
+        for(Sessao s: sessoes){
+            if(s.getAlbumSerGravado().getAlbum().equals(album)){
+            totalSessoes++;
+            if(s.isSessaoConcluida()==true)
+                numSessoesConcluidas++;
+            }
+        }
+        percentagem = (numSessoesConcluidas*100)/totalSessoes;
+        return percentagem;
+        
+    }
+    
+    public Collection<Album> listarAlbunsEstadoERespetivasPercentagens(){
+        Collection<Album> albuns = new HashSet<>();
+        for(Sessao s: sessoes){
+            albuns.add(s.getAlbumSerGravado().getAlbum());
+            Album albm = s.getAlbumSerGravado().getAlbum();
+            System.out.println(s.getAlbumSerGravado().getAlbum().getCodigo()+" - "
+                               + s.getAlbumSerGravado().getAlbum().getTitulo()
+                               +
+                               "       (" + percentagemSessoesConcluidasPorAlbum(s.getAlbumSerGravado().getAlbum()) + "%) Concluido");
+        }
+        return albuns;
+    }
+    
+    
     public Collection<Sessao> listarSessoesConcluidas() {
         Collection<Sessao> sessoesConcluidas = new HashSet<>();
         for (Sessao s : sessoes) {

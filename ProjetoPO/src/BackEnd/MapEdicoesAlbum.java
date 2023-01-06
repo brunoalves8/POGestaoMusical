@@ -20,8 +20,8 @@ public class MapEdicoesAlbum implements Serializable {
     public void adicionarEdicaoAlbum(EdicaoAlbum edicaoAlbum) {
         edicoesAlbum.put(edicaoAlbum.getAlbum(), edicaoAlbum);
     }
-    
-    public void removerEdicaoAlbum(EdicaoAlbum edicao){
+
+    public void removerEdicaoAlbum(EdicaoAlbum edicao) {
         edicoesAlbum.remove(edicao.getAlbum());
     }
 
@@ -35,7 +35,7 @@ public class MapEdicoesAlbum implements Serializable {
         }
         return albuns;
     }
-    
+
     public boolean verificarAlbumProdutorPorCod(Produtor produtor, int codigo) {
         Collection<Album> albuns = new HashSet<>();
         for (EdicaoAlbum a : edicoesAlbum.values()) {
@@ -45,36 +45,72 @@ public class MapEdicoesAlbum implements Serializable {
         }
         return false;
     }
-    
+
     public Album retornarAlbumProdutorPorCod(Produtor produtor, int codigo) {
         Collection<Album> albuns = new HashSet<>();
         for (EdicaoAlbum a : edicoesAlbum.values()) {
             if (a.getProdutor().equals(produtor) && a.getAlbum().getCodigo() == codigo) {
                 System.out.println(a.toString());
                 return a.getAlbum();
-                
+
             }
         }
         return null;
     }
-    
-    public boolean verificarExisteEdicaoAlbumParaUmAlbum(Album album){
-        for(EdicaoAlbum ea: edicoesAlbum.values()){
-            if(ea.getAlbum().equals(album)){
+
+    public boolean verificarExisteEdicaoAlbumParaUmAlbum(Album album) {
+        for (EdicaoAlbum ea : edicoesAlbum.values()) {
+            if (ea.getAlbum().equals(album)) {
                 return true;
             }
         }
         return false;
     }
-    
+
     public EdicaoAlbum procurarEdicaoAlbumPorAlbum(Album album) {
-        for(EdicaoAlbum a: edicoesAlbum.values())
-            if(a.getAlbum().equals(album)){
+        for (EdicaoAlbum a : edicoesAlbum.values()) {
+            if (a.getAlbum().equals(album)) {
                 return a;
             }
+        }
         return null;
     }
 
+    //////////////////////////////////////////////////////////
+    public double percentagemSessoesConcluidasPorAlbum(Album album) {
+        int totalSessoes = 0;
+        int numSessoesConcluidas = 0;
+        double percentagem = 0.0;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            if (ed.getAlbum().equals(album)) {
+                Collection<Sessao> sessoesAlbum = new HashSet<>();
+                sessoesAlbum = ed.getSessoes();
+                for (Sessao s : sessoesAlbum) {
+                    totalSessoes++;
+                    if (s.isSessaoConcluida() == true) {
+                        numSessoesConcluidas++;
+                    }
+                }
+
+            }
+        }
+        percentagem = (numSessoesConcluidas * 100) / totalSessoes;
+        return percentagem;
+
+    }
+
+    public Collection<Album> listarAlbunsEstadoERespetivasPercentagens() {
+        Collection<Album> albuns = new HashSet<>();
+
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            albuns.add(ed.getAlbum());
+
+            System.out.println(ed.getAlbum().getCodigo() + " - "
+                    + ed.getAlbum().getTitulo()
+                    + "       (" + percentagemSessoesConcluidasPorAlbum(ed.getAlbum()) + "%) Concluido");
+        }
+        return albuns;
+    }
 
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
