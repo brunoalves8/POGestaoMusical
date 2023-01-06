@@ -19,7 +19,7 @@
   - [X] 4. Registar instrumentos de música
   - [X] 5. Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
   - [X] 6. Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos.
-  - [ ] 7. Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação
+  - [X] 7. Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação
     concluídas)
   - [ ] 8. Mostrar estatísticas totais ou para um determinado mês:
     - [ ] a. Total de álbuns em edição
