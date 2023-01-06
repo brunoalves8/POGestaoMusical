@@ -36,7 +36,7 @@
     - [X] 3.1. Iniciar edições de album
     - [X] 3.3. Definir sessões de gravação
   - [X] 4. Concluir sessões de gravação
-  - [ ] 5. Aceder a informação relativa à situação atual (estado, sessões de gravação,
+  - [X] 5. Aceder a informação relativa à situação atual (estado, sessões de gravação,
     etc.) de um determinado álbum
   - [X] 6. Listar os álbuns que produz ou produziu
   - [X] 7. Listar as sessões de gravação agendadas para um dia 
