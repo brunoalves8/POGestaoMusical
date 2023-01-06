@@ -131,6 +131,39 @@ public class MapEdicoesAlbum implements Serializable {
         }
         return albuns;
     }
+    
+    
+    public double mediaPercentagemSessoesConcluidas(){
+        double media=0.0;
+        int totalAlbuns = 0;
+        double totalPercentagens = 0.0;
+        for(EdicaoAlbum ed : edicoesAlbum.values()){
+               totalAlbuns++;
+               totalPercentagens += percentagemSessoesConcluidasPorAlbum(ed.getAlbum());
+        } 
+        media = totalPercentagens/totalAlbuns;
+        return media;
+    }
+    
+    public int totalAlbunsConcluidos(){
+        int total=0;
+        for(EdicaoAlbum ed : edicoesAlbum.values()){
+            if(percentagemSessoesConcluidasPorAlbum(ed.getAlbum())==100.0){
+                total++;
+            }
+        }
+        return total;  
+    }
+    
+    public int totalAlbunsEmEdicao(){
+        int total=0;
+        for(EdicaoAlbum ed : edicoesAlbum.values()){
+            if(percentagemSessoesConcluidasPorAlbum(ed.getAlbum())<100.0){
+                total++;
+            }
+        }
+        return total;  
+    }
 
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);

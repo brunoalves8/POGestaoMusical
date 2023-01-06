@@ -548,6 +548,23 @@ public class ProgramaGM {
         }
         consola.escrever("Dados editados com sucesso!");
     }
+    
+    
+    
+   public void estatisticasGlobais(){
+        consola.escrever("Estatisticas Totais\n");
+        
+        consola.escrever("Total albúns concluidos: ");
+        int totC = sistema.getEdicoesAlbum().totalAlbunsConcluidos();
+        System.out.println(totC);
+        consola.escrever("Média percentagem sessões concluidas: ");
+        double media = sistema.getEdicoesAlbum().mediaPercentagemSessoesConcluidas();
+        System.out.println(media);
+        consola.escrever("Total albúns em edição: ");
+        int totE = sistema.getEdicoesAlbum().totalAlbunsEmEdicao();
+        System.out.println(totE);
+    }
+
 
     //Fonte:Guardar e Carregar ficheiro do professor TPS
     //Guardar e carregar ficheiros Utilizadores
@@ -729,9 +746,8 @@ public class ProgramaGM {
             "Voltar"};
 
         String[] opcoesAdministrador2 = {
-            "Total de álbuns em edição",
-            "Média da percentagem de sessões de gravação concluídas",
-            "Total de álbuns concluídos",
+            "Estatisticas Totais",
+            "Estatisticas de um determinado mês",
             "Voltar"};
 
         String[] opcoesAdministrador4 = {
@@ -981,15 +997,12 @@ public class ProgramaGM {
                                 opcaoA2 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador2);
                                 switch (opcaoA2) {
                                     case 1:
-
+                                        programa.estatisticasGlobais();
                                         break;
                                     case 2:
 
                                         break;
                                     case 3:
-
-                                        break;
-                                    case 4:
 
                                 }
                             } while (opcaoA2 != opcoesAdministrador2.length);
