@@ -128,6 +128,11 @@ public class ProgramaGM {
         String morada = consola.lerString("Introduza a morada: ");
         musico.setMorada(morada);
         LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(DD/MM/AAAA): ");
+        while (dataNascimento.isAfter(LocalDate.now())) {
+            consola.escreverErro("Data introduzida inválida");
+            consola.escrever("\n");
+            dataNascimento = consola.lerData("Introduza uma data válida(DD/MM/AAAA): ");
+        }
         musico.setDataNasc(dataNascimento);
         int resposta = 0;
         resposta = consola.lerInteiro("Pretende alterar os instrumentos que o músico toca?\n1-Sim \n2-Não");
@@ -219,6 +224,11 @@ public class ProgramaGM {
         String morada = consola.lerString("Introduza a morada: ");
         produtor.setMorada(morada);
         LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(DD/MM/AAAA): ");
+         while (dataNascimento.isAfter(LocalDate.now())) {
+            consola.escreverErro("Data introduzida inválida");
+            consola.escrever("\n");
+            dataNascimento = consola.lerData("Introduza uma data válida(DD/MM/AAAA): ");
+        }
         produtor.setDataNasc(dataNascimento);
         consola.escrever("\n" + ANSI_VERDE + "Dados editados com sucesso!" + ANSI_RESET);
     }
@@ -344,10 +354,15 @@ public class ProgramaGM {
             consola.escrever("\n");
             codigo = consola.lerInteiro("Introduza um código válido: ");
         }
-
+        if(sistema.getSessoes().procurarSessao(codigo).getDiaDeGravacao().isAfter(LocalDate.now())){
+            consola.escreverErro("Não é possivel concluir uma sessão que ainda não aconteceu!");
+            consola.escrever("\n");
+        }
+        else{
         sistema.getEdicoesAlbum().concluirSessao(codigo);
         sistema.getSessoes().procurarSessao(codigo).setSessaoConcluida(true);
         consola.escrever("\n" + ANSI_VERDE + "Sessão concluida com sucesso!" + ANSI_RESET);
+        }
     }
 
     //Requisição
@@ -483,7 +498,9 @@ public class ProgramaGM {
         int mes=0;
         mes = consola.lerInteiro("Pretende consultar as estatisticas de que mês(1-12):");
         while(mes<1 || mes>12){
-            
+            consola.escreverErro("Introduza um número de 1 a 12: ");
+            consola.escrever("\n");
+            mes = consola.lerInteiro("Pretende consultar as estatisticas de que mês(1-12):");
         }
         consola.escrever("Total albúns concluidos: ");
         int totC = sistema.getEdicoesAlbum().totalAlbunsConcluidosMes(mes);
