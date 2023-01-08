@@ -480,16 +480,19 @@ public class ProgramaGM {
     }
     
     public void listarEstatisticasMes() {
-        consola.escrever("Estatisticas Totais\n");
-
+        int mes=0;
+        mes = consola.lerInteiro("Pretende consultar as estatisticas de que mês(1-12):");
+        while(mes<1 || mes>12){
+            
+        }
         consola.escrever("Total albúns concluidos: ");
-        int totC = sistema.getEdicoesAlbum().totalAlbunsConcluidos();
+        int totC = sistema.getEdicoesAlbum().totalAlbunsConcluidosMes(mes);
         System.out.println(totC);
         consola.escrever("Média percentagem sessões concluidas: ");
-        double media = sistema.getEdicoesAlbum().mediaPercentagemSessoesConcluidas();
+        double media = sistema.getEdicoesAlbum().mediaPercentagemSessoesConcluidasMes(mes);
         System.out.println(media);
         consola.escrever("Total albúns em edição: ");
-        int totE = sistema.getEdicoesAlbum().totalAlbunsEmEdicao();
+        int totE = sistema.getEdicoesAlbum().totalAlbunsEmEdicaoMes(mes);
         System.out.println(totE);
     }
     
@@ -837,7 +840,7 @@ public class ProgramaGM {
                                         programa.listarEstatisticasGlobais();
                                         break;
                                     case 2:
-
+                                        programa.listarEstatisticasMes();
                                         break;
                                     case 3:
 

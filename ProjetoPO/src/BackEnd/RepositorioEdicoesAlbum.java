@@ -116,28 +116,7 @@ public class RepositorioEdicoesAlbum implements Serializable {
         return percentagem;
 
     }
-    
-    public double percentagemSessoesConcluidasPorAlbumMes(Album album,int mes) {
-        int totalSessoes = 0;
-        int numSessoesConcluidas = 0;
-        double percentagem = 0.0;
-        for (EdicaoAlbum ed : edicoesAlbum.values()) {
-            if (ed.getAlbum().equals(album)) {
-                for (Sessao s : ed.getSessoes()) {
-                    if(s.getDiaDeGravacao().getMonthValue()==mes){
-                        totalSessoes++;
-                        if (s.isSessaoConcluida() == true) {
-                            numSessoesConcluidas++;
-                        }
-                    }
-                }
 
-            }
-        }
-        percentagem = (numSessoesConcluidas * 100) / totalSessoes;
-        return percentagem;
-
-    }
 
     public Collection<Album> listarAlbunsEstadoERespetivasPercentagens() {
         Collection<Album> albuns = new HashSet<>();
@@ -163,16 +142,18 @@ public class RepositorioEdicoesAlbum implements Serializable {
         media = totalPercentagens / totalAlbuns;
         return media;
     }
-    
-     public double mediaPercentagemSessoesConcluidasMes(int mes) {
+
+    public double mediaPercentagemSessoesConcluidasMes(int mes) {
         double media = 0.0;
         int totalAlbuns = 0;
         double totalPercentagens = 0.0;
         for (EdicaoAlbum ed : edicoesAlbum.values()) {
-            totalAlbuns++;
-            totalPercentagens += percentagemSessoesConcluidasPorAlbumMes(ed.getAlbum(),mes);
+            if (ed.getAlbum().getDataEdicao().getMonthValue() == mes) {
+                totalAlbuns++;
+                totalPercentagens += percentagemSessoesConcluidasPorAlbum(ed.getAlbum());
+            }
+            media = totalPercentagens / totalAlbuns;
         }
-        media = totalPercentagens / totalAlbuns;
         return media;
     }
 
@@ -185,8 +166,7 @@ public class RepositorioEdicoesAlbum implements Serializable {
         }
         return total;
     }
-    
-    
+
     public int totalAlbunsConcluidosMes(int mes) {
         LocalDate data;
         int total = 0;
@@ -208,8 +188,8 @@ public class RepositorioEdicoesAlbum implements Serializable {
         }
         return total;
     }
-    
-        public int totalAlbunsEmEdicaoMes(int mes) {
+
+    public int totalAlbunsEmEdicaoMes(int mes) {
         LocalDate data;
         int total = 0;
         for (EdicaoAlbum ed : edicoesAlbum.values()) {
