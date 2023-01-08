@@ -37,7 +37,7 @@ public class ProgramaGM {
             password = consola.lerString("Password: ");
 
         }
-        consola.escrever("Login com sucesso!");
+        consola.escrever("\n" + ANSI_VERDE + "Login efetuado com sucesso!\n\n" + ANSI_RESET);
         return sistema.getUsers().consultarDadosUser(username, password);
 
     }
@@ -667,8 +667,8 @@ public class ProgramaGM {
             "Adicionar/Apagar Músico/Produtor",
             "Registar Álbum",
             "Registar instrumentos de música",
-            "Listar os pedidos de requisição por estado (pendente, atribuído, recusado)",
-            "Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos.",
+            "Listar os pedidos de requisição por estado",
+            "Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos",
             "Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação concluídas)",
             "Estatisticas",
             "Sair"};
@@ -732,7 +732,7 @@ public class ProgramaGM {
             "Voltar"
         };
 
-        programa.consola.escrever("MENU AUTENTICAÇÃO\n");
+        
 
         programa.carregarFicheiroAlbuns();
         programa.carregarFicheiroInstrumentos();
@@ -740,7 +740,10 @@ public class ProgramaGM {
         programa.carregarFicheiroSessoes();
         programa.carregarFicheiroRequisicoes();
         programa.carregarFicheiroEdicoesAlbum();
-
+        
+        programa.consola.escrever("\n\n=======================");
+        programa.consola.escrever("«  MENU AUTENTICAÇÃO  »");
+        programa.consola.escrever("=======================\n");
         //Criar Administardor Base
         Utilizador admin = new Administrador("admin", "admin", "administrador", 5, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(admin);
@@ -761,6 +764,9 @@ public class ProgramaGM {
             case 1:
                 int opcaoA = 0;
                 while (opcaoA != opcoesAdministrador.length) {
+                    programa.consola.escrever("\n\n========================");
+                    programa.consola.escrever("«  MENU ADMINISTRADOR  »");
+                    programa.consola.escrever("=======================\n");
                     opcaoA = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador);
                     switch (opcaoA) {
                         //Adicionar Musico/Produtor
@@ -881,6 +887,9 @@ public class ProgramaGM {
             case 2:
                 int opcaoP = 0;
                 while (opcoesProdutor.length != opcaoP) {
+                    programa.consola.escrever("\n\n===================");
+                    programa.consola.escrever("«  MENU PRODUTOR  »");
+                    programa.consola.escrever("===================\n");
                     opcaoP = programa.consola.lerOpcoesMenusInteiros(opcoesProdutor);
 
                     switch (opcaoP) {
@@ -964,6 +973,9 @@ public class ProgramaGM {
             case 3:
                 int opcaoM = 0;
                 while (opcoesProdutor.length != opcaoM) {
+                    programa.consola.escrever("\n\n=================");
+                    programa.consola.escrever("«  MENU MÚSICO  »");
+                    programa.consola.escrever("=================\n");
                     opcaoM = programa.consola.lerOpcoesMenusInteiros(opcoesMusico);
 
                     switch (opcaoM) {
