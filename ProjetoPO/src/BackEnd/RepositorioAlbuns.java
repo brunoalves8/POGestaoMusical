@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class SetAlbum implements Serializable {
+public class RepositorioAlbuns implements Serializable {
 
     private Collection<Album> albuns = new HashSet<>();
 
-    public SetAlbum() {
+    public RepositorioAlbuns() {
         albuns = new HashSet<>();
     }
 
@@ -20,47 +20,17 @@ public class SetAlbum implements Serializable {
         albuns.add(album);
     }
 
-
-    public void removerAlbum(int cod) {
-        for (Album albm : albuns) {
-            if (albm.getCodigo() == cod) {
-                albuns.remove(albm);
-            }
-        }
-    }
-
-    public void editarDadosAlbum(int codigo) {
-
-        for (Album albm : albuns) {
-            if (albm.getCodigo() == codigo) {
-                ((Album) albm).setTitulo(albm.getTitulo());
-                ((Album) albm).setTipo(albm.getTipo());
-                ((Album) albm).setDataEdicao(albm.getDataEdicao());
-            }
-        }
-    }
-
     public Album consultarDadosAlbum(int codigo) {
         for (Album albm : albuns) {
             if (albm.getCodigo() == codigo) {
                 System.out.println(albm.toString());
                 return albm;
-                
+
             }
         }
         return null;
     }
 
-    public Album procurarAlbumPorTitulo(String titulo) {
-
-        for (Album a : albuns) {
-            if (a.getTitulo().equals(titulo)) {
-                return (Album) a;
-            }
-        }
-        return null;
-    }
-    
     public boolean verificarAlbumPorCod(int codigo) {
 
         for (Album a : albuns) {
@@ -71,9 +41,6 @@ public class SetAlbum implements Serializable {
         return false;
     }
 
-    
-    
-    
     public Album procurarAlbumPorCod(int codigo) {
 
         for (Album a : albuns) {
@@ -83,29 +50,24 @@ public class SetAlbum implements Serializable {
         }
         return null;
     }
-    
-    public Collection<Album> listarAlbunsMusico(Musico musico){
-            Collection<Album> albunsMusico = new HashSet<>();
-        for(Album a: albuns){
-            Collection<Musica> musicasAlbum = new HashSet<>();
-            musicasAlbum = a.getMusicasDoAlbum();
-            for(Musica m: musicasAlbum){
-                Collection<Musico> musicosMusica = new HashSet<>();
-                musicosMusica = m.getMusicos();
-                for(Musico mu : musicosMusica){
-                    if(mu.equals(musico)){
+
+
+    public Collection<Album> listarAlbunsMusico(Musico musico) {
+        Collection<Album> albunsMusico = new HashSet<>();
+        for (Album a : albuns) {
+            for (Musica m : a.getMusicasDoAlbum()) {
+                for (Musico mu : m.getMusicos()) {
+                    if (mu.equals(musico)) {
                         albunsMusico.add(a);
-                        
+                        System.out.println(a.toString());
                     }
                 }
             }
-            System.out.println(a.toString());
         }
         return albunsMusico;
-            
+
     }
- 
-    
+
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -126,8 +88,7 @@ public class SetAlbum implements Serializable {
 
     @Override
     public String toString() {
-        return "SetAlbum{" + "albuns=" + albuns + '}';
+        return "            LISTA ÁLBUNS\n" + "-----------------------------\n" + albuns;
     }
-    
-    
+
 }

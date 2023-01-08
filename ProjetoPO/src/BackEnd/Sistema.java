@@ -2,66 +2,51 @@ package BackEnd;
 
 import java.io.Serializable;
 
-
 public class Sistema implements Serializable {
-    
-    private final MapUtilizadores users;
-    private final SetAlbum albuns;
-    private final SetInstrumentos instrumentos;
-    private final MapEdicoesAlbum edicoesAlbum;
-    private final SetSessoes sessoes;
-    private final SetMusicas musicas;
+
+    private final RepositorioUtilizadores users;
+    private final RepositorioAlbuns albuns;
+    private final RepositorioInstrumentos instrumentos;
+    private final RepositorioEdicoesAlbum edicoesAlbum;
+    private final RepositorioSessoes sessoes;
+    private final RepositorioMusicas musicas;
     private final RepositorioRequisicoes requisicoes;
 
-   /* public Sistema(MapUtilizadores users, SetAlbum albuns, SetInstrumentos instrumentos, MapEdicoesAlbum edicoesAlbum) {
-        this.users = users;
-        this.albuns = albuns;
-        this.instrumentos = instrumentos;
-        this.edicoesAlbum = edicoesAlbum;
-    }*/
-
     public Sistema() {
-        users = new MapUtilizadores();
-        albuns = new SetAlbum();
-        instrumentos = new SetInstrumentos();
-        edicoesAlbum = new MapEdicoesAlbum();
-        sessoes = new SetSessoes();
-        musicas = new SetMusicas();
+        users = new RepositorioUtilizadores();
+        albuns = new RepositorioAlbuns();
+        instrumentos = new RepositorioInstrumentos();
+        edicoesAlbum = new RepositorioEdicoesAlbum();
+        sessoes = new RepositorioSessoes();
+        musicas = new RepositorioMusicas();
         requisicoes = new RepositorioRequisicoes();
     }
-    
-    
-    public MapUtilizadores getUsers(){
+
+    public RepositorioUtilizadores getUsers() {
         return users;
     }
-    
-    public SetAlbum getAlbuns(){
+
+    public RepositorioAlbuns getAlbuns() {
         return albuns;
     }
-    
-    public SetInstrumentos getInstrumentos(){
+
+    public RepositorioInstrumentos getInstrumentos() {
         return instrumentos;
     }
 
-    public MapEdicoesAlbum getEdicoesAlbum() {
+    public RepositorioEdicoesAlbum getEdicoesAlbum() {
         return edicoesAlbum;
     }
 
-    public SetSessoes getSessoes(){
+    public RepositorioSessoes getSessoes() {
         return sessoes;
     }
-    
-    public RepositorioRequisicoes getRequisicoes(){
+
+    public RepositorioRequisicoes getRequisicoes() {
         return requisicoes;
     }
-    
-    
-   /* public Sistema getSistema(){
-        Sistema sistema = new Sistema(getUsers(), getAlbuns(), getInstrumentos(), getEdicoesAlbum());
-        return sistema;
-    }*/
 
-    public SetMusicas getMusicas() {
+    public RepositorioMusicas getMusicas() {
         return musicas;
     }
 

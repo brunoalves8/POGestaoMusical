@@ -9,14 +9,13 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class SetSessoes implements Serializable {
+public class RepositorioSessoes implements Serializable {
 
     private Collection<Sessao> sessoes = new HashSet<>();
 
-    public SetSessoes() {
+    public RepositorioSessoes() {
         sessoes = new HashSet<>();
     }
-
 
     public void adicionarSessao(Sessao sessao) {
         sessoes.add(sessao);
@@ -60,25 +59,16 @@ public class SetSessoes implements Serializable {
         }
         return null;
     }
+
     public Sessao procurarSessaoPorMusico(int cod, Musico musico) {
 
         for (Sessao s : sessoes) {
             if (s.getCodigo() == cod) {
-                        return (Sessao) s;
+                return (Sessao) s;
             }
         }
-                
+
         return null;
-    }
-    public Collection<Sessao> listarSessoesAgendadas() {
-        Collection<Sessao> sessoesAgendadas = new HashSet<>();
-        for (Sessao s : sessoes) {
-            if (s.isSessaoConcluida() == false) {
-                sessoesAgendadas.add(s);
-                System.out.println(s.toString());
-            }
-        }
-        return sessoesAgendadas;
     }
 
     public Collection<Sessao> listarSessoesAgendadasPorDia(Produtor produtor, LocalDate data) {
@@ -96,13 +86,12 @@ public class SetSessoes implements Serializable {
         Collection<Sessao> sessoesAgendadas = new HashSet<>();
         for (Sessao s : sessoes) {
             if (s.isSessaoConcluida() == false) {
-                Collection<Requisicao> requisicoesSessao = new HashSet<>();
-                requisicoesSessao = s.getRequisicoes();
-                for (Requisicao r : requisicoesSessao) {
+                for (Requisicao r : s.getRequisicoes()) {
                     if (r.getRequisitor().equals(musico)) {
                         sessoesAgendadas.add(s);
+                        System.out.println(s.toString());
                     }
-                    System.out.println(s.toString());
+                    
                 }
 
             }
@@ -147,8 +136,7 @@ public class SetSessoes implements Serializable {
         }
         return sessoesAgendadas;
     }
-    
-    
+
     public Collection<Sessao> listarSessoesConcluidas() {
         Collection<Sessao> sessoesConcluidas = new HashSet<>();
         for (Sessao s : sessoes) {
@@ -178,7 +166,7 @@ public class SetSessoes implements Serializable {
 
     @Override
     public String toString() {
-        return "Sessoes" + sessoes.toString() + '}';
+        return "            LISTA INSTRUMENTOS\n" + "-----------------------------\n" + sessoes.toString() + '}';
     }
 
 }

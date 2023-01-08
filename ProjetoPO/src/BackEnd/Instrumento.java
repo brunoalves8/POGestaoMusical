@@ -23,7 +23,7 @@ public class Instrumento implements Serializable {
 
     @Override
     public String toString() {
-        return "Instrumento{" + "nome=" + nome + '}';
+        return "Nome Instrumento: " + nome;
     }
 
     public boolean equals(Object o) {

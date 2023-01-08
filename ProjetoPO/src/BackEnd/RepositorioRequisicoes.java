@@ -8,19 +8,18 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class RepositorioRequisicoes implements Serializable{
-    
+public class RepositorioRequisicoes implements Serializable {
+
     private Collection<Requisicao> requisicoes = new HashSet<>();
 
     public RepositorioRequisicoes() {
         requisicoes = new HashSet<>();
     }
-    
+
     public void adicionarRequisicao(Requisicao requisicao) {
         requisicoes.add(requisicao);
     }
-    
-    
+
     public boolean verificarExisteRequisicao(int cod) {
 
         for (Requisicao r : requisicoes) {
@@ -30,37 +29,36 @@ public class RepositorioRequisicoes implements Serializable{
         }
         return false;
     }
-    
-    public void aceitarRequisicao(int codRequisicao){
-         for (Requisicao r : requisicoes) {
+
+    public void aceitarRequisicao(int codRequisicao) {
+        for (Requisicao r : requisicoes) {
             if (r.getCodigo() == codRequisicao && r.getEstadoRequisicao().equals("Pendente")) {
                 r.setEstadoRequisicao("Atribuido");
             }
         }
-        
+
     }
-    public void recusarRequisicao(int codRequisicao){
-         for (Requisicao r : requisicoes) {
+
+    public void recusarRequisicao(int codRequisicao) {
+        for (Requisicao r : requisicoes) {
             if (r.getCodigo() == codRequisicao && r.getEstadoRequisicao().equals("Pendente")) {
                 r.setEstadoRequisicao("Recusado");
             }
         }
-        
+
     }
-    public Collection<Requisicao> listarRequisicoes(String Estado){ // Estado "Pendente", "Atribuido", "Recusado"
+
+    public Collection<Requisicao> listarRequisicoes(String Estado) { // Estado "Pendente", "Atribuido", "Recusado"
         Collection<Requisicao> requisicoesO = new HashSet<>();
-        for(Requisicao r: requisicoes){
-            if(r.getEstadoRequisicao().equals(Estado)){
+        for (Requisicao r : requisicoes) {
+            if (r.getEstadoRequisicao().equals(Estado)) {
                 requisicoesO.add(r);
                 System.out.println(r.toString());
             }
         }
         return requisicoesO;
     }
-    
-    
-    
-    
+
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -81,9 +79,7 @@ public class RepositorioRequisicoes implements Serializable{
 
     @Override
     public String toString() {
-        return "RepositorioRequisicoes{" + "requisicoes=" + requisicoes + '}';
+        return "            LISTA REQUISIÇÕES\n" + "-----------------------------\n" + requisicoes;
     }
-    
-    
-    
+
 }

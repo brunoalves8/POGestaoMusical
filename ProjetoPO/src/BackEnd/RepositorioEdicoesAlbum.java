@@ -5,15 +5,16 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class MapEdicoesAlbum implements Serializable {
+public class RepositorioEdicoesAlbum implements Serializable {
 
     private HashMap<Album, EdicaoAlbum> edicoesAlbum;
 
-    public MapEdicoesAlbum() {
+    public RepositorioEdicoesAlbum() {
         edicoesAlbum = new HashMap<>();
     }
 
@@ -24,23 +25,21 @@ public class MapEdicoesAlbum implements Serializable {
     public void removerEdicaoAlbum(EdicaoAlbum edicao) {
         edicoesAlbum.remove(edicao.getAlbum());
     }
-    
-    public void concluirSessao(int cod){
+
+    public void concluirSessao(int cod) {
         for (EdicaoAlbum e : edicoesAlbum.values()) {
-            for(Sessao s: e.getSessoes()){
-                if(s.getCodigo()==cod)
+            for (Sessao s : e.getSessoes()) {
+                if (s.getCodigo() == cod) {
                     s.setSessaoConcluida(true);
+                }
             }
         }
-        
+
     }
-    
-    
-    
-    
-    public EdicaoAlbum getEdicaoAlbumPorAlbum(Album Album){
-        for(EdicaoAlbum ed: edicoesAlbum.values()){
-            if(ed.getAlbum().equals(Album)){
+
+    public EdicaoAlbum getEdicaoAlbumPorAlbum(Album Album) {
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            if (ed.getAlbum().equals(Album)) {
                 return ed;
             }
         }
@@ -98,7 +97,6 @@ public class MapEdicoesAlbum implements Serializable {
         return null;
     }
 
-    //////////////////////////////////////////////////////////
     public double percentagemSessoesConcluidasPorAlbum(Album album) {
         int totalSessoes = 0;
         int numSessoesConcluidas = 0;
@@ -109,6 +107,28 @@ public class MapEdicoesAlbum implements Serializable {
                     totalSessoes++;
                     if (s.isSessaoConcluida() == true) {
                         numSessoesConcluidas++;
+                    }
+                }
+
+            }
+        }
+        percentagem = (numSessoesConcluidas * 100) / totalSessoes;
+        return percentagem;
+
+    }
+    
+    public double percentagemSessoesConcluidasPorAlbumMes(Album album,int mes) {
+        int totalSessoes = 0;
+        int numSessoesConcluidas = 0;
+        double percentagem = 0.0;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            if (ed.getAlbum().equals(album)) {
+                for (Sessao s : ed.getSessoes()) {
+                    if(s.getDiaDeGravacao().getMonthValue()==mes){
+                        totalSessoes++;
+                        if (s.isSessaoConcluida() == true) {
+                            numSessoesConcluidas++;
+                        }
                     }
                 }
 
@@ -131,38 +151,74 @@ public class MapEdicoesAlbum implements Serializable {
         }
         return albuns;
     }
-    
-    
-    public double mediaPercentagemSessoesConcluidas(){
-        double media=0.0;
+
+    public double mediaPercentagemSessoesConcluidas() {
+        double media = 0.0;
         int totalAlbuns = 0;
         double totalPercentagens = 0.0;
-        for(EdicaoAlbum ed : edicoesAlbum.values()){
-               totalAlbuns++;
-               totalPercentagens += percentagemSessoesConcluidasPorAlbum(ed.getAlbum());
-        } 
-        media = totalPercentagens/totalAlbuns;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            totalAlbuns++;
+            totalPercentagens += percentagemSessoesConcluidasPorAlbum(ed.getAlbum());
+        }
+        media = totalPercentagens / totalAlbuns;
         return media;
     }
     
-    public int totalAlbunsConcluidos(){
-        int total=0;
-        for(EdicaoAlbum ed : edicoesAlbum.values()){
-            if(percentagemSessoesConcluidasPorAlbum(ed.getAlbum())==100.0){
+     public double mediaPercentagemSessoesConcluidasMes(int mes) {
+        double media = 0.0;
+        int totalAlbuns = 0;
+        double totalPercentagens = 0.0;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            totalAlbuns++;
+            totalPercentagens += percentagemSessoesConcluidasPorAlbumMes(ed.getAlbum(),mes);
+        }
+        media = totalPercentagens / totalAlbuns;
+        return media;
+    }
+
+    public int totalAlbunsConcluidos() {
+        int total = 0;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            if (percentagemSessoesConcluidasPorAlbum(ed.getAlbum()) == 100.0) {
                 total++;
             }
         }
-        return total;  
+        return total;
     }
     
-    public int totalAlbunsEmEdicao(){
-        int total=0;
-        for(EdicaoAlbum ed : edicoesAlbum.values()){
-            if(percentagemSessoesConcluidasPorAlbum(ed.getAlbum())<100.0){
+    
+    public int totalAlbunsConcluidosMes(int mes) {
+        LocalDate data;
+        int total = 0;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            data = ed.getAlbum().getDataEdicao();
+            if (data.getMonthValue() == mes && percentagemSessoesConcluidasPorAlbum(ed.getAlbum()) == 100.0) {
                 total++;
             }
         }
-        return total;  
+        return total;
+    }
+
+    public int totalAlbunsEmEdicao() {
+        int total = 0;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            if (percentagemSessoesConcluidasPorAlbum(ed.getAlbum()) < 100.0) {
+                total++;
+            }
+        }
+        return total;
+    }
+    
+        public int totalAlbunsEmEdicaoMes(int mes) {
+        LocalDate data;
+        int total = 0;
+        for (EdicaoAlbum ed : edicoesAlbum.values()) {
+            data = ed.getAlbum().getDataEdicao();
+            if (data.getMonthValue() == mes && percentagemSessoesConcluidasPorAlbum(ed.getAlbum()) < 100.0) {
+                total++;
+            }
+        }
+        return total;
     }
 
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
@@ -186,7 +242,7 @@ public class MapEdicoesAlbum implements Serializable {
 
     @Override
     public String toString() {
-        return "MapEdicoesAlbum{" + "edicoesAlbum=" + edicoesAlbum + '}';
+        return "            LISTA EDIÇÕES ÁLBUM\n" + "-----------------------------\n" + edicoesAlbum;
     }
 
 }

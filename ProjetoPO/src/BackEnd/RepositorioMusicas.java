@@ -3,13 +3,13 @@ package BackEnd;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.TreeSet;
 
-public class SetMusicas implements Serializable{
 
-    private Collection<Musica> musicas;
+public class RepositorioMusicas implements Serializable{
 
-    public SetMusicas() {
+    private final Collection<Musica> musicas;
+
+    public RepositorioMusicas() {
         musicas = new HashSet<>();
     }
 

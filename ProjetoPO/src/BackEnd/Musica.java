@@ -1,29 +1,25 @@
 package BackEnd;
 
-
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class Musica implements Serializable{
+public class Musica implements Serializable {
 
     private String titulo;
     private int duracao;
-    private Collection<Musico> musicos; 
-    
-    
+    private Collection<Musico> musicos;
+
+    public Musica() {
+        musicos = new HashSet<>();
+    }
+
     public Musica(String titulo, int duracao, Collection<Musico> musicos) {
         this.titulo = titulo;
         this.duracao = duracao;
         this.musicos = musicos;
     }
 
-    public Musica() {
-        musicos = new HashSet<>();
-    }
-   
-    
     public String getTitulo() {
         return titulo;
     }
@@ -48,7 +44,7 @@ public class Musica implements Serializable{
         this.musicos = musicos;
     }
 
-    public void adicionarMusico(Musico musico){
+    public void adicionarMusico(Musico musico) {
         musicos.add(musico);
     }
 
@@ -59,14 +55,10 @@ public class Musica implements Serializable{
             }
         }
     }
-    
-    
-    
+
     @Override
     public String toString() {
-        return "Musica{" + "titulo=" + titulo + ", duracao=" + duracao + ", musicos=" + musicos + '}';
+        return "MUSICA\n"+ "\nTitulo:" + titulo + "\nDuração:" + duracao + "Artistas ->" + musicos;
     }
-
-
 
 }

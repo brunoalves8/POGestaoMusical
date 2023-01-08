@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Objects;
 
-public class Requisicao implements Serializable{
+public class Requisicao implements Serializable {
 
     private Musico requisitor;
     private Collection<Instrumento> instrumentos;
@@ -14,7 +13,7 @@ public class Requisicao implements Serializable{
     private LocalDate dataRequisicao;
     private String estadoRequisicao;
     private int codigo;
-    
+
     public Requisicao() {
         instrumentos = new HashSet<>();
     }
@@ -75,17 +74,16 @@ public class Requisicao implements Serializable{
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
-    
-    public void adicionarInstrumento(Instrumento instrumento){
+
+    public void adicionarInstrumento(Instrumento instrumento) {
         instrumentos.add(instrumento);
     }
 
     @Override
     public String toString() {
-        return "Requisicao{" + "requisitor=" + requisitor + ", instrumentos=" + instrumentos + ", sessaoGravacao=" + sessaoGravacao + ", dataRequisicao=" + dataRequisicao + ", estadoRequisicao=" + estadoRequisicao + ", codigo=" + codigo + '}';
+        return "REQUISIÇÃO\n" + "\n Código Requisição: " + codigo + "\nRequisitor: " + requisitor + "\nCodigo Sessão Gravação: " + sessaoGravacao.getCodigo() + "\nData Requisição: " + dataRequisicao + "\nEstado Requisição: " + estadoRequisicao + "\nInstrumentos: " + instrumentos;
     }
-    
-    
+
     public boolean equals(Object o) {
         if (o == null) {
             return false;

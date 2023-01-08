@@ -1,6 +1,5 @@
 package FrontEnd;
 
-import BackEnd.MapUtilizadores;
 import BackEnd.Musico;
 import BackEnd.Produtor;
 import BackEnd.Administrador;
@@ -10,7 +9,6 @@ import BackEnd.Instrumento;
 import BackEnd.Musica;
 import BackEnd.Requisicao;
 import BackEnd.Sessao;
-import BackEnd.SetInstrumentos;
 import BackEnd.Sistema;
 import BackEnd.Utilizador;
 import java.io.IOException;
@@ -22,11 +20,11 @@ import java.util.HashSet;
 
 public class ProgramaGM {
 
-    ////////////////////////////////////////////////////////////////////////////
-    // PARTE DO BRUNO
-    ////////////////////////////////////////////////////////////////////////////
     private final Sistema sistema = new Sistema();
     private final Consola consola = new Consola();
+
+    public static final String ANSI_VERDE = "\u001B[32m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
     private Utilizador autenticar() {
 
@@ -44,40 +42,57 @@ public class ProgramaGM {
 
     }
 
+    //Instrumento
     public void adicionarInstrumento() {
-        consola.escrever("Criar Novo Instrumento");
+        consola.escrever("Criar Novo Instrumento\n\n");
         String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
         while (sistema.getInstrumentos().verificarInstrumentoPorNome(nomeInstrumento) == true) {
             consola.escreverErro("O instrumento introduzido já existe no sistema");
-            nomeInstrumento = consola.lerString("Introduza o novamente um instrumento: ");
+            consola.escrever("\n");
+            nomeInstrumento = consola.lerString("Introduza novamente o nome do instrumento: ");
         }
         Instrumento instrumento = new Instrumento(nomeInstrumento);
 
         sistema.getInstrumentos().adicicionarInstrumento(instrumento);
-        consola.escrever("Instrumento adicionado com sucesso!");
+        consola.escrever("\n" + ANSI_VERDE + "Instrumento adicionado com sucesso!" + ANSI_RESET);
     }
 
     private Instrumento procurarInstrumento() {
-        String nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
+        String nomeInstrumento = consola.lerString("Nome do instrumento que toca: ");
         Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
         while (instrumento == null) {
             consola.escreverErro("O instrumento que introduziu não está no sistema\n\n");
-            nomeInstrumento = consola.lerString("Qual é o nome do instrumento que toca?");
+            consola.escrever("\n");
+            nomeInstrumento = consola.lerString("Introduza novamente o nome de instrumento que o músico toca: ");
             instrumento = sistema.getInstrumentos().procurarInstrumentoPorNome(nomeInstrumento);
         }
         return instrumento;
     }
 
-    //######################################ADICIONAR MUSICO KIKO###############################################
+    public void listarInstrumentos() {
+        consola.escrever(sistema.getInstrumentos().toString());
+    }
+
+    //Musico
     private void adicionarMusico() {
         consola.escrever("Criar Novo Musico\n\n");
         String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
+        while (sistema.getUsers().verificarExisteUtilizadorPorCC(bi) == true) {
+            consola.escreverErro("O cc introzido já está associado a um utilizador");
+            consola.escrever("\n");
+            bi = consola.lerInteiro("Introduza o número de CC diferente: ");
+        }
         String morada = consola.lerString("Introduza a morada: ");
-        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(DD/MM/AAAA): ");
+        while (dataNasc.isAfter(LocalDate.now())) {
+            consola.escreverErro("Data introduzida inválida");
+            consola.escrever("\n");
+            dataNasc = consola.lerData("Introduza uma data válida(DD/MM/AAAA): ");
+        }
         String username = consola.lerString("Introduza o nome de utilizador: ");
 
-        while (sistema.getUsers().verificarExisteUtilizador(username) == true) {        //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
+        while (sistema.getUsers().verificarExisteUtilizador(username) == true) {
             consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
             username = consola.lerString("Introduza o nome de usuário: ");
         }
@@ -88,53 +103,7 @@ public class ProgramaGM {
             instrumentos.add(procurarInstrumento());
         }
         sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, dataNasc, instrumentos));
-        consola.escrever("Musico adicionado com sucesso!");
-    }
-
-    /*  
-    private void adicionarMusico() {
-        consola.escrever("Criar Novo Musico\n\n");
-        String nome = consola.lerString("Introduza o nome: ");
-        int bi = consola.lerInteiro("Introduza o número do CC: ");
-        String morada = consola.lerString("Introduza a morada: ");
-        LocalDate dataNasc = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
-        String username = consola.lerString("Introduza o nome de utilizador: ");
-        
-        while(sistema.getUsers().verificarExisteUtilizador(username) == true){        //É NECESSÁRIO AO ADICIONAR UM PRODUTOR/MUSICO/aDMIN SE O SEU USERNAME AINDA NÃO ESTÁ NO SISTEMA.
-                consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
-                username = consola.lerString("Introduza o nome de usuário: ");
-        }      
-        String password = consola.lerString("Introduza a palavra-chave: ");
-        consola.escrever("Insira os instrumentos que o músico toca:");
-        String nomeInstrumento = consola.lerString("Introduza o nome do instrumento: ");
-        String tipoInstrumento = consola.lerString("Introduza o tipo do instrumento: ");
-        String marcaInstrumento = consola.lerString("Introduza a marca do instrumento: ");
-        String modeloInstrumento = consola.lerString("Introduza o modelo do instrumento: ");
-        Instrumento instrumento = new Instrumento(nomeInstrumento);
-        Collection<Instrumento> instrumentos = new HashSet<>();
-        instrumentos.add(instrumento);
-        sistema.getUsers().adicionarUtilizador(new Musico(username, password, nome, bi, morada, dataNasc, instrumentos ));
-        
-        sistema.getInstrumentos().adicicionarInstrumento(instrumento);
-        consola.escrever("Musico adicionado com sucesso!");
-    }
-    */
-    
-    public String listarAlbunsEstadoEPercentagem(){
-       consola.escrever("Estado Albuns");
-       return sistema.getEdicoesAlbum().listarAlbunsEstadoERespetivasPercentagens().toString();
-        
-    }
-    
-    private void removerProdutor() {
-        consola.escrever("Remover Produtor\n\n");
-        String username = consola.lerString("Introduza o nome de utilizador do produtor a remover: ");
-        while (sistema.getUsers().verificarExisteProdutor(username) == false) {
-            consola.escreverErro("Não existe nenhum produtor com esse nome de utilizador, por favor insira outro!");
-            username = consola.lerString("Introduza o nome de utilizador: ");
-        }
-        sistema.getUsers().removerProdutorOuMusico(username);
-        consola.escrever("Produtor removido com sucesso!");
+        consola.escrever("\n" + ANSI_VERDE + "Musico adicionado com sucesso!" + ANSI_RESET);
     }
 
     private void removerMusico() {
@@ -142,18 +111,78 @@ public class ProgramaGM {
         String username = consola.lerString("Introduza o nome de utilizador do musico a remover: ");
         while (sistema.getUsers().verificarExisteMusico(username) == false) {
             consola.escreverErro("Não existe nenhum musico com esse nome de utilizador, por favor insira outro!");
+            consola.escrever("\n");
             username = consola.lerString("Introduza o nome de utilizador: ");
         }
         sistema.getUsers().removerProdutorOuMusico(username);
-        consola.escrever("Produtor removido com sucesso!");
+        consola.escrever("\n" + ANSI_VERDE + "Músico removido com sucesso!" + ANSI_RESET);
     }
 
+    private void editarDadosMusico(Musico musico) {
+        consola.escrever("Editar dados Musico\n\n");
+        Collection<Instrumento> instrumentos = new HashSet<>();
+        String nome = consola.lerString("Introduza o nome:");
+        musico.setNome(nome);
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        musico.setBi(bi);
+        String morada = consola.lerString("Introduza a morada: ");
+        musico.setMorada(morada);
+        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(DD/MM/AAAA): ");
+        musico.setDataNasc(dataNascimento);
+        int resposta = 0;
+        resposta = consola.lerInteiro("Pretende alterar os instrumentos que o músico toca?\n1-Sim \n2-Não");
+        while (resposta != 1 || resposta != 2) {
+
+            if (resposta == 1) {
+                int numInstrumentos = consola.lerInteiro("Quantos instrumentos toca o músico?");
+                for (int i = 0; i < numInstrumentos; i++) {
+                    instrumentos.add(procurarInstrumento());
+                    musico.setInstrumentosMusicoToca(instrumentos);
+                }
+                break;
+            } else if (resposta == 2) {
+                break;
+            }
+            consola.escreverErro("Opção Inválida");
+            resposta = consola.lerInteiro("Introduza uma das opções");
+        }
+        consola.escrever("\n" + ANSI_VERDE + "Dados editados com sucesso!" + ANSI_RESET);
+    }
+
+    private Musico procurarMusico() {
+        String nomeMusico = consola.lerString("Insira o nome do músico:");
+        Musico musico = sistema.getUsers().procurarMusicosPorNome(nomeMusico);
+        while (musico == null) {
+            consola.escrever("O músico que introduziu não está no sistema\n\n");
+            consola.escrever("\n");
+            nomeMusico = consola.lerString("Introduza novamente o nome do músico");
+            musico = sistema.getUsers().procurarMusicosPorNome(nomeMusico);
+        }
+        return musico;
+    }
+
+    private void consultarDadosMusico(Musico musico) {
+        consola.escrever("Dados do Músico\n");
+        consola.escrever(musico.toString());
+    }
+
+    //Produtor
     private void adicionarProdutor() {
         consola.escrever("Criar Novo Produtor\n\n");
         String nome = consola.lerString("Introduza o nome: ");
         int bi = consola.lerInteiro("Introduza o número do CC: ");
+        while (sistema.getUsers().verificarExisteUtilizadorPorCC(bi) == true) {
+            consola.escreverErro("O cc introzido já está associado a um utilizador");
+            consola.escrever("\n");
+            bi = consola.lerInteiro("Introduza o número de CC diferente: ");
+        }
         String morada = consola.lerString("Introduza a morada: ");
-        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
+        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(DD/MM/AAAA): ");
+        while (dataNascimento.isAfter(LocalDate.now())) {
+            consola.escreverErro("Data introduzida inválida");
+            consola.escrever("\n");
+            dataNascimento = consola.lerData("Introduza uma data válida(DD/MM/AAAA): ");
+        }
         String username = consola.lerString("Introduza o nome de utilizador: ");
         while (sistema.getUsers().verificarExisteUtilizador(username) == true) {
             consola.escreverErro("Este nome de utilizador já existe, por favor insira outro!");
@@ -162,41 +191,60 @@ public class ProgramaGM {
         String password = consola.lerString("Introduza a palavra-chave: ");
 
         sistema.getUsers().adicionarUtilizador(new Produtor(username, password, nome, bi, morada, dataNascimento));
-        consola.escrever("Produtor adicionado com sucesso!");
+        consola.escrever("\n" + ANSI_VERDE + "Produtor adicionado com sucesso!" + ANSI_RESET);
     }
 
-    private Musico procurarMusico() {
-        String nomeMusico = consola.lerString("Qual o nome do músico?");
-        Musico musico = sistema.getUsers().procurarMusicosPorNome(nomeMusico);
-        while (musico == null) {
-            consola.escrever("O músico que introduziu não está no sistema\n\n");
-            nomeMusico = consola.lerString("Qual é o nome do músico que pretende adicionar?");
-            musico = sistema.getUsers().procurarMusicosPorNome(nomeMusico);
+    private void removerProdutor() {
+        consola.escrever("Remover Produtor\n\n");
+        String username = consola.lerString("Introduza o nome de utilizador do produtor a remover: ");
+        while (sistema.getUsers().verificarExisteProdutor(username) == false) {
+            consola.escreverErro("Não existe nenhum produtor com esse nome de utilizador, por favor insira outro!");
+            username = consola.lerString("Introduza o nome de utilizador: ");
         }
-        return musico;
+        sistema.getUsers().removerProdutorOuMusico(username);
+        consola.escrever("\n" + ANSI_VERDE + "Produtor removido com sucesso!" + ANSI_RESET);
+    }
+
+    private void consultarDadosProdutor(Produtor produtor) {
+        consola.escrever("Dados do Produtor\n\n");
+        consola.escrever(produtor.toString());
+    }
+
+    private void editarDadosProdutor(Produtor produtor) {
+        consola.escrever("Editar dados Produtor\n\n");
+        String nome = consola.lerString("Introduza o nome:");
+        produtor.setNome(nome);
+        int bi = consola.lerInteiro("Introduza o número do CC: ");
+        produtor.setBi(bi);
+        String morada = consola.lerString("Introduza a morada: ");
+        produtor.setMorada(morada);
+        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(DD/MM/AAAA): ");
+        produtor.setDataNasc(dataNascimento);
+        consola.escrever("\n" + ANSI_VERDE + "Dados editados com sucesso!" + ANSI_RESET);
     }
 
     //ALBUM
     private Musica criarMusica() {
         consola.escrever("Nova Musica\n\n");
         String titulo = consola.lerString("Introduza o nome: ");
-        int duracao = consola.lerInteiro("Introduza a duração da música: ");
+        int duracao = consola.lerInteiro("Introduza a duração da música(em segundos): ");
         int numMusicos = consola.lerInteiro("Quantos músicos fazem parte da música?");
         Collection<Musico> musicos = new HashSet<>();
         for (int i = 0; i < numMusicos; i++) {
             musicos.add(procurarMusico());
         }
         Musica musica = new Musica(titulo, duracao, musicos);
-        consola.escrever("Música criada com sucesso!");
+        consola.escrever("\n" + ANSI_VERDE + "Musica adicionada com sucesso!" + ANSI_RESET);;
         return musica;
     }
 
     private void registarAlbum() {
         consola.escrever("Registar Álbum\n\n");
-        String titulo = consola.lerString("Introduza o nome: ");
-        int codigo = consola.lerInteiro("Introduza um código para o álbum:");
+        String titulo = consola.lerString("Introduza o titulo do álbum: ");
+        int codigo = consola.lerInteiro("Introduza um código para o álbum: ");
         while (sistema.getAlbuns().verificarAlbumPorCod(codigo) == true) {
             consola.escreverErro("Este codigo já está associado a outro álbum, por favor insira outro!");
+            consola.escrever("\n");
             codigo = consola.lerInteiro("Introduza um novo código: ");
         }
         String tipo = consola.lerString("Introduza o tipo: ");
@@ -209,112 +257,57 @@ public class ProgramaGM {
         sistema.getAlbuns().adicionarAlbum(album);
     }
 
-    public void listarInstrumentos() {
-        consola.escrever(sistema.getInstrumentos().toString());
-    }
-
-    //Ponto 3 produtor
-    /* private Sessao criarSessao() {
-        consola.escrever("Nova Sessão\n\n");
-        String titulo = consola.lerString("Introduza o nome: ");
-        //int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
-        LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
-        for(int i = 0; i<numDias; i++){
-            LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
-        }
-        Sessao sessao = new Sessao(titulo, dataEdicao);
-        Collection<Requisicao> requisicoes = new HashSet<>();
-        String opcao = consola.lerString("Pretende requisitar instrumentos?(s/n)");
-        if("s".equals(opcao)){
-            int numInstrumentos = consola.lerInteiro("Quantos instrumentos pretende requisitar?");
-                for(int i = 0; i<numInstrumentos; i++){
-                    requisicoes.add(procurarInstrumento());
-                } 
-        }
-        sistema.getSessoes().adicionarSessao(sessao);
-        consola.escrever("Música criada com sucesso!");      
-        
-    }*/
-
- /*POR TITULO
-    private Album procurarAlbum(){
-        String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende consultar?");
-        Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
-        while(album == null){
-            consola.escreverErro("O álbum que introduziu não está no sistema\n\n");
-            tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende consultar?");
-            album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
-        }
-        return album;
-    }*/
     private Album procurarAlbumPorCod() {
-        int codigo = consola.lerInteiro("Qual é o cod do álbum que pretende consultar?");
+        int codigo = consola.lerInteiro("Insira o código do álbum que pretende consultar: ");
         Album album = sistema.getAlbuns().procurarAlbumPorCod(codigo);
         while (album == null) {
             consola.escreverErro("O codigo que introduziu não corresponde a nenhum álbum do sistema\n\n");
-            codigo = consola.lerInteiro("Qual é o cod do álbum que pretende consultar?");
+            consola.escrever("\n");
+            codigo = consola.lerInteiro("Insira um código de um álbum existente: ");
             album = sistema.getAlbuns().procurarAlbumPorCod(codigo);
         }
         return album;
     }
 
-    private Album procurarAlbumParaConcluirSessao() {
-        String tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
-        Album album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
-        while (album == null) {
-            consola.escrever("O álbum que introduziu não está no sistema\n\n");
-            tituloAlbum = consola.lerString("Qual é o nome do álbum que pretende concluir sessão?");
-            album = sistema.getAlbuns().procurarAlbumPorTitulo(tituloAlbum);
+    public String informacaoAlbum(Produtor produtor) {
+        consola.escrever("Informações Album\n\n");
+        int codigo = consola.lerInteiro("Introduza o codigo do album que pretende consultar:");
+        while (sistema.getEdicoesAlbum().verificarAlbumProdutorPorCod(produtor, codigo) == false) {
+            consola.escreverErro("Não existe nenhum álbum com esse código no sistema ou o produtor não está associado a esse álbum!");
+            consola.escrever("\n");
+            codigo = consola.lerInteiro("Insira um código de um álbum existente: ");
         }
-        return album;
+        return sistema.getEdicoesAlbum().retornarAlbumProdutorPorCod(produtor, codigo).toString();
     }
 
+    //Edição Álbum
     private void iniciarEdicaoAlbum(Produtor utilizador) {
         consola.escrever("Edição de Álbum\n\n");
         Album album = procurarAlbumPorCod();
-        while(sistema.getEdicoesAlbum().verificarExisteEdicaoAlbumParaUmAlbum(album) == true){
+        while (sistema.getEdicoesAlbum().verificarExisteEdicaoAlbumParaUmAlbum(album) == true) {
             consola.escreverErro("Já foi iniciada uma edição para esse albúm");
+            consola.escrever("\n");
             album = procurarAlbumPorCod();
         }
         album.setDataEdicao(LocalDate.now());
         EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
         sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
-        consola.escrever("Edição de album iniciada com sucesso");
+        consola.escrever("\n" + ANSI_VERDE + "Edição de álbum iniciada com sucesso!" + ANSI_RESET);
     }
 
-    /*private void iniciarEdicaoAlbumDefinindoSessoes(Produtor utilizador){
-        consola.escrever("Edição de Álbum\n\n");
-        Album album = procurarAlbumPorCod();
-        EdicaoAlbum edicaoAlbum = new EdicaoAlbum(album, utilizador);
-        sistema.getEdicoesAlbum().adicionarEdicaoAlbum(edicaoAlbum);
-        consola.escrever("\nDefinir sessoes\n");
-        int numDias = consola.lerInteiro("Quantos dias necessita para gravar o álbum?");
-        //LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
-        for(int i = 0; i<numDias; i++){
-            LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
-            Collection<Sessao> sessoes = new HashSet<>();
-            while(sistema.getSessoes().verificarExisteSessao(dataEdicao) == true){
-                consola.escreverErro("Já existe uma sessão marcada para esse dia");
-                dataEdicao = consola.lerData("Introduza um dia diferente do anterior(aaaa-mm-dd)");
-                sessoes.add();
-            }
-            Sessao sessao = new Sessao(edicaoAlbum, dataEdicao, false);
-            sistema.getSessoes().adicionarSessao(sessao);
-            
-        }
-        consola.escrever("Sessões agendadas com sucesso!");
-    }*/
     private EdicaoAlbum procurarEdicaoAlbum() {
         Album album = procurarAlbumPorCod();
         EdicaoAlbum edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
         while (edicaoAlbum == null) {
             consola.escrever("O Album que introduziu não tem a sua edição iniciada.\n");
+            consola.escrever("\n");
             album = procurarAlbumPorCod();
             edicaoAlbum = sistema.getEdicoesAlbum().procurarEdicaoAlbumPorAlbum(album);
         }
         return edicaoAlbum;
     }
 
+    //Sessao
     private void DefinirSessao() {
         consola.escrever("Definir Sessao\n\n");
         EdicaoAlbum edicaoAlbum = procurarEdicaoAlbum();
@@ -324,9 +317,15 @@ public class ProgramaGM {
             int codigo = consola.lerInteiro("Introduza um código para a sessão: ");
             while (sistema.getSessoes().verificarExisteSessao(codigo) == true) {
                 consola.escreverErro("Este codigo já está associado a uma sessão, por favor insira outro!");
-                codigo = consola.lerInteiro("Qual o código que pretende associar à sessão? ");
+                consola.escrever("\n");
+                codigo = consola.lerInteiro("Introduza um código diferente para a sessão ");
             }
-            LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(aaaa-mm-dd)");
+            LocalDate dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(DD/MM/AAAA)");
+            while(dataEdicao.isBefore(LocalDate.now())){
+                consola.escreverErro("Não é possivel definir uma sessão para um dia que já passou!");
+                consola.escrever("\n");
+                dataEdicao = consola.lerData("Em que dia pretende gravar o álbum?(DD/MM/AAAA)");
+            }
             Sessao sessao = new Sessao(codigo, edicaoAlbum, dataEdicao, false);
             edicaoAlbum.adicionarSessao(sessao);
             sistema.getEdicoesAlbum().removerEdicaoAlbum(edicaoAlbum);
@@ -336,40 +335,41 @@ public class ProgramaGM {
 
     }
 
-    //Ponto 4 PRODUTOR (Concluir Sessoes)
     public void concluirSessaoGravacao(Produtor produtor) {
         consola.escrever("Concluir Sessao de Gravação\n\n");
-        //Album album = procurarAlbumParaConcluirSessao();
-        int codigo = consola.lerInteiro("Qual é o código da sessão que pretende concluir?");
+
+        int codigo = consola.lerInteiro("Introduza o código da sessão que pretende concluir: ");
         while (sistema.getSessoes().verificarExisteSessaoProdutor(codigo, produtor) == false) {
             consola.escreverErro("O código introduzido não corresponde a nenhuma sessão agendada para este produtor!");
-            codigo = consola.lerInteiro("Introduza um código válido");
+            consola.escrever("\n");
+            codigo = consola.lerInteiro("Introduza um código válido: ");
         }
-        
-        
+
         sistema.getEdicoesAlbum().concluirSessao(codigo);
         sistema.getSessoes().procurarSessao(codigo).setSessaoConcluida(true);
-        consola.escrever("Sessao concluida com sucesso");
+        consola.escrever("\n" + ANSI_VERDE + "Sessão concluida com sucesso!" + ANSI_RESET);
     }
 
-    //Ponto 5 Músico
+    //Requisição
     private Sessao procurarSessaoParaRequisitar(Musico musico) {
-        int codigo = consola.lerInteiro("Qual é o codigo da sessão para a qual pretende requisitar instrumentos?");
+        int codigo = consola.lerInteiro("Introduza o codigo da sessão para a qual pretende requisitar instrumentos: ");
         Sessao sessao = sistema.getSessoes().procurarSessaoPorMusico(codigo, musico);
         while (sessao == null) {
-            consola.escreverErro("Não há nenhuma sessão associada a esse código para este músico.\n\n");
-            codigo = consola.lerInteiro("Qual é o codigo da sessão para a qual pretende requisitar instrumentos?");
+            consola.escreverErro("Não há nenhuma sessão associada a esse código para este músico!");
+            consola.escrever("\n");
+            codigo = consola.lerInteiro("Introduza o codigo da sessão para a qual pretende requisitar instrumentos: ");
             sessao = sistema.getSessoes().procurarSessaoPorMusico(codigo, musico);
         }
         return sessao;
     }
 
     private Instrumento procurarInstrumentoParaRequisitar(Musico musico) {
-        String nomeInstrumento = consola.lerString("Qual é o instrumento que pretende requisitar?");
+        String nomeInstrumento = consola.lerString("Introduza o nome do instrumento que pretende requisitar");
         Instrumento instrumento = sistema.getInstrumentos().procurarInstrumentoPorNomeEMusico(nomeInstrumento, musico);
         while (instrumento == null) {
-            consola.escreverErro("Não há nenhum instrumento com esse nome. Ou o músico não sabe tocar esse instrumento.\n\n");
-            nomeInstrumento = consola.lerString("Qual é o instrumento que pretende requisitar?");
+            consola.escreverErro("Não há nenhum instrumento com esse nome. Ou o músico não sabe tocar esse instrumento!");
+            consola.escrever("\n");
+            nomeInstrumento = consola.lerString("Qual é o instrumento que pretende requisitar:");
             instrumento = sistema.getInstrumentos().procurarInstrumentoPorNomeEMusico(nomeInstrumento, musico);
         }
         return instrumento;
@@ -378,10 +378,11 @@ public class ProgramaGM {
     public void RequisitarInstrumentosParaSessao(Musico musico) {
         consola.escrever("Pedido Para Requisitar Instrumentos\n\n");
         Sessao sessao = procurarSessaoParaRequisitar(musico);
-        int codigo = consola.lerInteiro("Qual o código que pretende associar à requisição?");
+        int codigo = consola.lerInteiro("Introduza o código que pretende associar à requisição: ");
         while (sistema.getRequisicoes().verificarExisteRequisicao(codigo) == true) {
             consola.escreverErro("Este codigo já está associado a uma requisição, por favor insira outro!");
-            codigo = consola.lerInteiro("Qual o código que pretende associar à requisição? ");
+            consola.escrever("\n");
+            codigo = consola.lerInteiro("Introduza o código que pretende associar à requisição: ");
         }
         int numInstrumentos = consola.lerInteiro("Quantos instrumentos pretende requisitar?");
         Collection<Instrumento> instrumentos = new HashSet<>();
@@ -394,13 +395,7 @@ public class ProgramaGM {
         sistema.getRequisicoes().adicionarRequisicao(requisicao);
         sistema.getSessoes().adicionarRequisicoesAumaSessao(sessao);
 
-        consola.escrever("Pedido de requisição enviado com sucesso!");
-    }
-
-    public String listarRequisicoesPorEstado(String Estado) {
-        consola.escrever("Requisicoes " + Estado);
-        return sistema.getRequisicoes().listarRequisicoes(Estado).toString();
-
+        consola.escrever("\n" + ANSI_VERDE + "Pedido de requisição enviado com sucesso!" + ANSI_RESET);
     }
 
     public void aceitarPedidoRequisicao() {
@@ -411,41 +406,30 @@ public class ProgramaGM {
             codigo = consola.lerInteiro("Qual o código da requisição que pretende aceitar? ");
         }
         sistema.getRequisicoes().aceitarRequisicao(codigo);
-        consola.escrever("Requisição aceite!");
+        consola.escrever("\n" + ANSI_VERDE + "Requisição aceite!" + ANSI_RESET);
     }
 
     public void recusarPedidoRequisicao() {
         consola.escrever("Aceitar pedidos de requisição\n\n");
-        int codigo = consola.lerInteiro("Introduza o código da requisição que pretende recusar.");
+        int codigo = consola.lerInteiro("Introduza o código da requisição que pretende recusar: ");
         while (sistema.getRequisicoes().verificarExisteRequisicao(codigo) == false) {
             consola.escreverErro("Este codigo não corresponde a nenhum pedido de requisição!");
-            codigo = consola.lerInteiro("Qual o código da requisição que pretende recusar? ");
+            codigo = consola.lerInteiro("Introduza o código da requisição que pretende recusar: ");
         }
         sistema.getRequisicoes().recusarRequisicao(codigo);
-        consola.escrever("Requisição recusada!");
+        consola.escrever("\n" + ANSI_VERDE + "Requisição recusada!" + ANSI_RESET);
     }
 
-    //Listar Sessoes
-    private Sessao procurarSessaoParaListar() {
-        int codigo = consola.lerInteiro("Introduza o codigo:");
-        Sessao sessao = sistema.getSessoes().procurarSessao(codigo);
-        while (sessao == null) {
-            consola.escreverErro("Não há nenhuma sessão com esse código.\n");
-            codigo = consola.lerInteiro("Introduza o código:");
-            sessao = sistema.getSessoes().procurarSessao(codigo);
-        }
-        return sessao;
+    //Listagens
+    public String listarRequisicoesPorEstado(String Estado) {
+        consola.escrever("Requisicoes " + Estado);
+        return sistema.getRequisicoes().listarRequisicoes(Estado).toString();
+
     }
 
-    //A funcionar Direito também
     public String listarAlbunsDoMusico(Musico musico) {
         consola.escrever("Álbuns em que está presente");
         return sistema.getAlbuns().listarAlbunsMusico(musico).toString();
-    }
-
-    public String listarSessoesAgendadas() {
-        consola.escrever("Sessões Agendadas");
-        return sistema.getSessoes().listarSessoesAgendadas().toString();
     }
 
     public String listarSessoesAgendadasMusico(Musico musico) {
@@ -465,7 +449,6 @@ public class ProgramaGM {
         return sistema.getSessoes().listarSessoesConcluidas().toString();
     }
 
-    //A funcionar direito
     public String listarAlbunsProdutor(Produtor produtor) {
         consola.escrever("Álbuns Produzidos");
         return sistema.getEdicoesAlbum().listarAlbunsProdutor(produtor).toString();
@@ -482,78 +465,9 @@ public class ProgramaGM {
 
     }
 
-    //Ponto 5 Produtor
-    public String informacaoAlbum(Produtor produtor) {
-        consola.escrever("Informações Album.");
-        int codigo = consola.lerInteiro("Introduza o codigo do album que pretende consultar:");
-        while (sistema.getEdicoesAlbum().verificarAlbumProdutorPorCod(produtor, codigo) == false) {
-            consola.escreverErro("Não há nenhum álbum com esse código.\n");
-            codigo = consola.lerInteiro("Introduza o código:");
-        }
-        return sistema.getEdicoesAlbum().retornarAlbumProdutorPorCod(produtor, codigo).toString();
-    }
-
-////////////////////////////////////////////Kiko////////////////////////////////////////////////////////////
-    private void consultarDadosProdutor(Produtor produtor) {
-        consola.escrever("Dados do Produtor\n");
-        consola.escrever(produtor.toString());
-    }
-
-    private void consultarDadosMusico(Musico musico) {
-        consola.escrever("Dados do Músico\n");
-        consola.escrever(musico.toString());
-    }
-
-    private void editarDadosProdutor(Produtor produtor) {
-        consola.escrever("Editar dados Produtor\n\n");
-        String nome = consola.lerString("Introduza o nome:");
-        produtor.setNome(nome);
-        int bi = consola.lerInteiro("Introduza o número do CC: ");
-        produtor.setBi(bi);
-        String morada = consola.lerString("Introduza a morada: ");
-        produtor.setMorada(morada);
-        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
-        produtor.setDataNasc(dataNascimento);
-        consola.escrever("Dados editados com sucesso!");
-    }
-
-    private void editarDadosMusico(Musico musico) {
-        consola.escrever("Editar dados Musico\n\n");
-        Collection<Instrumento> instrumentos = new HashSet<>();
-        String nome = consola.lerString("Introduza o nome:");
-        musico.setNome(nome);
-        int bi = consola.lerInteiro("Introduza o número do CC: ");
-        musico.setBi(bi);
-        String morada = consola.lerString("Introduza a morada: ");
-        musico.setMorada(morada);
-        LocalDate dataNascimento = consola.lerData("Introduza a data de nascimento(ano-mes-dia): ");
-        musico.setDataNasc(dataNascimento);
-        int resposta = 0;
-        resposta = consola.lerInteiro("Pretende alterar os instrumentos que o músico toca?\n1-Sim \n2-Não");
-        while (resposta != 1 || resposta != 2) {
-
-            if (resposta == 1) {
-                int numInstrumentos = consola.lerInteiro("Quantos instrumentos toca o músico:");
-                for (int i = 0; i < numInstrumentos; i++) {
-                    instrumentos.add(procurarInstrumento());
-                    musico.setInstrumentosMusicoToca(instrumentos);
-                    break;
-                }
-                break;
-            } else if (resposta == 2) {
-                break;
-            }
-            consola.escreverErro("Opção Inválida");
-            resposta = consola.lerInteiro("Introduza uma das opções");
-        }
-        consola.escrever("Dados editados com sucesso!");
-    }
-    
-    
-    
-   public void estatisticasGlobais(){
+    public void listarEstatisticasGlobais() {
         consola.escrever("Estatisticas Totais\n");
-        
+
         consola.escrever("Total albúns concluidos: ");
         int totC = sistema.getEdicoesAlbum().totalAlbunsConcluidos();
         System.out.println(totC);
@@ -564,9 +478,28 @@ public class ProgramaGM {
         int totE = sistema.getEdicoesAlbum().totalAlbunsEmEdicao();
         System.out.println(totE);
     }
+    
+    public void listarEstatisticasMes() {
+        consola.escrever("Estatisticas Totais\n");
 
+        consola.escrever("Total albúns concluidos: ");
+        int totC = sistema.getEdicoesAlbum().totalAlbunsConcluidos();
+        System.out.println(totC);
+        consola.escrever("Média percentagem sessões concluidas: ");
+        double media = sistema.getEdicoesAlbum().mediaPercentagemSessoesConcluidas();
+        System.out.println(media);
+        consola.escrever("Total albúns em edição: ");
+        int totE = sistema.getEdicoesAlbum().totalAlbunsEmEdicao();
+        System.out.println(totE);
+    }
+    
+    public String listarAlbunsEstadoEPercentagem(){
+       consola.escrever("Estado Albuns");
+       return sistema.getEdicoesAlbum().listarAlbunsEstadoERespetivasPercentagens().toString();
 
-    //Fonte:Guardar e Carregar ficheiro do professor TPS
+    }
+    
+    //Fonte:Guardar e Carregar ficheiro do professor Bruno
     //Guardar e carregar ficheiros Utilizadores
     private void guardarFicheiroUtilizadores() {
         String nomeFicheiro = "Utilizadores";
@@ -705,29 +638,11 @@ public class ProgramaGM {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    // PARTE DA MARIANA
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////   
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         ProgramaGM programa = new ProgramaGM();
 
+        //Opções para menu administrador
         String[] opcoesAdministrador = {
             "Adicionar/Apagar Músico/Produtor",
             "Registar Álbum",
@@ -735,7 +650,7 @@ public class ProgramaGM {
             "Listar os pedidos de requisição por estado (pendente, atribuído, recusado)",
             "Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos.",
             "Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação concluídas)",
-            "Mostrar estatísticas totais ou para um determinado mês: a. Total de álbuns em edição b. Média da percentagem de sessões de gravação concluídas c. Total de álbuns concluídos",
+            "Estatisticas",
             "Sair"};
 
         String[] opcoesAdministrador1 = {
@@ -759,27 +674,8 @@ public class ProgramaGM {
             "Aceitar pedidos de requisição",
             "Recusar pedidos de requisição",
             "Voltar"};
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
 
-        /*String[] opcoesProdutor = {   
-            "Ver/editar os seus dados",
-            "Registar Album",
-            "Iniciar/editar a edição de um albúm(definindo as sessões de gravação necessárias)",
-            "Concluir sessões de gravação",
-            "Aceder a informação relativa à situação atual de um determinado album.",
-            "Listar os albuns que está a produzir ou que já produziu",
-            "Listar as sessões de gravação agendadas para um dia",
-            "Sair"};
-         */
-        //Opcoes teste
+        //Opções para menu Produtor
         String[] opcoesProdutor = {
             "Ver/editar os seus dados",
             "Iniciar/editar a edição de um álbum, definindo as sessões de gravação necessárias",
@@ -801,15 +697,7 @@ public class ProgramaGM {
             "Voltar"
         };
 
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////
+        //Opções para menu músico
         String[] opcoesMusico = {
             "Ver/editar os seus dados",
             "Ver albuns a que esta associado",
@@ -833,62 +721,10 @@ public class ProgramaGM {
         programa.carregarFicheiroRequisicoes();
         programa.carregarFicheiroEdicoesAlbum();
 
-        //Criar Administardores
+        //Criar Administardor Base
         Utilizador admin = new Administrador("admin", "admin", "administrador", 5, "Rua", null);
         programa.sistema.getUsers().adicionarUtilizador(admin);
-        //Criar Produtoes
-        /* Utilizador prod = new Produtor("prod", "prod", "produtor", 4, "Rua", null);
-        programa.sistema.getUsers().adicionarUtilizador(prod);
-        // Criar Músicos eInstrumentos
-        Instrumento inst = new Instrumento("Piano");
-        programa.sistema.getInstrumentos().adicicionarInstrumento(inst);
-        Instrumento inst2 = new Instrumento("Guitarra");
-        programa.sistema.getInstrumentos().adicicionarInstrumento(inst2);
-        Instrumento inst3 = new Instrumento("Violino");
-        programa.sistema.getInstrumentos().adicicionarInstrumento(inst3);
-        Instrumento inst4 = new Instrumento("Pandeireta");
-        programa.sistema.getInstrumentos().adicicionarInstrumento(inst4);
-        Instrumento inst5 = new Instrumento("Violao");
-        programa.sistema.getInstrumentos().adicicionarInstrumento(inst5);
 
-        Collection<Instrumento> instrumentosMus1 = new HashSet<>();
-        instrumentosMus1.add(inst);
-        instrumentosMus1.add(inst2);
-        Utilizador mus = new Musico("drake", "drake", "Drake", 1, "Rua", null, instrumentosMus1);
-        programa.sistema.getUsers().adicionarUtilizador(mus);
-
-        Collection<Instrumento> instrumentosMus2 = new HashSet<>();
-        instrumentosMus2.add(inst3);
-        instrumentosMus2.add(inst4);
-        Utilizador mus2 = new Musico("ye", "ye", "Kayne West", 2, "Rua", null, instrumentosMus2);
-        programa.sistema.getUsers().adicionarUtilizador(mus2);
-
-        Collection<Instrumento> instrumentosMus3 = new HashSet<>();
-        instrumentosMus3.add(inst5);
-        Utilizador mus3 = new Musico("rhianna", "rhianna", "Rhianna", 3, "Rua", null, instrumentosMus3);
-        programa.sistema.getUsers().adicionarUtilizador(mus3);
-
-        Utilizador mus5 = new Musico("sza", "sza", "Sza", 8, "Rua", null, instrumentosMus3);
-        programa.sistema.getUsers().adicionarUtilizador(mus5);
-        //Criar Albúm e Musicas
-        Collection<Musico> musicos = new HashSet<>();
-        musicos.add((Musico) mus2);
-        musicos.add((Musico) mus3);
-
-        Collection<Musico> musicos2 = new HashSet<>();
-        musicos.add((Musico) mus);
-        Musica musica = new Musica("Behind Barz", 234, musicos);
-        programa.sistema.getMusicas().adicionarMusica(musica);
-        Musica musica2 = new Musica("Jimmy Cooks", 234, musicos2);
-        programa.sistema.getMusicas().adicionarMusica(musica2);
-
-        Collection<Musica> musicasAlbm1 = new HashSet<>();
-        musicasAlbm1.add(musica);
-        musicasAlbm1.add(musica2);
-
-        Album albm = new Album(12345, "Donda", null, "Rap", musicasAlbm1);
-        programa.sistema.getAlbuns().adicionarAlbum(albm);
-         */
         Utilizador utilizador = programa.autenticar();
 
         int TipoInteger = 0;
@@ -943,6 +779,7 @@ public class ProgramaGM {
                             break;
                         //Registar instrumento
                         case 3:
+
                             programa.adicionarInstrumento();
                             break;
                         //Listar os pedidos de requisição por estado (pendente, atribuído, recusado)
@@ -963,10 +800,10 @@ public class ProgramaGM {
                                     case 4:
 
                                 }
-                            } while (opcaoA4 != opcoesAdministrador2.length);
+                            } while (opcaoA4 != opcoesAdministrador4.length);
                         }
                         break;
-                        //
+                        // Listar os pedidos de requisição pendentes e conceder ou recusar os mesmos.
                         case 5: {
                             int opcaoA5 = 0;
                             do {
@@ -986,7 +823,7 @@ public class ProgramaGM {
                             } while (opcaoA5 != opcoesAdministrador5.length);
                         }
                         break;
-                        //
+                        //Listar os álbuns em edição e o seu estado (percentagem de sessões de gravação concluídas)
                         case 6:
                             programa.listarAlbunsEstadoEPercentagem();
                             break;
@@ -997,7 +834,7 @@ public class ProgramaGM {
                                 opcaoA2 = programa.consola.lerOpcoesMenusInteiros(opcoesAdministrador2);
                                 switch (opcaoA2) {
                                     case 1:
-                                        programa.estatisticasGlobais();
+                                        programa.listarEstatisticasGlobais();
                                         break;
                                     case 2:
 
@@ -1019,14 +856,7 @@ public class ProgramaGM {
                     }
                 }
                 break;
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////           
+
             //Produtor
             case 2:
                 int opcaoP = 0;
@@ -1034,6 +864,7 @@ public class ProgramaGM {
                     opcaoP = programa.consola.lerOpcoesMenusInteiros(opcoesProdutor);
 
                     switch (opcaoP) {
+                        //Ver/editar os seus dados 
                         case 1:
                             int opcaoP1 = 0;
                             do {
@@ -1057,6 +888,7 @@ public class ProgramaGM {
                                 }
                             } while (opcaoP1 != opcoesProdutor1.length);
                             break;
+                        //Iniciar/editar a edição de um álbum, definindo as sessões de gravação necessárias 
                         case 2:
                             int opcaoP2 = 0;
                             do {
@@ -1079,15 +911,19 @@ public class ProgramaGM {
                                 }
                             } while (opcaoP2 != opcoesProdutor2.length);
                             break;
+                        //Concluir sessões de gravação
                         case 3:
                             programa.concluirSessaoGravacao((Produtor) utilizador);
                             break;
+                        //Aceder a informação relativa à situação atual (estado, sessões de gravação, etc.) de um determinado álbum
                         case 4:
                             programa.informacaoAlbum((Produtor) utilizador);
                             break;
+                        //Listar os álbuns que produz ou produziu
                         case 5:
                             programa.listarAlbunsProdutor((Produtor) utilizador);
                             break;
+                        //Listar as sessões de gravação agendadas para um dia
                         case 6:
                             programa.listarSessoesAgendadasPorDia((Produtor) utilizador);
                             break;
@@ -1103,14 +939,7 @@ public class ProgramaGM {
                 }
 
                 break;
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
-            ////////////////////////////////////////////////////////////////////////////
+
             //Musico
             case 3:
                 int opcaoM = 0;
@@ -1118,6 +947,7 @@ public class ProgramaGM {
                     opcaoM = programa.consola.lerOpcoesMenusInteiros(opcoesMusico);
 
                     switch (opcaoM) {
+                        //Ver/editar os seus dados
                         case 1:
                             int opcaoM1 = 0;
                             do {
@@ -1135,17 +965,21 @@ public class ProgramaGM {
                                 }
                             } while (opcaoM1 != opcoesMusico1.length);
                             break;
+                        //Ver os álbuns a que está associado
                         case 2:
                             programa.listarAlbunsDoMusico((Musico) utilizador);
                             break;
+                        //Ver as sessões gravações que tem agendadas
                         case 3:
-                            //programa.listarRequisicoes("Pendente");
+                            
                             programa.listarSessoesAgendadasMusico((Musico) utilizador);
                             break;
+                        //Fazer a requisição de instrumentos para uma determinada sessão de gravação
                         case 4:
                             programa.RequisitarInstrumentosParaSessao((Musico) utilizador);
                             programa.guardarFicheiroRequisicoes();
                             break;
+                        //Ver o estado das sessões de gravação (agendada ou concluída)
                         case 5:
                             programa.listarEstadoSessoesPorMusico((Musico) utilizador);
                             break;

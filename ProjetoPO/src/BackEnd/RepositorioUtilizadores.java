@@ -7,11 +7,11 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
-public class MapUtilizadores implements Serializable{
+public class RepositorioUtilizadores implements Serializable{
 
     private HashMap<String, Utilizador> utilizadores;
 
-    public MapUtilizadores() {
+    public RepositorioUtilizadores() {
         utilizadores = new HashMap<>();
     }
 
@@ -24,22 +24,10 @@ public class MapUtilizadores implements Serializable{
         utilizadores.replace(User.getUsername(), User);
 
     }
-    
-  
-    
+ 
     public void removerProdutorOuMusico(String username) {
         utilizadores.remove(username);
 
-    }
-
-    public Utilizador consultarDadosUtilizador(int codigo) {
-        for (Utilizador u : utilizadores.values()) {
-            if (u.getBi() == codigo) {
-                return u;
-            }
-        }
-        System.out.println("Não existe nenhum utilizador com esse código!");
-        return null;
     }
 
     public Utilizador consultarDadosUser(String Username, String Password) {
@@ -51,18 +39,7 @@ public class MapUtilizadores implements Serializable{
         return null; 
     }
 
-    public void editarDadosMusico(int codigo, Musico musico) {
 
-        for (Utilizador u : utilizadores.values()) {
-            if (u instanceof Musico && u.getBi() == codigo) {
-                ((Musico) u).setBi(musico.getBi());
-                ((Musico) u).setNome(musico.getNome());
-                ((Musico) u).setMorada(musico.getMorada());
-                ((Musico) u).setDataNasc(musico.getDataNasc());
-
-            }
-        }
-    }
     
     public void removerProdutor(String username, Produtor produtor) {
         for (Utilizador u : utilizadores.values()) {
@@ -73,17 +50,6 @@ public class MapUtilizadores implements Serializable{
 
     }
 
-    public void editarDadosProdutor(Produtor produtor) {
-
-        for (Utilizador u : utilizadores.values()) {
-            if (u instanceof Produtor) {
-                ((Produtor) u).setNome(produtor.getNome());
-                ((Produtor) u).setBi(produtor.getBi());
-                ((Produtor) u).setMorada(produtor.getMorada());
-                ((Produtor) u).setDataNasc(produtor.getDataNasc());
-            }
-        }
-    }
 
     public boolean verificarExisteUser(String username, String password) {
 
@@ -134,6 +100,14 @@ public class MapUtilizadores implements Serializable{
         return null;
     }
     
+    public boolean verificarExisteUtilizadorPorCC(int cc){
+        for(Utilizador u : utilizadores.values()){
+            if(u.getBi()==cc){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
@@ -154,14 +128,5 @@ public class MapUtilizadores implements Serializable{
         file.close();
     }
 
-    //Fonte: ficheiro do professor
-    @Override
-    public String toString() {
-        String texto = "";
-        for (Utilizador u : utilizadores.values()) {
-            texto += u + "\n";
-        }
-        return texto;
-    }
 
 }

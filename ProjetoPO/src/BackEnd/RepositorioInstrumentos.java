@@ -6,14 +6,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 
-public class SetInstrumentos implements Serializable {
+public class RepositorioInstrumentos implements Serializable {
 
     private Collection<Instrumento> instrumentos = new HashSet<>();
 
-    public SetInstrumentos() {
+    public RepositorioInstrumentos() {
         instrumentos = new HashSet<>();
     }
 
@@ -21,36 +20,6 @@ public class SetInstrumentos implements Serializable {
         instrumentos.add(instrumento);
     }
 
-    public void removerInstrumento(String nome) {
-        for (Instrumento inst : instrumentos) {
-            if (inst.getNome().equals(nome)) {
-                instrumentos.remove(inst);
-            }
-        }
-    }
-
-    /*
-    public void editarDadosAlbum(String modelo) {
-
-        for (Instrumento inst : instrumentos) {
-            if (inst.getNome().equals(modelo)) {
-                ((Instrumento) inst).setNome(inst.getNome());
-            }
-        }
-    }
-
-    
-    
-        public Instrumento consultarDadosInstrumento(String modelo) {
-        for (Instrumento inst : instrumentos) {
-            if (inst.getModelo().equals(modelo)) {
-                return inst;
-            }
-        }
-        System.out.println("Não existe nenhum modelo desse Instrumento.");
-        return null;
-    }
-     */
     public boolean verificarInstrumentoPorNome(String nome) {
 
         for (Instrumento i : instrumentos) {
@@ -60,33 +29,35 @@ public class SetInstrumentos implements Serializable {
         }
         return false;
     }
-    
+
     public Instrumento procurarInstrumentoPorNomeEMusico(String nome, Musico musico) {
 
         for (Instrumento i : instrumentos) {
             if (i.getNome().equalsIgnoreCase(nome)) {
-                Collection <Instrumento> instrumentosMusico = new HashSet<>();
+                Collection<Instrumento> instrumentosMusico = new HashSet<>();
                 instrumentosMusico = musico.getInstrumentosMusicoToca();
-                for(Instrumento inst : instrumentosMusico){
-                    if(inst.equals(i)){
+                for (Instrumento inst : instrumentosMusico) {
+                    if (inst.equals(i)) {
                         return inst;
                     }
                 }
-                
+
             }
         }
         return null;
     }
+
     public Instrumento procurarInstrumentoPorNome(String nome) {
 
         for (Instrumento i : instrumentos) {
             if (i.getNome().equalsIgnoreCase(nome)) {
-                        return i;
-                    }
-                }
-                
+                return i;
+            }
+        }
+
         return null;
     }
+
     public void guardarFicheiroObjetos(String nomeFicheiro) throws Exception {
         FileOutputStream fos = new FileOutputStream(nomeFicheiro);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -107,8 +78,7 @@ public class SetInstrumentos implements Serializable {
 
     @Override
     public String toString() {
-        return "Lista Instrumentos\n\n" + instrumentos.toString() + "\n";
+        return "            LISTA INSTRUMENTOS\n" + "-----------------------------\n" + instrumentos.toString() + "\n";
     }
-    
-    
+
 }

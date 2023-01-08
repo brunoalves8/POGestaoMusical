@@ -22,12 +22,6 @@ public abstract class Utilizador implements Serializable {
         this.dataNasc = dataNasc;
     }
 
-    public Utilizador(String username, String password, String nome) {
-        this.username = username;
-        this.password = password;
-        this.nome = nome;
-    }
-
     //Construtor de editar dados
     public Utilizador(String nome, int bi, String morada, LocalDate dataNasc) {
         this.nome = nome;
@@ -35,6 +29,13 @@ public abstract class Utilizador implements Serializable {
         this.morada = morada;
         this.dataNasc = dataNasc;
     }
+
+    public Utilizador(String username, String password, String nome) {
+        this.username = username;
+        this.password = password;
+        this.nome = nome;
+    }
+    
     
 
 
@@ -90,10 +91,10 @@ public abstract class Utilizador implements Serializable {
 
     @Override
     public String toString() {
-        return "Nome=" + nome + "\n" +
-               "Bi=" + bi + "\n" +
-               "Morada=" + morada + "\n" +
-               "Data Nascimento=" + dataNasc;
+        return "Nome:" + nome + "\n" +
+               "Bi:" + bi + "\n" +
+               "Morada:" + morada + "\n" +
+               "Data Nascimento:" + dataNasc;
     }
     
     

@@ -19,11 +19,6 @@ public class Musico extends Utilizador implements Serializable {
         this.instrumentosMusicoToca = instrumentosMusicoToca;
     }
 
-    public Musico(Collection<Instrumento> instrumentosMusicoToca, String nome, int bi, String morada, LocalDate dataNasc) {
-        super(nome, bi, morada, dataNasc);
-        this.instrumentosMusicoToca = instrumentosMusicoToca;
-    }
-
     public Collection<Instrumento> getInstrumentosMusicoToca() {
         return instrumentosMusicoToca;
     }
@@ -38,11 +33,10 @@ public class Musico extends Utilizador implements Serializable {
 
     @Override
     public String toString() {
-        return "Musico" + super.toString() + "\n"
-                + "Instrumentos Musico Toca=" + getInstrumentosMusicoToca();
+        return "MUSICO\n" + super.toString() + "\n"
+                + "Instrumentos Musico Toca ->" + getInstrumentosMusicoToca();
     }
 
-  
     public boolean equals(Object o) {
         if (o == null) {
             return false;

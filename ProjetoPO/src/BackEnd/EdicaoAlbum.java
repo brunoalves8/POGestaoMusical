@@ -4,31 +4,21 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class EdicaoAlbum implements Serializable{
-   
+public class EdicaoAlbum implements Serializable {
+
     private Album album;
     private Produtor produtor;
-    //private SetSessoes sessoes;
     private Collection<Sessao> sessoesEdicao;
 
     public EdicaoAlbum() {
         sessoesEdicao = new HashSet<>();
     }
 
-  /*  public EdicaoAlbum(Album album, Produtor produtor) {
-        this.album = album;
-        this.produtor = produtor;
-        this.sessoes = new SetSessoes();
-    }
-*/
     public EdicaoAlbum(Album album, Produtor produtor) {
         this.album = album;
         this.produtor = produtor;
         sessoesEdicao = new HashSet<>();
     }
-
-
-    
 
     public Album getAlbum() {
         return album;
@@ -53,8 +43,8 @@ public class EdicaoAlbum implements Serializable{
     public void setSessoes(Collection<Sessao> sessoes) {
         this.sessoesEdicao = sessoes;
     }
-    
-    public void adicionarSessao(Sessao sessao){
+
+    public void adicionarSessao(Sessao sessao) {
         sessoesEdicao.add(sessao);
     }
 
@@ -62,10 +52,5 @@ public class EdicaoAlbum implements Serializable{
     public String toString() {
         return album + "\nSessoes Gravação Do Album: " + sessoesEdicao;
     }
-    
-    
 
-
-    
-    
 }

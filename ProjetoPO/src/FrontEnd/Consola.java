@@ -2,6 +2,9 @@ package FrontEnd;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class Consola {
@@ -86,19 +89,22 @@ public class Consola {
     }
 
     public LocalDate lerData(String mensagem) {
-
-        LocalDate data;
-        String texto;
-
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate data = null;
+        String text;
         do {
             escrever(mensagem);
-            texto = scan.nextLine();
+            text = scan.nextLine();
+            try {
+                data = LocalDate.parse(text, formato);
+            } catch (DateTimeParseException e) {
+                escreverErro(text + " não é uma de data válida! Deve ser do tipo DD/MM/AAAA");
+            }
 
-            data = LocalDate.parse(texto);
         } while (data == null);
 
         return data;
-        //data != LocalDate.EPOCH
+       
     }
 
   
